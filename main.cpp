@@ -1,11 +1,15 @@
 #include <iostream>
+#include <string>
+#include <vector>
 #include "sales_data.h"
+
 using namespace std;
+
 int main()
 {
-    cout << "Enter two numbers " << endl;
-    int v1,v2;
-    cin >> v1 >> v2;
-    cout << "Num1 : " << v1 << " Num2 : " << v2 << endl;
+    struct Sales_data Book1,Book2;
+    cout << "输入Book1 : " << endl;
+    cin >> Book1.bookNo >> Book1.units_sold >> Book1.revenue;
+    cout << "输出Book1 : " << Book1.bookNo << Book1.units_sold << Book1.revenue << endl;
     return 0;
 }
