@@ -1,7 +1,11 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
+/* 使用到的 c 标准库 */
 #include <cmath>
+#include <cstring>
+
 #include "sales_data.h"
 
 using namespace std; // 作用于当前整个文件
@@ -12,11 +16,6 @@ int main()
 {
     say_hello("codekisssyoung"); // 函数调用
     struct Sales_data Book1,Book2;
-    /*
-    cout << "输入Book1 : " << endl;
-    cin >> Book1.bookNo >> Book1.units_sold >> Book1.revenue;
-    cout << "输出Book1 : " << Book1.bookNo << Book1.units_sold << Book1.revenue << endl;
-    */
 
     double area;
     double side;
@@ -32,3 +31,32 @@ void say_hello ( const char *str )
 {
     cout << "hello " << str << endl;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
