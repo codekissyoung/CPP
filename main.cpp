@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <array>
 
 /* 使用到的 c 标准库 */
 #include <cmath>
@@ -47,12 +48,18 @@ int main()
     }
     delete []dynamic_arr; // 释放整个动态数组内存
 
-
-    double area;
     say_hello("codekisssyoung"); // 函数调用
-    cout << "输入 area : ";
-    cin >> area;
-    cout << "sqrt( area ) = " << sqrt( area ) << endl;
+
+    // 使用 模板类 <vector> 代替数组
+    vector<int> vi;
+    int n;
+    cout << " vector<int> n : ";
+    cin >> n;
+    cout << " n : " << n << endl;
+
+    // 使用数组类 <array>
+    array<int,5> ai;
+    array<double,4> ad = { 1.2, 2.1, 3.34, 4.3 };
 
     return 0;
 }
