@@ -11,7 +11,13 @@
 
 using namespace std; // 作用于当前整个文件
 
+const int Seasons = 4;
+const array<string, Seasons> Snames = {"Spring","Summer","Fall","Winter"};
+
+
 void say_hello ( const char *str ); // 函数声明
+void fill( array<double, Seasons> *pa );
+void show( array<double, Seasons> da );
 
 int main()
 {
@@ -61,6 +67,10 @@ int main()
     array<int,5> ai;
     array<double,4> ad = { 1.2, 2.1, 3.34, 4.3 };
 
+    array<double,Seasons> expenses;
+    fill( &expenses );
+    show( expenses );
+
     return 0;
 }
 
@@ -70,9 +80,28 @@ void say_hello ( const char *str )
     cout << "hello " << str << endl;
 }
 
+// 写入四季节的开销
+void fill( array<double, Seasons> *pa )
+{
+    for( int i = 0; i < Seasons; i++ )
+    {
+        cout << "Enter " << Snames[i] << " expenses : ";
+        cin >> (*pa)[i];
+    }
+}
 
-
-
+// 展示四季节的开销
+void show( array<double, Seasons> da )
+{
+    double total = 0.0;
+    cout << "EXPENSES : " << endl;
+    for( int i = 0; i < Seasons; i++ )
+    {
+        cout << Snames[i] << " : $ " << da[i] << endl;
+        total += da[i];
+    }
+    cout << "Total Expenses : $ " << total << endl;
+}
 
 
 
