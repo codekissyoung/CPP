@@ -22,6 +22,11 @@ void show( array<double, Seasons> da );
 template <typename T>
 void Swap( T &a, T &b);
 
+template <typename T>
+void Swap( T *a, T *b, int n); // 重载模板
+
+void vardump( const int arr[], int n ); // 打印一个数组
+
 int main()
 {
     Sales_data Book1,Book2; // Sales_data 是结构体 C++ 中使用结构体声明变量 可以省略 struct
@@ -32,6 +37,7 @@ int main()
     cout << "pn = " << pn << " *pn = " << *pn << endl;
     delete pn; // 释放内存
 
+/*
     int dynamic_arr_size = 0;
     cout << "输入想存储数组的个数: ";
     cin >> dynamic_arr_size;
@@ -46,27 +52,43 @@ int main()
         cout << "dynamic_arr[ " << i << " ] : " << dynamic_arr[i] << endl;
     }
     delete []dynamic_arr; // 释放整个动态数组内存
-
+*/
     say_hello("codekisssyoung"); // 函数调用
 
+/*
     // 使用 <vector> 代替数组
     vector<int> vi;
     int n;
     cout << "vector<int> n : ";
     cin >> n;
     cout << " n : " << n << endl;
+*/
 
+/*
     // 使用 <array>
     array<double, Seasons> expenses;
     fill( &expenses );
     show( expenses );
-
-    // 测试使用模板
+*/
+    // 测试使用模板 来自动完成重载过程
     int i = 10;
     int j = 20;
     cout << "i : " << i << " j : " << j << endl;
     Swap( i, j );
     cout << "i : " << i << " j : " << j << endl;
+
+    double di = 20.11;
+    double dj = 90.22;
+    cout << "di : " << di << " dj : " << dj << endl;
+    Swap( di, dj );
+    cout << "di : " << di << " dj : " << dj << endl;
+
+    // 重载模板
+    int d1[3] = {1,2,3};
+    int d2[3] = {6,7,9};
+    Swap( d1, d2, sizeof(d1) / sizeof( int ) );
+
+    vardump( d2 , sizeof( d2 ) / sizeof( int ) );
 
     return 0;
 
@@ -110,3 +132,23 @@ void Swap( T &a, T &b)
     b = temp;
 }/*}}}*/
 
+template <typename T>
+void Swap( T* a, T* b, int n)
+{/*{{{*/
+    T temp;
+    for( int i = 0; i < n; i++ )
+    {
+        temp = a[i];
+        a[i] = b[i];
+        b[i] = temp;
+    }
+}/*}}}*/
+
+void vardump( const int arr[], int n )
+{
+    for( int i = 0 ; i < n; i++ )
+    {
+        cout << arr[i] << "\t";
+    }
+    cout << endl;
+}
