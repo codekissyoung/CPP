@@ -18,6 +18,10 @@ void say_hello ( const char *str ); // 函数声明
 void fill( array<double, Seasons> *pa );
 void show( array<double, Seasons> da );
 
+// 使用模板
+template <typename T>
+void Swap( T &a, T &b);
+
 int main()
 {
     Sales_data Book1,Book2; // Sales_data 是结构体 C++ 中使用结构体声明变量 可以省略 struct
@@ -70,6 +74,13 @@ int main()
     fill( &expenses );
     show( expenses );
 
+    // 测试使用模板
+    int i = 10;
+    int j = 20;
+    cout << "i : " << i << " j : " << j << endl;
+    Swap( i, j );
+    cout << "i : " << i << " j : " << j << endl;
+
     return 0;
 }
 
@@ -99,6 +110,14 @@ void show( array<double, Seasons> da )
         cout << Snames[i] << " : $ " << da[i] << endl;
         total += da[i];
     }
-    cout << "Total Expenses : $ " << total << endl;
+    cout << "Total Expenses : $" << total << endl;
 }
 
+template <typename T>
+void Swap( T &a, T &b)
+{
+    T temp;
+    temp = a;
+    a = b;
+    b = temp;
+}
