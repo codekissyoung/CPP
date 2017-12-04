@@ -12,7 +12,7 @@
 using namespace std; // 作用于当前整个文件
 
 const int Seasons = 4;
-const array<string, Seasons> Snames = {"Spring","Summer","Fall","Winter"};
+const array<string, Seasons> Snames = { "Spring", "Summer", "Fall", "Winter" };
 
 void say_hello ( const char *str ); // 函数声明
 void fill( array<double, Seasons> *pa );
