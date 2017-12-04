@@ -26,16 +26,6 @@ int main()
 {
     Sales_data Book1,Book2; // Sales_data 是结构体 C++ 中使用结构体声明变量 可以省略 struct
 
-    // 没啥卵用的枚举
-    enum spectrum { red, orange, yellow, green, blue, violet, indigo, ultraviolet };
-    spectrum band;
-    band = blue;
-
-    char   name[20];
-    cout << "输入name : ";
-    cin.getline( name, 20 ); // 读取一行 通过换行符来确定结尾 但结果不保存换行符
-    cout << name << endl;
-
     // 使用 new 来分配内存
     int* pn = new int;
     *pn = 10;
@@ -59,18 +49,15 @@ int main()
 
     say_hello("codekisssyoung"); // 函数调用
 
-    // 使用 模板类 <vector> 代替数组
+    // 使用 <vector> 代替数组
     vector<int> vi;
     int n;
-    cout << " vector<int> n : ";
+    cout << "vector<int> n : ";
     cin >> n;
     cout << " n : " << n << endl;
 
-    // 使用数组类 <array>
-    array<int,5> ai;
-    array<double,4> ad = { 1.2, 2.1, 3.34, 4.3 };
-
-    array<double,Seasons> expenses;
+    // 使用 <array>
+    array<double, Seasons> expenses;
     fill( &expenses );
     show( expenses );
 
@@ -82,42 +69,44 @@ int main()
     cout << "i : " << i << " j : " << j << endl;
 
     return 0;
+
 }
 
 // 函数定义
 void say_hello ( const char *str )
-{
+{/*{{{*/
     cout << "hello " << str << endl;
-}
+}/*}}}*/
 
 // 写入四季节的开销
 void fill( array<double, Seasons> *pa )
-{
+{/*{{{*/
     for( int i = 0; i < Seasons; i++ )
     {
         cout << "Enter " << Snames[i] << " expenses : ";
         cin >> (*pa)[i];
     }
-}
+}/*}}}*/
 
 // 展示四季节的开销
 void show( array<double, Seasons> da )
-{
+{/*{{{*/
     double total = 0.0;
     cout << "EXPENSES : " << endl;
     for( int i = 0; i < Seasons; i++ )
     {
-        cout << Snames[i] << " : $ " << da[i] << endl;
+        cout << Snames[i] << " : $" << da[i] << endl;
         total += da[i];
     }
     cout << "Total Expenses : $" << total << endl;
-}
+}/*}}}*/
 
 template <typename T>
 void Swap( T &a, T &b)
-{
+{/*{{{*/
     T temp;
     temp = a;
     a = b;
     b = temp;
-}
+}/*}}}*/
+
