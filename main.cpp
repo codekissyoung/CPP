@@ -31,12 +31,6 @@ int main()
 {
     Sales_data Book1,Book2; // Sales_data 是结构体 C++ 中使用结构体声明变量 可以省略 struct
 
-    // 使用 new 来分配内存
-    int* pn = new int;
-    *pn = 10;
-    cout << "pn = " << pn << " *pn = " << *pn << endl;
-    delete pn; // 释放内存
-
 /*
     int dynamic_arr_size = 0;
     cout << "输入想存储数组的个数: ";
@@ -53,7 +47,6 @@ int main()
     }
     delete []dynamic_arr; // 释放整个动态数组内存
 */
-    say_hello("codekisssyoung"); // 函数调用
 
 /*
     // 使用 <vector> 代替数组
@@ -86,8 +79,8 @@ int main()
     // 重载模板
     int d1[3] = {1,2,3};
     int d2[3] = {6,7,9};
-    Swap( d1, d2, sizeof(d1) / sizeof( int ) );
 
+    Swap( d1, d2, sizeof(d1) / sizeof( int ) );
     vardump( d2 , sizeof( d2 ) / sizeof( int ) );
 
     return 0;
@@ -144,11 +137,12 @@ void Swap( T* a, T* b, int n)
     }
 }/*}}}*/
 
+// 打印一个数组的值
 void vardump( const int arr[], int n )
-{
+{/*{{{*/
     for( int i = 0 ; i < n; i++ )
     {
         cout << arr[i] << "\t";
     }
     cout << endl;
-}
+}/*}}}*/
