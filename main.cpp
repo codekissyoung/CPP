@@ -7,6 +7,7 @@
 #include <cstring>
 
 #include "common.h"
+#include "stock.h"
 
 using namespace std; // 作用于当前整个文件
 int main( int argc, char *argv[] )
@@ -36,8 +37,18 @@ int main( int argc, char *argv[] )
 
     ShowArray( things, 6 );
     ShowArray( pd, 3 );
-
     cout << "10 + 34.90 = " << mixed( 10, 34.90 ) << endl;
+
+
+    // 股票demo
+    Stock stock_cat;
+    stock_cat.acquire( "NanoSmart", 20, 12.50 );
+    stock_cat.show();
+    stock_cat.buy( 15, 18.125 );
+    stock_cat.show();
+    stock_cat.sell( 2, 54.125 );
+    stock_cat.show();
+
     return 0;
 }
 
