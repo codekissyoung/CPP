@@ -18,8 +18,24 @@ struct job
     int floor;
 };
 
-// 正常函数原型
-void Swap( job& i, job& j )
+struct debts
+{
+    char name[50];
+    double amount;
+};
+
+// 模板化原型
+template <typename T>
+void Swap( T& i, T& j)
+{
+    T temp;
+    temp = i;
+    i = j;
+    j = temp;
+}
+
+// 显式具体化原型
+template <> void Swap( job& i, job& j)
 {
     double salary_temp;
     int floor_temp;
@@ -31,17 +47,33 @@ void Swap( job& i, job& j )
     j.floor     = floor_temp;
 }
 
-// 模板化原型
 template <typename T>
-void Swap( T& i, T& j)
+void ShowArray( T arr[], int n )
 {
-
+    cout << "template A : " << endl;
+    for( int i = 0; i < n; i++ )
+    {
+        cout << arr[i] << '\t';
+    }
+    cout << endl;
 }
 
-// 显式具体化原型
-template <> void Swap<job>( job& i, job& j)
+template <typename T>
+void ShowArray( T* arr[], int n )
 {
+    cout << "template B : " << endl;
+    for( int i = 0; i< n; i++ )
+    {
+        cout << *arr[i] << "\t";
+    }
+    cout <<endl;
+}
 
+// decltype 获取表达式计算后的类型
+template <typename T1, typename T2>
+auto mixed( T1 x, T2 y ) -> decltype( x + y )
+{
+    return x + y;
 }
 
 int main()
@@ -50,7 +82,29 @@ int main()
     job Worker  = { "caokaiyan", 4000.00, 3 };
     Swap( Teacher, Worker );
     cout << Worker.name << " : " << Worker.salary << " , " << Worker.floor << endl;
-    return 0;
 
+    double u = 10.392;
+    double v = 30.291;
+    Swap( u, v );
+    cout << "u : " << u << " v : " << v << endl;
+
+    int things[6] = { 13, 31, 103, 301, 310, 130 };
+    struct debts mr_E[3] = {
+        { "codekissyoung",   2400.0 },
+        { "caokaiyan",       1300.2 },
+        { "zhangjian",       2342.09 }
+    };
+    double* pd[3];
+
+    for( int i = 0; i < 3; i++ )
+    {
+        pd[i] = &mr_E[i].amount;
+    }
+
+    ShowArray( things, 6 );
+    ShowArray( pd, 3 );
+
+    cout << "10 + 34.90 = " << mixed( 10, 34.90 ) << endl;
+    return 0;
 }
 
