@@ -30,7 +30,7 @@ Stock::Stock( const string& co, long n, double pr )
 
 Stock::~Stock()
 {
-    cout << "调用析构函数" << endl;
+    cout << company <<" 调用析构函数" << endl;
 }
 
 // 买入股票
@@ -83,6 +83,14 @@ void Stock::show()
          << "Total Worth : " << total_val << endl;
 }
 
+// 获取总股价更高的那个对象
+const Stock& Stock::topval( const Stock& s ) const
+{
+    if ( s.total_val > total_val )
+        return s;
+    else
+        return *this;
+}
 
 
 

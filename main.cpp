@@ -52,6 +52,9 @@ int main( int argc, char *argv[] )
     Stock default_stock;
     default_stock.show();
 
+    Stock top_stock = default_stock.topval( stock_cat );
+    top_stock.show();
+
     return 0;
 }
 
