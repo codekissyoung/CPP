@@ -3,7 +3,7 @@
 using namespace std;
 
 // 管理某个公司的股票 首次购买
-void Stock::acquire( const string& co, long n, double pr )
+Stock::Stock( const string& co, long n, double pr )
 {
     company = co;
     if( n < 0 )

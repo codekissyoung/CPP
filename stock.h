@@ -16,7 +16,7 @@ class Stock
         }
 
     public :
-        void acquire( const string& co, long n, double pr );
+        Stock( const string& co, long n, double pr );
         void buy( long num, double price );
         void sell( long num, double price );
         void update( double price );

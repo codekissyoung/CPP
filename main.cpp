@@ -41,8 +41,7 @@ int main( int argc, char *argv[] )
 
 
     // 股票demo
-    Stock stock_cat;
-    stock_cat.acquire( "NanoSmart", 20, 12.50 );
+    Stock stock_cat = Stock( "NanoSmart", 20, 12.50 );
     stock_cat.show();
     stock_cat.buy( 15, 18.125 );
     stock_cat.show();
