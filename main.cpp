@@ -11,59 +11,45 @@
 
 using namespace std; // 作用于当前整个文件
 
-template <typename T>
-void Swap( T &a, T &b)
-{/*{{{*/
-    T temp;
-    temp = a;
-    a = b;
-    b = temp;
-}/*}}}*/
+struct job
+{
+    char name[40];
+    double salary;
+    int floor;
+};
 
-template <typename T>
-void Swap( T* a, T* b, int n)
-{/*{{{*/
-    T temp;
-    for( int i = 0; i < n; i++ )
-    {
-        temp = a[i];
-        a[i] = b[i];
-        b[i] = temp;
-    }
-}/*}}}*/
+// 正常函数原型
+void Swap( job& i, job& j )
+{
+    double salary_temp;
+    int floor_temp;
+    salary_temp = i.salary;
+    floor_temp  = i.floor;
+    i.salary    = j.salary;
+    i.floor     = j.floor;
+    j.salary    = salary_temp;
+    j.floor     = floor_temp;
+}
 
-// 打印一个数组的值
-void vardump( const int arr[], int n )
-{/*{{{*/
-    for( int i = 0 ; i < n; i++ )
-    {
-        cout << arr[i] << "\t";
-    }
-    cout << endl;
-}/*}}}*/
+// 模板化原型
+template <typename T>
+void Swap( T& i, T& j)
+{
+
+}
+
+// 显式具体化原型
+template <> void Swap<job>( job& i, job& j)
+{
+
+}
 
 int main()
 {
-    // 测试使用模板 来自动完成重载过程
-    int i = 10;
-    int j = 20;
-    cout << "i : " << i << " j : " << j << endl;
-    Swap( i, j );
-    cout << "i : " << i << " j : " << j << endl;
-
-    double di = 20.11;
-    double dj = 90.22;
-    cout << "di : " << di << " dj : " << dj << endl;
-    Swap( di, dj );
-    cout << "di : " << di << " dj : " << dj << endl;
-
-    // 重载模板
-    int d1[3] = {1,2,3};
-    int d2[3] = {6,7,9};
-
-    Swap( d1, d2, sizeof(d1) / sizeof( int ) );
-    vardump( d2 , sizeof( d2 ) / sizeof( int ) );
-
+    job Teacher = { "codekissyoung", 10000.00, 4 };
+    job Worker  = { "caokaiyan", 4000.00, 3 };
+    Swap( Teacher, Worker );
+    cout << Worker.name << " : " << Worker.salary << " , " << Worker.floor << endl;
     return 0;
 
 }
