@@ -48,6 +48,10 @@ int main( int argc, char *argv[] )
     stock_cat.sell( 2, 54.125 );
     stock_cat.show();
 
+    // 默认公司
+    Stock default_stock;
+    default_stock.show();
+
     return 0;
 }
 

@@ -2,6 +2,14 @@
 #include "stock.h"
 using namespace std;
 
+Stock::Stock()
+{
+    company     = "unknown Company";
+    shares      = 10;
+    share_val   = 1;
+    set_tot();
+}
+
 // 管理某个公司的股票 首次购买
 Stock::Stock( const string& co, long n, double pr )
 {
@@ -18,6 +26,11 @@ Stock::Stock( const string& co, long n, double pr )
 
     share_val = pr;
     set_tot();
+}
+
+Stock::~Stock()
+{
+    cout << "调用析构函数" << endl;
 }
 
 // 买入股票

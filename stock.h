@@ -16,7 +16,10 @@ class Stock
         }
 
     public :
+        // 两个构造函数 分别对应不同创建对象的情况
+        Stock();
         Stock( const string& co, long n, double pr );
+        ~Stock();
         void buy( long num, double price );
         void sell( long num, double price );
         void update( double price );
