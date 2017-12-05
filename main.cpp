@@ -55,6 +55,22 @@ int main( int argc, char *argv[] )
     Stock top_stock = default_stock.topval( stock_cat );
     top_stock.show();
 
+    // 对象数组
+    Stock mystuff[4] = {
+        Stock("美团",200,1),
+        Stock("百度",130,3.45),
+        Stock("腾讯",120,200.89),
+        Stock("阿里",60,6.22)
+    };
+
+    Stock* top = &mystuff[0];
+    for( int i = 1; i < 4 ; i++ )
+    {
+        *top = top -> topval( mystuff[i] );
+    }
+
+    top -> show();
+
     return 0;
 }
 

@@ -30,7 +30,7 @@ Stock::Stock( const string& co, long n, double pr )
 
 Stock::~Stock()
 {
-    cout << company <<" 调用析构函数" << endl;
+//    cout << company <<" 调用析构函数" << endl;
 }
 
 // 买入股票
