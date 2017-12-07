@@ -22,16 +22,16 @@ int main( int argc, char *argv[] )
     };
 
     int len = sizeof(str_arr) / sizeof( str_arr[0] );
-    char* temp;
+    char temp[30];
     for( int i = 0; i < len; ++ i )
     {
         for( int j = i + 1; j < len; ++j )
         {
             if( strcmp( str_arr[i], str_arr[j] ) > 0 )
             {
-                temp    = str_arr[i];
-                str_arr[i] = str_arr[j];
-                str_arr[j] = temp;
+                strcpy( temp, str_arr[i] );
+                strcpy( str_arr[i], str_arr[j] );
+                strcpy( str_arr[j], temp );
             }
         }
     }
