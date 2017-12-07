@@ -5,6 +5,9 @@
 /* 使用到的 c 标准库 */
 #include <cmath>
 #include <cstring>
+#include <cstdio>
+#include <cmath>
+#include <climits>
 
 #include "common.h"
 #include "stock.h"
