@@ -10,71 +10,87 @@
 #include "stock.h"
 
 class Person
-{
+{/*{{{*/
     public:
         Person();
         ~Person();
         void eat();
         string name;
         int age;
-};
+};/*}}}*/
 
 Person::Person()
-{
+{/*{{{*/
     cout << "Person()" << endl;
-}
+}/*}}}*/
 
 Person::~Person()
-{
+{/*{{{*/
     cout << "~Person()" <<endl;
-}
+}/*}}}*/
 
 void Person::eat()
-{
+{/*{{{*/
     cout << "Person eat" << endl;
-}
-
-
-/*
- * 继承方式
- * Class A : public Class B
- * Class A : protected Class B
- * Class A : private B
- * */
+}/*}}}*/
 
 class Worker : public Person
-{
+{/*{{{*/
     public:
         Worker();
         ~Worker();
         void eat();
         void work();
         double salary;
-};
+};/*}}}*/
 
 Worker::Worker()
-{
+{/*{{{*/
     cout << "Worker()" << endl;
-}
+}/*}}}*/
 
 Worker::~Worker()
-{
+{/*{{{*/
     cout << "~Worker()" << endl;
-}
+}/*}}}*/
 
 void Worker::eat()
-{
+{/*{{{*/
     cout << "worker eat" << endl;
-}
+}/*}}}*/
 
 void Worker::work()
-{
+{/*{{{*/
     cout << "name : " << name << " age : " << age << " salary : " << salary << endl;
+}/*}}}*/
+
+void throw_1()
+{
+    cout << "抛出异常" << endl;
+    throw 1;
 }
 
 using namespace std; // 作用于当前整个文件
 int main( int argc, char *argv[] )
 {
+    // 处理异常
+    try
+    {
+        throw_1();
+    }
+    catch( int )
+    {
+        cout << "在 int 里处理了异常" << endl;
+    }
+    catch( double )
+    {
+        cout << "在 double 里处理了异常" << endl;
+    }
+    catch( ... )
+    {
+        cout << "无奈了 在这里捕获所有异常" << endl;
+    }
+
     // 实例化一个子类
     Worker *worker = new  Worker();
     worker -> name = "codekissyoung";
