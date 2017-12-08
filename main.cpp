@@ -76,6 +76,12 @@ void throw_1()
 using namespace std; // 作用于当前整个文件
 int main( int argc, char *argv[] )
 {
+    // 宽字符
+    wchar_t cao {'*'};
+    cout << cao << endl;
+
+
+    // 输入标题头
     string name = "codekissyoung";
     string greeting = "Hello, " + name + "!";
     string spaces( greeting.size(),' ' );
