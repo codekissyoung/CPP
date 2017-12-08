@@ -13,3 +13,4 @@ template <> void Swap<job>( job& i, job& j)
     j.salary    = salary_temp;
     j.floor     = floor_temp;
 }
+
