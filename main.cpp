@@ -77,9 +77,8 @@ using namespace std; // 作用于当前整个文件
 int main( int argc, char *argv[] )
 {
     // 宽字符
-    wchar_t cao {'*'};
+    wchar_t cao {'A'};
     cout << cao << endl;
-
 
     // 输入标题头
     string name = "codekissyoung";
