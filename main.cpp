@@ -76,6 +76,19 @@ void throw_1()
 using namespace std; // 作用于当前整个文件
 int main( int argc, char *argv[] )
 {
+    string name = "codekissyoung";
+    string greeting = "Hello, " + name + "!";
+    string spaces( greeting.size(),' ' );
+    string second = "* " + spaces + " *";
+    string first( second.size(), '*' );
+    greeting = "* " + greeting + " *";
+
+    cout << first << endl;
+    cout << second << endl;
+    cout << greeting << endl;
+    cout << second << endl;
+    cout << first << endl;
+
     // 处理异常
     try
     {
