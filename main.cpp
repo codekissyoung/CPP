@@ -5,6 +5,7 @@
 #include <vector>
 #include <array>
 #include <algorithm>
+#include <stdexcept> /* 标准异常库 */
 
 /* 使用到的 c 标准库 */
 #include <cmath>
@@ -76,6 +77,38 @@ void throw_1()
     throw 1;
 }/*}}}*/
 
+// 计算中值
+// 整个参数都会被复制
+double median( vector<double> vec )
+{
+    typedef vector<double>::size_type vec_sz;
+    vec_sz size = vec.size();
+
+    if( size == 0 )
+    {
+        throw domain_error( "median of an empty vector " );
+    }
+
+    sort( vec.begin(), vec.end() );
+
+    vec_sz mid = size / 2;
+
+    return ( size % 2 == 0 ) ? ( vec[mid] + vec[ mid - 1 ] ) / 2 : vec[ mid ];
+}
+
+// 计算期末成绩
+double grade( double m, double f, double h )
+{/*{{{*/
+    return 0.2 * m + 0.4 * f + 0.4 * h;
+}/*}}}*/
+
+double grade( double m, double f, const vector<double>& hw )
+{/*{{{*/
+    if( hw.size() == 0 )
+        throw domain_error( "student has done no homework");
+    return grade( m, f, median(hw) );
+}/*}}}*/
+
 using namespace std; // 作用于当前整个文件
 int main( int argc, char *argv[] )
 {
@@ -114,24 +147,11 @@ int main( int argc, char *argv[] )
         }
         cout << endl;
     }
-    /*
-    string spaces( greeting.size(),' ' );
-    string second = "* " + spaces + " *";
-    string first( second.size(), '*' );
-    greeting = "* " + greeting + " *";
-
-    cout << first << endl;
-    cout << second << endl;
-    cout << greeting << endl;
-    cout << second << endl;
-    cout << first << endl;
-    */
 
     // 计算学生成绩
     string student_name     = "zhangjian";
     double midterm          = 80.90;
     double finalterm        = 90.78;
-    double homework_term    = 100.00;
 
     cout << "Enter your Grades : " << endl;
     vector<double> homework;
@@ -143,27 +163,13 @@ int main( int argc, char *argv[] )
         homework.push_back( x );
     }
 
-    typedef vector<double>::size_type vec_sz;
-    vec_sz size = homework.size();
+    double median_term = median( homework );
 
-    if( size == 0 )
-    {
-        cout << endl << "Your must enter your grades . Please try again ";
-        return 1;
-    }
-
-    sort( homework.begin(), homework.end() );
-
-    // 计算中值
-    vec_sz mid = size / 2;
-    double median;
-    median = ( size % 2 == 0 ) ? ( homework[mid] + homework[ mid - 1 ] ) / 2 : homework[ mid ];
-
-    cout << "Median : " << median << endl;
+    cout << "Median : " << median_term << endl;
 
     streamsize prec = cout.precision(); // 获取当前有效位数
     cout << "最后成绩: " << setprecision( 4 ) // 设置此次输出有效位数
-         << 0.2 * midterm + 0.4 * finalterm + 0.4 * homework_term
+         << grade( midterm, finalterm, homework )
          << setprecision( prec ) << endl; // 还原原来的有效位数
 
     // 处理异常
