@@ -101,6 +101,18 @@ double grade( double m, double f, const vector<double>& hw )
     return grade( m, f, median(hw) );
 }/*}}}*/
 
+// 计算一个学生的总成绩
+double grade( const Student_info& s )
+{/*{{{*/
+    return grade( s.midterm, s.final_term, s.homework );
+}/*}}}*/
+
+// 判断学生是否不及格
+bool fgrade( const Student_info& s )
+{/*{{{*/
+    return grade( s ) < 60;
+}/*}}}*/
+
 // 从输入流中将家庭作业读入到一个 vector<double> 中
 istream& read_hw( istream& in, vector<double>& hw )
 {/*{{{*/
@@ -134,25 +146,15 @@ istream& read( istream& is, Student_info& s )
     return is;
 }/*}}}*/
 
-// 计算一个学生的总成绩
-double grade( const Student_info& s )
-{/*{{{*/
-    return grade( s.midterm, s.final_term, s.homework );
-}/*}}}*/
-
 // 用作 sort 函数的第三个参数
 bool compare( const Student_info& x, const Student_info& y )
 {/*{{{*/
     return x.name < y.name;
 }/*}}}*/
 
-using namespace std; // 作用于当前整个文件
-int main( int argc, char *argv[] )
-{
-    // 宽字符
-    wchar_t cao {'A'};
-    cout << cao << endl;
-
+// 打印一个标题头
+void print_head( )
+{/*{{{*/
     // 输入标题头
     string name = "codekissyoung";
     string greeting = "Hello, " + name + "!";
@@ -161,7 +163,7 @@ int main( int argc, char *argv[] )
     const string::size_type cols = greeting.size() + pad * 2 + 2;
 
     for ( int r = 0; r != rows; r++ )
-    {/*{{{*/
+    {
         string::size_type c = 0;
         while( c != cols )
         {
@@ -184,7 +186,13 @@ int main( int argc, char *argv[] )
             }
         }
         cout << endl;
-    }/*}}}*/
+    }
+}/*}}}*/
+
+using namespace std; // 作用于当前整个文件
+int main( int argc, char *argv[] )
+{
+    print_head();
 
     /*
     // 计算学生成绩
@@ -227,24 +235,23 @@ int main( int argc, char *argv[] )
         students.push_back( record );
     }
 
+    // 按字母排序
     sort( students.begin(), students.end(), compare );
 
+    // 输出成绩报表
     for( vector<Student_info>::size_type i = 0; i != students.size(); ++i )
     {
         cout << setw( maxlen + 2 ) << students[i].name;
-        // 输出成绩报表
         try
         {
             double final_grade = grade( students[i] );
             streamsize prec = cout.precision();
-            cout << setprecision(4) << "  |  " << final_grade
-                 << setprecision(prec);
+            cout << setprecision(4) << "  |  " << final_grade << setprecision(prec);
         }
         catch ( domain_error e )
         {
             cout << e.what();
         }
-
         cout << endl;
     }
 
@@ -265,6 +272,7 @@ int main( int argc, char *argv[] )
     {
         cout << "无奈了 在这里捕获所有异常" << endl;
     }
+
     // 实例化一个子类
     Worker *worker = new  Worker();
     worker -> name = "codekissyoung";
