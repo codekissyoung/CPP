@@ -19,12 +19,12 @@
 
 // 定义一个学生的数据结构
 struct Student_info
-{
+{/*{{{*/
     string name;
     double midterm;
     double final_term;
     vector<double> homework;
-};
+};/*}}}*/
 
 class Person
 {/*{{{*/
@@ -111,6 +111,27 @@ double grade( const Student_info& s )
 bool fgrade( const Student_info& s )
 {/*{{{*/
     return grade( s ) < 60;
+}/*}}}*/
+
+// 把及格的学生和不及格的学生分开
+vector<Student_info> extract_fails( vector<Student_info>& students )
+{/*{{{*/
+    vector<Student_info> fail;
+    vector<Student_info>::iterator iter = students.begin();
+
+    while( iter != students.end() )
+    {
+        if( fgrade(*iter) )
+        {
+            fail.push_back( *iter ); // 将迭代器指示的元素加入到 fail 中
+            iter = students.erase( iter ); // 删除 该迭代器，erase 返回了一个迭代器(指向刚刚删掉的迭代器后面那个元素)，赋值给 iter
+        }
+        else
+        {
+            ++iter;
+        }
+    }
+    return fail;
 }/*}}}*/
 
 // 从输入流中将家庭作业读入到一个 vector<double> 中
