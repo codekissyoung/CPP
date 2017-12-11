@@ -80,7 +80,7 @@ void throw_1()
 // 计算中值
 // 整个参数都会被复制
 double median( vector<double> vec )
-{
+{/*{{{*/
     typedef vector<double>::size_type vec_sz;
     vec_sz size = vec.size();
 
@@ -94,7 +94,7 @@ double median( vector<double> vec )
     vec_sz mid = size / 2;
 
     return ( size % 2 == 0 ) ? ( vec[mid] + vec[ mid - 1 ] ) / 2 : vec[ mid ];
-}
+}/*}}}*/
 
 // 计算期末成绩
 double grade( double m, double f, double h )
@@ -102,12 +102,34 @@ double grade( double m, double f, double h )
     return 0.2 * m + 0.4 * f + 0.4 * h;
 }/*}}}*/
 
+// 计算期末成绩(重载）
 double grade( double m, double f, const vector<double>& hw )
 {/*{{{*/
     if( hw.size() == 0 )
         throw domain_error( "student has done no homework");
     return grade( m, f, median(hw) );
 }/*}}}*/
+
+// 从输入流中将家庭作业读入到一个 vector<double> 中
+istream& read_hw( istream& in, vector<double>& hw )
+{
+    if( in )
+    {
+        // 清除原先内容
+        hw.clear();
+
+        // 读家庭作业成绩
+        double x;
+        while( in >> x )
+        {
+            hw.push_back( x );
+        }
+
+        // 清除流以使输入动作对下一个学生有效
+        in.clear();
+    }
+    return in;
+}
 
 using namespace std; // 作用于当前整个文件
 int main( int argc, char *argv[] )
@@ -122,8 +144,9 @@ int main( int argc, char *argv[] )
     const int pad = 1;
     const int rows = pad * 2 + 3;
     const string::size_type cols = greeting.size() + pad * 2 + 2;
+
     for ( int r = 0; r != rows; r++ )
-    {
+    {/*{{{*/
         string::size_type c = 0;
         while( c != cols )
         {
@@ -146,31 +169,35 @@ int main( int argc, char *argv[] )
             }
         }
         cout << endl;
-    }
+    }/*}}}*/
 
     // 计算学生成绩
     string student_name     = "zhangjian";
     double midterm          = 80.90;
     double finalterm        = 90.78;
 
+    // 读入家庭作业
     cout << "Enter your Grades : " << endl;
     vector<double> homework;
-    double x;
+    read_hw( cin, homework );
 
-    // 如果不是数字, while 循环就退出了
-    while( cin >> x )
+    try
     {
-        homework.push_back( x );
+        double median_term = median( homework );
+        double final_grade = grade( midterm, finalterm, homework );
+
+        cout << "Median : " << median_term << endl;
+
+        streamsize prec = cout.precision(); // 获取当前有效位数
+        cout << "最后成绩: " << setprecision( 4 ) // 设置此次输出有效位数
+             << final_grade
+             << setprecision( prec ) << endl; // 还原原来的有效位数
     }
-
-    double median_term = median( homework );
-
-    cout << "Median : " << median_term << endl;
-
-    streamsize prec = cout.precision(); // 获取当前有效位数
-    cout << "最后成绩: " << setprecision( 4 ) // 设置此次输出有效位数
-         << grade( midterm, finalterm, homework )
-         << setprecision( prec ) << endl; // 还原原来的有效位数
+    catch ( domain_error )
+    {
+        cout << endl << "你需要输入家庭作业分数" << endl;
+        return 1;
+    }
 
     // 处理异常
     try
