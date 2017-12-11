@@ -1,6 +1,10 @@
+#include <iomanip>
+#include <ios>
 #include <iostream>
+#include <string>
 #include <vector>
 #include <array>
+#include <algorithm>
 
 /* 使用到的 c 标准库 */
 #include <cmath>
@@ -8,7 +12,6 @@
 #include <cstdio>
 #include <cmath>
 #include <climits>
-
 #include "common.h"
 #include "stock.h"
 
@@ -68,10 +71,10 @@ void Worker::work()
 }/*}}}*/
 
 void throw_1()
-{
+{/*{{{*/
     cout << "抛出异常" << endl;
     throw 1;
-}
+}/*}}}*/
 
 using namespace std; // 作用于当前整个文件
 int main( int argc, char *argv[] )
@@ -83,6 +86,35 @@ int main( int argc, char *argv[] )
     // 输入标题头
     string name = "codekissyoung";
     string greeting = "Hello, " + name + "!";
+    const int pad = 1;
+    const int rows = pad * 2 + 3;
+    const string::size_type cols = greeting.size() + pad * 2 + 2;
+    for ( int r = 0; r != rows; r++ )
+    {
+        string::size_type c = 0;
+        while( c != cols )
+        {
+            if( r == pad + 1 && c == pad + 1 )
+            {
+                cout << greeting;
+                c += greeting.size();
+            }
+            else
+            {
+                if( r == 0 || r == rows - 1 || c == 0 || c == cols - 1 )
+                {
+                    cout << '*';
+                }
+                else
+                {
+                    cout << ' ';
+                }
+                ++c;
+            }
+        }
+        cout << endl;
+    }
+    /*
     string spaces( greeting.size(),' ' );
     string second = "* " + spaces + " *";
     string first( second.size(), '*' );
@@ -93,6 +125,46 @@ int main( int argc, char *argv[] )
     cout << greeting << endl;
     cout << second << endl;
     cout << first << endl;
+    */
+
+    // 计算学生成绩
+    string student_name     = "zhangjian";
+    double midterm          = 80.90;
+    double finalterm        = 90.78;
+    double homework_term    = 100.00;
+
+    cout << "Enter your Grades : " << endl;
+    vector<double> homework;
+    double x;
+
+    // 如果不是数字, while 循环就退出了
+    while( cin >> x )
+    {
+        homework.push_back( x );
+    }
+
+    typedef vector<double>::size_type vec_sz;
+    vec_sz size = homework.size();
+
+    if( size == 0 )
+    {
+        cout << endl << "Your must enter your grades . Please try again ";
+        return 1;
+    }
+
+    sort( homework.begin(), homework.end() );
+
+    // 计算中值
+    vec_sz mid = size / 2;
+    double median;
+    median = ( size % 2 == 0 ) ? ( homework[mid] + homework[ mid - 1 ] ) / 2 : homework[ mid ];
+
+    cout << "Median : " << median << endl;
+
+    streamsize prec = cout.precision(); // 获取当前有效位数
+    cout << "最后成绩: " << setprecision( 4 ) // 设置此次输出有效位数
+         << 0.2 * midterm + 0.4 * finalterm + 0.4 * homework_term
+         << setprecision( prec ) << endl; // 还原原来的有效位数
 
     // 处理异常
     try
