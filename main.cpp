@@ -15,6 +15,7 @@
 #include <climits>
 #include "common.h"
 #include "stock.h"
+#include "median.h"
 
 // 定义一个学生的数据结构
 struct Student_info
@@ -84,25 +85,6 @@ void throw_1()
 {/*{{{*/
     cout << "抛出异常" << endl;
     throw 1;
-}/*}}}*/
-
-// 计算中值
-// 整个参数都会被复制
-double median( vector<double> vec )
-{/*{{{*/
-    typedef vector<double>::size_type vec_sz;
-    vec_sz size = vec.size();
-
-    if( size == 0 )
-    {
-        throw domain_error( "median of an empty vector " );
-    }
-
-    sort( vec.begin(), vec.end() );
-
-    vec_sz mid = size / 2;
-
-    return ( size % 2 == 0 ) ? ( vec[mid] + vec[ mid - 1 ] ) / 2 : vec[ mid ];
 }/*}}}*/
 
 // 计算期末成绩
