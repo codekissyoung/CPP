@@ -16,6 +16,15 @@
 #include "common.h"
 #include "stock.h"
 
+// 定义一个学生的数据结构
+struct Student_info
+{
+    string name;
+    double midterm;
+    double final_term;
+    vector<double> homework;
+};
+
 class Person
 {/*{{{*/
     public:
@@ -112,7 +121,7 @@ double grade( double m, double f, const vector<double>& hw )
 
 // 从输入流中将家庭作业读入到一个 vector<double> 中
 istream& read_hw( istream& in, vector<double>& hw )
-{
+{/*{{{*/
     if( in )
     {
         // 清除原先内容
@@ -129,7 +138,31 @@ istream& read_hw( istream& in, vector<double>& hw )
         in.clear();
     }
     return in;
-}
+}/*}}}*/
+
+// 读入一个学生的成绩
+istream& read( istream& is, Student_info& s )
+{/*{{{*/
+    // 读入该学生的名字 期中 期末 成绩
+    is >> s.name >> s.midterm >> s.final_term;
+
+    // 读入该学生的平时成绩
+    read_hw( is, s.homework );
+
+    return is;
+}/*}}}*/
+
+// 计算一个学生的总成绩
+double grade( const Student_info& s )
+{/*{{{*/
+    return grade( s.midterm, s.final_term, s.homework );
+}/*}}}*/
+
+// 用作 sort 函数的第三个参数
+bool compare( const Student_info& x, const Student_info& y )
+{/*{{{*/
+    return x.name < y.name;
+}/*}}}*/
 
 using namespace std; // 作用于当前整个文件
 int main( int argc, char *argv[] )
@@ -171,6 +204,7 @@ int main( int argc, char *argv[] )
         cout << endl;
     }/*}}}*/
 
+    /*
     // 计算学生成绩
     string student_name     = "zhangjian";
     double midterm          = 80.90;
@@ -198,6 +232,39 @@ int main( int argc, char *argv[] )
         cout << endl << "你需要输入家庭作业分数" << endl;
         return 1;
     }
+    */
+
+    // 处理一个文件里面的学生
+    vector<Student_info> students;
+    Student_info record;
+    string::size_type maxlen = 0;
+
+    while( read( cin, record ) )
+    {
+        maxlen = max( maxlen, record.name.size() );
+        students.push_back( record );
+    }
+
+    sort( students.begin(), students.end(), compare );
+
+    for( vector<Student_info>::size_type i = 0; i != students.size(); ++i )
+    {
+        cout << setw( maxlen + 2 ) << students[i].name;
+        // 输出成绩报表
+        try
+        {
+            double final_grade = grade( students[i] );
+            streamsize prec = cout.precision();
+            cout << setprecision(4) << "  |  " << final_grade
+                 << setprecision(prec);
+        }
+        catch ( domain_error e )
+        {
+            cout << e.what();
+        }
+
+        cout << endl;
+    }
 
     // 处理异常
     try
@@ -216,7 +283,6 @@ int main( int argc, char *argv[] )
     {
         cout << "无奈了 在这里捕获所有异常" << endl;
     }
-
     // 实例化一个子类
     Worker *worker = new  Worker();
     worker -> name = "codekissyoung";
