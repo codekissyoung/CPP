@@ -13,6 +13,7 @@
 #include <cstdio>
 #include <cmath>
 #include <climits>
+#include <cctype>
 #include "common.h"
 #include "stock.h"
 #include "median.h"
@@ -85,6 +86,35 @@ void throw_1()
 {/*{{{*/
     cout << "抛出异常" << endl;
     throw 1;
+}/*}}}*/
+
+// 将完整的一个字符串 分割成单词，存于 vector<string> 中
+vector<string> split( const string& s )
+{/*{{{*/
+    vector<string> ret;
+    typedef string::size_type string_size;
+    string_size i = 0;
+    while ( i != s.size() )
+    {
+        while( i != s.size() && isspace( s[i] ) )
+        {
+            ++i;
+        }
+
+        string_size j = i;
+
+        while( j != s.size() && isspace( s[j] ) == 0 )
+        {
+            ++j;
+        }
+
+        if( i != j )
+        {
+            ret.push_back( s.substr( i, j - i ) );
+            i = j;
+        }
+    }
+    return ret;
 }/*}}}*/
 
 // 计算期末成绩
@@ -244,6 +274,16 @@ int main( int argc, char *argv[] )
         return 1;
     }
     */
+
+    // 测试 split
+    string s;
+    getline( cin, s );
+    vector<string> one_line = split( s );
+    for( vector<string>::size_type i = 0; i != one_line.size(); ++i )
+    {
+        cout << "one_line [ " << i << " ] : ";
+        cout << one_line[i] << endl;
+    }
 
     // 处理一个文件里面的学生
     vector<Student_info> students;
