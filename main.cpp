@@ -240,6 +240,35 @@ void print_head( )
     }
 }/*}}}*/
 
+// 找出一个 vector<string> 中最长的字符串长度
+string::size_type width( const vector<string>& v )
+{/*{{{*/
+    string::size_type maxlen = 0;
+    for( vector<string>::size_type i = 0; i != v.size(); ++ i )
+    {
+        maxlen = max( maxlen, v[i].size() );
+    }
+    return maxlen;
+}/*}}}*/
+
+vector<string> frame ( const vector<string>& v )
+{
+    vector<string> ret;
+    string::size_type maxlen = width( v );
+    string border( maxlen + 4, '*' );
+
+    // 输出顶部的边框
+    ret.push_back( border );
+    // 输出内部行
+    for( vector<string>::size_type i = 0; i != v.size(); ++ i )
+    {
+        ret.push_back( "* " + v[i] + string( maxlen - v[i].size(), ' ' ) + " *" );
+    }
+    // 输出底部边框
+    ret.push_back( border );
+    return ret;
+}
+
 using namespace std; // 作用于当前整个文件
 int main( int argc, char *argv[] )
 {
@@ -279,9 +308,9 @@ int main( int argc, char *argv[] )
     string s;
     getline( cin, s );
     vector<string> one_line = split( s );
+    one_line = frame( one_line );
     for( vector<string>::size_type i = 0; i != one_line.size(); ++i )
     {
-        cout << "one_line [ " << i << " ] : ";
         cout << one_line[i] << endl;
     }
 
