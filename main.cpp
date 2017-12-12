@@ -251,8 +251,9 @@ string::size_type width( const vector<string>& v )
     return maxlen;
 }/*}}}*/
 
+// 给一个 vector 加上 * 边框
 vector<string> frame ( const vector<string>& v )
-{
+{/*{{{*/
     vector<string> ret;
     string::size_type maxlen = width( v );
     string border( maxlen + 4, '*' );
@@ -267,6 +268,112 @@ vector<string> frame ( const vector<string>& v )
     // 输出底部边框
     ret.push_back( border );
     return ret;
+}/*}}}*/
+
+// 纵向链接
+// 等价于库提供的方法: ret.insert( ret.end(), bottom.begin(), bottom.end() );
+vector<string> vcat( const vector<string>& top, const vector<string>& bottom )
+{/*{{{*/
+    vector<string> ret = top;
+
+    for ( vector<string>::const_iterator it = bottom.begin(); it != bottom.end(); ++it )
+    {
+        ret.push_back( *it );
+    }
+    return ret;
+}/*}}}*/
+
+// 横向链接
+vector<string> hcat( const vector<string>& left, const vector<string>& right )
+{/*{{{*/
+    vector<string> ret;
+    string::size_type width1 = width( left ) + 1;
+    vector<string>::size_type i = 0, j = 0;
+    while( i != left.size() || j != right.size() )
+    {
+        string s;
+        if( i != left.size() )
+        {
+            s = left[i];
+            i++;
+        }
+
+        s += string( width1 - s.size(), ' ' );
+        if( j != right.size() )
+        {
+            s += right[j];
+            j++;
+        }
+        ret.push_back( s );
+    }
+    return ret;
+}/*}}}*/
+
+// 不是 url 的字符串
+bool not_url_char( char c )
+{
+    static const string url_ch = "~;/?:@=&$-_.+!*'(),`";
+    return !( isalnum(c) || find( url_ch.begin(), url_ch.end(), c ) != url_ch.end() );
+}
+
+// 判断是不是一个 url 的结尾
+string::const_iterator url_end( string::const_iterator b, string::const_iterator e )
+{
+    return find_if( b, e, not_url_char );
+}
+
+// 判断是不是一个 url 的开头
+string::const_iterator url_beg( string::const_iterator b, string::const_iterator e )
+{
+    static const string sep = "://";
+    typedef string::const_iterator iter;
+
+    iter i = b;
+
+    while( ( i = search( i, e, sep.begin(), sep.end() )) != e )
+    {
+        if( i != b && i + sep.size() != e )
+        {
+            iter beg = i;
+            while( beg != b && isalpha( beg[-1] ) )
+            {
+                --beg;
+            }
+
+            if( beg != i && i + sep.size() != e && !not_url_char( i[ sep.size() ] ) )
+            {
+                return beg;
+            }
+        }
+
+        if( i != e )
+        {
+            i += sep.size();
+        }
+    }
+    return e;
+}
+
+// 查找一个字符串中的所有 urls
+vector<string> find_urls( const string& s )
+{
+    vector<string> ret;
+    typedef string::const_iterator iter;
+    iter b = s.begin();
+    iter e = s.end();
+
+    while( b != e )
+    {
+        b = url_beg( b, e );
+
+        if( b != e )
+        {
+            iter after = url_end( b, e );
+            ret.push_back( string( b, after ) );
+            b = after;
+        }
+    }
+    return ret;
 }
 
 using namespace std; // 作用于当前整个文件
@@ -274,37 +381,6 @@ int main( int argc, char *argv[] )
 {
     print_head();
 
-    /*
-    // 计算学生成绩
-    string student_name     = "zhangjian";
-    double midterm          = 80.90;
-    double finalterm        = 90.78;
-
-    // 读入家庭作业
-    cout << "Enter your Grades : " << endl;
-    vector<double> homework;
-    read_hw( cin, homework );
-
-    try
-    {
-        double median_term = median( homework );
-        double final_grade = grade( midterm, finalterm, homework );
-
-        cout << "Median : " << median_term << endl;
-
-        streamsize prec = cout.precision(); // 获取当前有效位数
-        cout << "最后成绩: " << setprecision( 4 ) // 设置此次输出有效位数
-             << final_grade
-             << setprecision( prec ) << endl; // 还原原来的有效位数
-    }
-    catch ( domain_error )
-    {
-        cout << endl << "你需要输入家庭作业分数" << endl;
-        return 1;
-    }
-    */
-
-    // 测试 split
     string s;
     getline( cin, s );
     vector<string> one_line = split( s );
