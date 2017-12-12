@@ -311,20 +311,20 @@ vector<string> hcat( const vector<string>& left, const vector<string>& right )
 
 // 不是 url 的字符串
 bool not_url_char( char c )
-{
+{/*{{{*/
     static const string url_ch = "~;/?:@=&$-_.+!*'(),`";
     return !( isalnum(c) || find( url_ch.begin(), url_ch.end(), c ) != url_ch.end() );
-}
+}/*}}}*/
 
 // 判断是不是一个 url 的结尾
 string::const_iterator url_end( string::const_iterator b, string::const_iterator e )
-{
+{/*{{{*/
     return find_if( b, e, not_url_char );
-}
+}/*}}}*/
 
 // 判断是不是一个 url 的开头
 string::const_iterator url_beg( string::const_iterator b, string::const_iterator e )
-{
+{/*{{{*/
     static const string sep = "://";
     typedef string::const_iterator iter;
 
@@ -352,11 +352,11 @@ string::const_iterator url_beg( string::const_iterator b, string::const_iterator
         }
     }
     return e;
-}
+}/*}}}*/
 
 // 查找一个字符串中的所有 urls
 vector<string> find_urls( const string& s )
-{
+{/*{{{*/
     vector<string> ret;
     typedef string::const_iterator iter;
     iter b = s.begin();
@@ -374,7 +374,7 @@ vector<string> find_urls( const string& s )
         }
     }
     return ret;
-}
+}/*}}}*/
 
 using namespace std; // 作用于当前整个文件
 int main( int argc, char *argv[] )
