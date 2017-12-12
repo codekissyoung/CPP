@@ -1,8 +1,12 @@
 #include <iomanip>
 #include <ios>
 #include <iostream>
+
 #include <string>
 #include <vector>
+#include <list>
+#include <map>
+
 #include <array>
 #include <algorithm>
 #include <stdexcept> /* 标准异常库 */
@@ -14,6 +18,8 @@
 #include <cmath>
 #include <climits>
 #include <cctype>
+
+/* 项目头文件 */
 #include "common.h"
 #include "stock.h"
 #include "median.h"
@@ -376,10 +382,47 @@ vector<string> find_urls( const string& s )
     return ret;
 }/*}}}*/
 
+// 查找输入中每一个单词的所有行
+map<string, vector<int> > xref( istream& in, vector<string> find_words( const string&) = split )
+{
+    string line;
+    int line_number = 0;
+
+    map<string, vector<int> > ret;
+
+    while( getline( in, line ) )
+    {
+        ++line_number;
+
+        // break the input line into words
+        vector<string> words = find_words( line );
+
+        for ( vector<string>::const_iterator it = words.begin() ; it != words.end(); ++it )
+        {
+            ret[*it].push_back( line_number );
+        }
+    }
+    return ret;
+}
+
 using namespace std; // 作用于当前整个文件
 int main( int argc, char *argv[] )
 {
     print_head();
+
+    // 关联容器
+    string str;
+    map<string, int> counters;
+
+    while( cin >> str )
+    {
+        ++counters[str];
+    }
+
+    for( map<string, int>::const_iterator it = counters.begin(); it != counters.end(); ++it )
+    {
+        cout << it -> first << "\t" << it->second << endl;
+    }
 
     string s;
     getline( cin, s );
