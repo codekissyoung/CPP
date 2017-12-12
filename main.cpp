@@ -384,7 +384,7 @@ vector<string> find_urls( const string& s )
 
 // 查找输入中每一个单词的所有行
 map<string, vector<int> > xref( istream& in, vector<string> find_words( const string&) = split )
-{
+{/*{{{*/
     string line;
     int line_number = 0;
 
@@ -394,7 +394,6 @@ map<string, vector<int> > xref( istream& in, vector<string> find_words( const st
     {
         ++line_number;
 
-        // break the input line into words
         vector<string> words = find_words( line );
 
         for ( vector<string>::const_iterator it = words.begin() ; it != words.end(); ++it )
@@ -403,11 +402,23 @@ map<string, vector<int> > xref( istream& in, vector<string> find_words( const st
         }
     }
     return ret;
-}
+}/*}}}*/
 
 using namespace std; // 作用于当前整个文件
 int main( int argc, char *argv[] )
 {
+    map<string,vector<int> > words_in_line = xref( cin );
+
+    for( map<string, vector<int> >::const_iterator it = words_in_line.begin(); it != words_in_line.end(); ++ it )
+    {
+        cout << it -> first << " : ";
+        for( vector<int>::const_iterator vit = it -> second.begin(); vit != it -> second.end(); ++vit )
+        {
+            cout << *vit << " ";
+        }
+        cout << endl;
+    }
+
     print_head();
 
     // 关联容器
