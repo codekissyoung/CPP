@@ -504,38 +504,6 @@ int main( int argc, char *argv[] )
     delete worker;
     worker = NULL;
 
-    // 对下面这个二维数组进行排序
-    char str_arr[][30] = {
-        "hello",
-        "jack",
-        "香港",
-        "澳门",
-        "7呵呵呵",
-        "9fuck",
-        "hello world"
-    };
-
-    int len = sizeof(str_arr) / sizeof( str_arr[0] );
-    char temp[30];
-    for( int i = 0; i < len; ++ i )
-    {
-        for( int j = i + 1; j < len; ++j )
-        {
-            if( strcmp( str_arr[i], str_arr[j] ) > 0 )
-            {
-                strcpy( temp, str_arr[i] );
-                strcpy( str_arr[i], str_arr[j] );
-                strcpy( str_arr[j], temp );
-            }
-        }
-    }
-
-    for( int i = 0 ; i < len; i++)
-    {
-        cout << str_arr[i] << "\t";
-    }
-    cout << endl;
-
     job Teacher = { "codekissyoung", 10000.00, 4 };
     job Worker  = { "caokaiyan", 4000.00, 3 };
     Swap( Teacher, Worker );
