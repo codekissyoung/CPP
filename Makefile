@@ -1,14 +1,17 @@
-cpp:main.cpp func.o stock.o median.o common.h stock.h median.h
-	g++ -Wall -std=gnu++14 main.cpp func.o stock.o median.o -o $@
+CC=g++
+CPPFLAGS=-Wall -std=gnu++14
+
+cpp:main.cpp func.o stock.o median.o
+	$(CC) $(CPPFLAGS) $^ -o $@
 
 func.o:func.cpp common.h
-	g++ -c -Wall -std=gnu++14 func.cpp -o $@
+	$(CC) $(CPPFLAGS) -c $^
 
 stock.o:stock.cpp stock.h
-	g++ -c -Wall -std=gnu++14 stock.cpp -o $@
+	$(CC) $(CPPFLAGS) -c $^
 
 median.o:median.cpp
-	g++ -c -Wall -std=gnu++14 $< -o $@
+	$(CC) $(CPPFLAGS) -c $^
 
 clean:
 	rm *.o
