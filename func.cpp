@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "common.h"
-
+#include <stdio.h>
 template <> void Swap<job>( job& i, job& j)
 {
     double salary_temp;
