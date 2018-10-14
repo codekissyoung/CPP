@@ -15,4 +15,5 @@ median.o:median.cpp
 
 clean:
 	rm *.o
+	rm *.h.gch
 	rm cpp

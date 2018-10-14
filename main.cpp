@@ -445,16 +445,13 @@ using namespace std;
 int main( int argc, char *argv[] )
 {
 
-    Circle c1, c2, c3;
+    Circle c1;
     double r;
     cin >> r;
     c1.setR( r );
     cout << c1.getArea() << endl;
 
     return 0;
-
-
-
 
 
     map<string,vector<int> > words_in_line = xref( cin );
