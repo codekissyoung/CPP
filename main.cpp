@@ -404,9 +404,59 @@ map<string, vector<int> > xref( istream& in, vector<string> find_words( const st
     return ret;
 }/*}}}*/
 
-using namespace std; // 作用于当前整个文件
+
+
+
+
+
+
+// -------------------------------------- main ------------------------------------------- //
+
+/*
+ * 圆形类
+ * */
+class Circle
+{
+    private :
+        double m_s; // 面积
+        double m_r; // 半径
+
+    public : 
+        void setR( double r )
+        {
+            m_r = r;
+        }
+
+        double getR()
+        {
+            return m_r;
+        }
+
+        double getArea()
+        {
+            m_s = 3.14 * m_r * m_r;
+            return m_s;
+        }
+};
+
+
+
+using namespace std;
 int main( int argc, char *argv[] )
 {
+
+    Circle c1, c2, c3;
+    double r;
+    cin >> r;
+    c1.setR( r );
+    cout << c1.getArea() << endl;
+
+    return 0;
+
+
+
+
+
     map<string,vector<int> > words_in_line = xref( cin );
 
     for( map<string, vector<int> >::const_iterator it = words_in_line.begin(); it != words_in_line.end(); ++ it )
