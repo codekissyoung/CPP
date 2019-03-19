@@ -14,5 +14,6 @@ median.o:median.cpp
 	$(CC) $(CPPFLAGS) -c $^
 
 clean:
-	rm *.o
-	rm cpp
+	$(RM) *.o
+	$(RM) cpp
+	$(RM) *.gch
