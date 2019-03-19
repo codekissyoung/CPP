@@ -34,7 +34,7 @@
 
 # 编译出来的可执行程序
 main
-
+cpp
 .idea
 cmake-build-debug/
 
