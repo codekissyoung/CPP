@@ -1,6 +1,8 @@
 #include <iomanip>
 #include <ios>
 #include <iostream>
+#include <complex>
+#include <vector>
 
 #include <string>
 #include <vector>
@@ -23,6 +25,7 @@
 #include "common.h"
 #include "stock.h"
 #include "median.h"
+#include "vector.h"
 
 // 定义一个学生的数据结构
 struct Student_info
@@ -404,14 +407,6 @@ map<string, vector<int> > xref( istream& in, vector<string> find_words( const st
     return ret;
 }/*}}}*/
 
-
-
-
-
-
-
-// -------------------------------------- main ------------------------------------------- //
-
 /*
  * 圆形类
  * */
@@ -439,20 +434,61 @@ class Circle
         }
 };
 
+enum class Color { red, blue, green };
+enum class Traffic_light { green,yellow, red };
 
+Traffic_light& operator++( Traffic_light& t )
+{
+    switch( t )
+    {
+        case Traffic_light::green:
+            t = Traffic_light::yellow;
+            
+        case Traffic_light::yellow:
+            t = Traffic_light::red;
+
+        case Traffic_light::red:
+            t = Traffic_light::green;
+    }
+    return t;
+}
 
 using namespace std;
+
+// -------------------------------------- main ------------------------------------------- //
 int main( int argc, char *argv[] )
 {
 
-    Circle c1;
-    double r;
-    cin >> r;
-    c1.setR( r );
-    cout << c1.getArea() << endl;
+    static_assert( sizeof(int) >= 4, "sizeof int 小于4字节");
+
+    Vector my_vector(6);
+
+    my_vector.read();
+
+    cout << my_vector.size() << endl;
+
+    auto sum = my_vector.sum();
+
+    cout << sum << endl;
+
+    try{
+        cout << my_vector[my_vector.size()] << endl;
+    }catch( out_of_range ){
+        printf("数组越界了\n");
+    }
+
+    cout << my_vector[1] << endl;
+
+    try{
+        Vector orther_vector( -10 );        
+    }catch( length_error ){
+        printf("length < 0 \n");
+    }catch( bad_alloc )
+    {
+        // 处理内存耗尽问题
+    }
 
     return 0;
-
 
     map<string,vector<int> > words_in_line = xref( cin );
 
@@ -465,7 +501,6 @@ int main( int argc, char *argv[] )
         }
         cout << endl;
     }
-
     print_head();
 
     // 关联容器

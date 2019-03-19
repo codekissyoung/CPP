@@ -1,19 +1,15 @@
 CC=g++
-CPPFLAGS=-Wall -std=gnu++14
 
-cpp:main.cpp func.o stock.o median.o
+BIN = main
+
+OBJ = $(patsubst %.cpp,%.o,$(wildcard *.cpp))
+
+CPPFLAGS=-Wall -std=gnu++14 -g
+
+$(BIN) : $(OBJ)
 	$(CC) $(CPPFLAGS) $^ -o $@
-
-func.o:func.cpp common.h
-	$(CC) $(CPPFLAGS) -c $^
-
-stock.o:stock.cpp stock.h
-	$(CC) $(CPPFLAGS) -c $^
-
-median.o:median.cpp
-	$(CC) $(CPPFLAGS) -c $^
 
 clean:
 	$(RM) *.o
-	$(RM) cpp
+	$(RM) $(BIN)
 	$(RM) *.gch
