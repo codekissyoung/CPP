@@ -407,33 +407,6 @@ map<string, vector<int> > xref( istream& in, vector<string> find_words( const st
     return ret;
 }/*}}}*/
 
-/*
- * 圆形类
- * */
-class Circle
-{
-    private :
-        double m_s; // 面积
-        double m_r; // 半径
-
-    public : 
-        void setR( double r )
-        {
-            m_r = r;
-        }
-
-        double getR()
-        {
-            return m_r;
-        }
-
-        double getArea()
-        {
-            m_s = 3.14 * m_r * m_r;
-            return m_s;
-        }
-};
-
 enum class Color { red, blue, green };
 enum class Traffic_light { green,yellow, red };
 
@@ -556,24 +529,6 @@ int main( int argc, char *argv[] )
             cout << e.what();
         }
         cout << endl;
-    }
-
-    // 处理异常
-    try
-    {
-        throw_1();
-    }
-    catch( int )
-    {
-        cout << "在 int 里处理了异常" << endl;
-    }
-    catch( double )
-    {
-        cout << "在 double 里处理了异常" << endl;
-    }
-    catch( ... )
-    {
-        cout << "无奈了 在这里捕获所有异常" << endl;
     }
 
     // 实例化一个子类
