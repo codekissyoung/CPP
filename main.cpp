@@ -456,10 +456,11 @@ Traffic_light& operator++( Traffic_light& t )
 using namespace std;
 
 // -------------------------------------- main ------------------------------------------- //
+
 int main( int argc, char *argv[] )
 {
 
-    static_assert( sizeof(int) >= 4, "sizeof int 小于4字节");
+    static_assert( sizeof(int) >= 4, "sizeof int 小于4字节\n");
 
     Vector my_vector(6);
 
@@ -480,7 +481,7 @@ int main( int argc, char *argv[] )
     cout << my_vector[1] << endl;
 
     try{
-        Vector orther_vector( -10 );        
+        Vector orther_vector( -10 );
     }catch( length_error ){
         printf("length < 0 \n");
     }catch( bad_alloc )
@@ -488,7 +489,7 @@ int main( int argc, char *argv[] )
         // 处理内存耗尽问题
     }
 
-    return 0;
+     return EXIT_SUCCESS;
 
     map<string,vector<int> > words_in_line = xref( cin );
 
