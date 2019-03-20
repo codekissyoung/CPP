@@ -26,6 +26,7 @@
 #include "stock.h"
 #include "median.h"
 #include "vector.h"
+#include "container.h"
 
 // 定义一个学生的数据结构
 struct Student_info
@@ -435,34 +436,19 @@ int main( int argc, char *argv[] )
 
     static_assert( sizeof(int) >= 4, "sizeof int 小于4字节\n");
 
-    Vector my_vector(6);
+    Vector test_v1 { 1, 2, 3, 4 ,5 };
+    Vector test_v2 { 1.23, 4.21, 3.45, 7.8 };
 
-    my_vector.read();
+    cout << "sum:" << test_v2.sum() << endl;
+    cout << "sum:" << test_v1.sum() << endl;
+    
+    cout << sizeof(wchar_t) << endl;
 
-    cout << my_vector.size() << endl;
+    auto ac = alignof(3.0);
 
-    auto sum = my_vector.sum();
+    cout << ac << endl;
 
-    cout << sum << endl;
-
-    try{
-        cout << my_vector[my_vector.size()] << endl;
-    }catch( out_of_range ){
-        printf("数组越界了\n");
-    }
-
-    cout << my_vector[1] << endl;
-
-    try{
-        Vector orther_vector( -10 );
-    }catch( length_error ){
-        printf("length < 0 \n");
-    }catch( bad_alloc )
-    {
-        // 处理内存耗尽问题
-    }
-
-     return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 
     map<string,vector<int> > words_in_line = xref( cin );
 
@@ -470,9 +456,7 @@ int main( int argc, char *argv[] )
     {
         cout << it -> first << " : ";
         for( vector<int>::const_iterator vit = it -> second.begin(); vit != it -> second.end(); ++vit )
-        {
             cout << *vit << " ";
-        }
         cout << endl;
     }
     print_head();
@@ -482,14 +466,10 @@ int main( int argc, char *argv[] )
     map<string, int> counters;
 
     while( cin >> str )
-    {
         ++counters[str];
-    }
 
     for( map<string, int>::const_iterator it = counters.begin(); it != counters.end(); ++it )
-    {
         cout << it -> first << "\t" << it->second << endl;
-    }
 
     string s;
     getline( cin, s );
