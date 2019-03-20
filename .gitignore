@@ -38,6 +38,7 @@ cpp
 .idea
 cmake-build-debug/
 
-
+.log.txt
+.gdb_history
 
 
