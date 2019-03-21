@@ -5,7 +5,6 @@
 using namespace std;
 
 // 计算中值
-// 整个参数都会被复制
 double median( vector<double> vec )
 {
     typedef vector<double>::size_type vec_sz;
