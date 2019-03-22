@@ -18,6 +18,7 @@
 #include <cctype>
 
 #include "common.h"
+#include "func.h"
 #include "stock.h"
 #include "median.h"
 #include "vector.h"
@@ -27,9 +28,40 @@ using namespace std;
 
 int main( int argc, char *argv[] )
 {
-    Vector test_v2 { 1.23, 4.21, 3.45, 7.8 };
+    try
+    {
+        vector<double> temps;
 
-    cout << "sum:" << test_v2.sum() << endl;
+        double temp;
 
-    return EXIT_SUCCESS;
+        while( cin >> temp )
+            temps.push_back(temp);
+
+        sort(temps.begin(),temps.end()); 
+
+        for( auto x : temps )
+            cout << x << "\t";
+
+        cout << endl;
+
+        cout << "中值:" << temps[temps.size()/2] << endl;
+
+        cout << square(12) << endl;
+
+        Vector test_v2 { 1.23, 4.21, 3.45, 7.8 };
+
+        cout << "sum:" << test_v2.sum() << endl;
+
+        return EXIT_SUCCESS;
+    }
+    catch( runtime_error& e )
+    {
+        cerr << "runtime error:" << e.what() << endl;
+        return 1;
+    }
+    catch( ... )
+    {
+        cout << "unknown exception !" << endl;
+        return 2;
+    }
 }
