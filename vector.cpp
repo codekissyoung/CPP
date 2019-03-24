@@ -11,26 +11,45 @@ Vector::Vector(int s)
     sz = s;
 }
 
-Vector::Vector( initializer_list<double> lst )
-    : elem{ new double[lst.size()] }, sz{ lst.size() }
-{
-    copy( lst.begin(), lst.end(), elem );
+void Vector::copy(const Vector &arg) {
+    for(int i = 0; i < arg.size(); ++i )
+        elem[i] = arg.elem[i];
 }
 
-double& Vector::operator[](int i)
+Vector::Vector( const Vector& arg )
+    : elem{ new double[arg.size()] }, sz{ arg.sz }
+{
+    copy(arg);
+}
+
+Vector::Vector( initializer_list<double> lst )
+    : elem{ new double[lst.size()] }, sz{ lst.size() }{
+    ::copy( lst.begin(), lst.end(), elem );
+}
+
+Vector& Vector::operator=( const Vector& vec ){
+    double *p = new double[vec.size()];
+    for( int i = 0; i < vec.size(); ++i )
+        p[i] = vec[i];
+    delete[] elem;
+    elem = p;
+    sz = vec.size();
+    return *this;
+}
+
+double& Vector::operator[](int i) const
 {
     if( i < 0 || i >= size() )
         throw out_of_range { "Vector::operator[]" };
     return elem[i];
 }
 
-int Vector::size()
+int Vector::size() const
 {
     return sz;
 }
 
-void Vector::read()
-{
+void Vector::read(){
     for( int i = 0; i != size(); i++ )
         cin >> elem[i];
 }
