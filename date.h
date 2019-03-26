@@ -1,3 +1,6 @@
+#ifndef __DATE_H__
+#define __DATE_H__
+
 #include <iostream>
 using namespace std;
 namespace My{
@@ -36,3 +39,5 @@ namespace My{
 
     istream& operator>>( istream& is, Date& dd );
 };
+
+#endif

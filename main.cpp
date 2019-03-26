@@ -16,6 +16,8 @@
 #include <cmath>
 #include <climits>
 #include <cctype>
+#include <fstream>
+#include <cerrno>
 
 #include "common.h"
 #include "func.h"
@@ -27,31 +29,21 @@
 
 using namespace std;
 
-int main( int argc, char *argv[] )
+int main(int argc, char *argv[] )
 {
     try
     {
-        vector<double> temps;
+        Vector vec { 23.33, 34.52, 34.23, 21.34 };
 
-        double temp;
+        for( int i = 0; i < vec.size(); ++i )
+            cout << vec[i] << endl;
 
-        while( cin >> temp )
-            temps.push_back(temp);
+        Vector vec2;
+        vec2 = vec;
 
-        sort(temps.begin(),temps.end()); 
-
-        for( auto x : temps )
-            cout << x << "\t";
-
-        cout << endl;
-
-        cout << "中值:" << temps[temps.size()/2] << endl;
-
-        cout << square(12) << endl;
-
-        Vector test_v2 { 1.23, 4.21, 3.45, 7.8 };
-
-        cout << "sum:" << test_v2.sum() << endl;
+        cout << "vec2 : " << endl;
+        for( int i = 0; i < vec2.size(); ++i )
+            cout << vec2[i] << endl;
 
         return EXIT_SUCCESS;
     }
@@ -66,3 +58,4 @@ int main( int argc, char *argv[] )
         return 2;
     }
 }
+
