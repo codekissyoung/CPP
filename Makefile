@@ -13,3 +13,5 @@ clean:
 	$(RM) *.o
 	$(RM) $(BIN)
 	$(RM) *.gch
+	$(RM) .log.txt
+	$(RM) .gdb_history
