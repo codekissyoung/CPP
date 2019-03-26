@@ -1,7 +1,6 @@
 #ifndef __VECTOR__
 #define __VECTOR__
 #include <initializer_list>
-using namespace std;
 class Vector
 {
     private:
@@ -19,7 +18,7 @@ class Vector
         Vector( int s );
 
         // 使用 初始化列表 的构造函数
-        Vector( initializer_list<double> lst );
+        Vector( std::initializer_list<double> lst );
 
         // 拷贝构造函数
         Vector( const Vector& arg );

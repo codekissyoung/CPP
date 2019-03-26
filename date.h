@@ -2,7 +2,6 @@
 #define __DATE_H__
 
 #include <iostream>
-using namespace std;
 namespace My{
 
     class Date
@@ -35,9 +34,9 @@ namespace My{
     bool operator==( const Date& a, const Date& b );
     bool operator!=( const Date& a, const Date& b );
 
-    ostream& operator<<( ostream& os, const Date& d );
+    std::ostream& operator<<( std::ostream& os, const Date& d );
 
-    istream& operator>>( istream& is, Date& dd );
+    std::istream& operator>>( std::istream& is, Date& dd );
 };
 
 #endif
