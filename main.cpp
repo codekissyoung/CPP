@@ -33,17 +33,13 @@ int main(int argc, char *argv[] )
 {
     try
     {
-        Vector vec { 23.33, 34.52, 34.23, 21.34 };
+        int int_arr[] = { 1, 2, 3, 4, 5, 6 };
 
-        for( int i = 0; i < vec.size(); ++i )
-            cout << vec[i] << endl;
+        vector<int> ivec( begin( int_arr ), end( int_arr ) );
 
-        Vector vec2;
-        vec2 = vec;
+        for( auto x : ivec )
+            cout << x << endl;
 
-        cout << "vec2 : " << endl;
-        for( int i = 0; i < vec2.size(); ++i )
-            cout << vec2[i] << endl;
 
         return EXIT_SUCCESS;
     }
