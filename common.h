@@ -2,6 +2,7 @@
 #define __COMMON_H__
 #include <iostream>
 #include <string>
+#include <vector>
 struct Reading{
     int hour;
     double temperature;
@@ -51,14 +52,43 @@ class Screen
         Screen( pos ht, pos wd, char c ): height(ht), width(wd), contents( ht * wd, c ) { }
 
         // 读取光标处字符
-        char get() const { return contents[cursor]; }
+        inline char get() const { return contents[cursor]; }
         inline char get( pos ht, pos wd ) const;
-        Screen &move( pos r, pos c);
+
+        // 设置光标所在处的字符
+        Screen &set(char);
+        inline Screen &set(pos, pos, char);
+
+        Screen &move( pos r, pos c );
+
+        Screen &display( std::ostream &os )
+        {
+            do_display(os);
+            return *this;
+        }
+
+        const Screen &display( std::ostream &os ) const
+        {
+            do_display(os);
+            return *this;
+        }
 
     private:
         pos cursor = 0;
         pos height = 0, width = 0;
         std::string contents;
+
+        void do_display( std::ostream &os ) const
+        {
+            os << contents;
+        }
+};
+
+// ------------------------------------- Screen class ------------------------------------- //
+class Window_mgr
+{
+    private:
+        std::vector<Screen> screens { Screen(24, 80, ' ') };
 };
 
 #endif

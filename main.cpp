@@ -33,18 +33,8 @@ int main(int argc, char *argv[] )
 {
     try
     {
-        Sales_data book1( cin );
-
-        print( cout, book1 );
-
-        int int_arr[] = { 1, 2, 3, 4, 5, 6 };
-
-        vector<int> ivec( begin( int_arr ), end( int_arr ) );
-
-        for( auto x : ivec )
-            cout << x << endl;
-
-
+        Screen myScreen( 5, 5, 'x' );
+        myScreen.move( 4, 0 ).set('#').display(cout);
         return EXIT_SUCCESS;
     }
     catch( runtime_error& e )
