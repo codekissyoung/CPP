@@ -1,6 +1,7 @@
 #ifndef __COMMON_H__
 #define __COMMON_H__
-
+#include <iostream>
+#include <string>
 struct Reading{
     int hour;
     double temperature;
@@ -10,5 +11,54 @@ struct Reading{
 void skip_to_int();
 int get_int();
 int get_int(int low, int high);
+
+// ------------------------------------- Sales_data class ------------------------------------- //
+class Sales_data
+{
+    // Sales_data 友元声明
+    friend Sales_data add( const Sales_data&, const Sales_data& );
+    friend std::ostream &print( std::ostream&, const Sales_data& );
+    friend std::istream &read( std::istream&, Sales_data& );
+
+    public:
+        Sales_data() = default; // 默认构造函数
+        Sales_data( const std::string &s ) : bookNo(s) { }
+        Sales_data( const std::string &s, unsigned n, double p ) : bookNo(s), units_sold(n), revenue( p * n ) { }
+        Sales_data( std::istream& );
+
+        std::string isbn() const { return bookNo; }
+
+        Sales_data& combine( const Sales_data& );
+        double avg_price() const;
+
+    private:
+        std::string bookNo;
+        unsigned units_sold = 0;
+        double revenue = 0.0;
+};
+
+// Sales_data 的非成员函数声明
+Sales_data add( const Sales_data&, const Sales_data& );
+std::ostream &print( std::ostream&, const Sales_data& );
+std::istream &read( std::istream&, Sales_data& );
+
+// ------------------------------------- Screen class ------------------------------------- //
+class Screen
+{
+    public:
+        typedef std::string::size_type pos;
+        Screen() = default;
+        Screen( pos ht, pos wd, char c ): height(ht), width(wd), contents( ht * wd, c ) { }
+
+        // 读取光标处字符
+        char get() const { return contents[cursor]; }
+        inline char get( pos ht, pos wd ) const;
+        Screen &move( pos r, pos c);
+
+    private:
+        pos cursor = 0;
+        pos height = 0, width = 0;
+        std::string contents;
+};
 
 #endif

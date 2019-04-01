@@ -33,6 +33,10 @@ int main(int argc, char *argv[] )
 {
     try
     {
+        Sales_data book1( cin );
+
+        print( cout, book1 );
+
         int int_arr[] = { 1, 2, 3, 4, 5, 6 };
 
         vector<int> ivec( begin( int_arr ), end( int_arr ) );
