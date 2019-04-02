@@ -33,8 +33,7 @@ int main(int argc, char *argv[] )
 {
     try
     {
-
-        vector<Student_info> students;
+        list<Student_info> students;
 
         Student_info record;
 
@@ -43,18 +42,25 @@ int main(int argc, char *argv[] )
             students.push_back(record);
         }
 
-        sort(students.begin(), students.end(), compare );
-
+        extract_fails( students );
+        students.sort( compare );
 
         for( auto x : students )
         {
-            cout << x.name << "  ";
-
             double final_grade = grade( x );
-
-            cout << "总成绩 : " << final_grade << endl;
+            cout << x.name << "  " << "总成绩 : " << final_grade << endl;
         }
 
+        string test_str = "nice to meet you";
+
+        auto split_str_arr = split( test_str );
+
+        for( auto x : split_str_arr )
+        {
+            cout << x << " ";
+        }
+
+        cout << endl;
         return 0;
     }
     catch( domain_error e )

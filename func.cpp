@@ -1,8 +1,41 @@
 #include "common.h"
+#include "func.h"
 
 #include <iostream>
+#include <vector>
+#include <string>
+#include <cctype>
 
 using namespace std;
+
+vector<string> split( const string &s )
+{
+    typedef string::size_type string_size;
+
+    vector<string> ret;
+
+    string_size i = 0; // 单词的第一个字符 索引
+    string_size j = 0; // 单词的最后一个字符索引的 后一位
+
+    while ( i != s.size() )
+    {
+        // 忽略前段的空白字符
+        while ( i != s.size() && isspace(s[i]) )
+            ++i;
+
+        j = i;
+        while ( j != s.size() && !isspace(s[j]) )
+            ++j;
+
+        if( i != j )
+        {
+            ret.push_back( s.substr( i, j - i ) );
+            i = j;
+        }
+    }
+
+    return ret;
+}
 
 int square( int x )
 {

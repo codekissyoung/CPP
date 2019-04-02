@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <vector>
 #include <iostream>
+#include <list>
 
 using namespace std;
 
@@ -75,4 +76,67 @@ bool compare( const Student_info &x, const Student_info &y )
 bool fgrade( const Student_info &s )
 {
     return grade(s) < 60;
+}
+
+// 返回不及格的学生 实现1
+vector<Student_info> extract_fails(vector<Student_info> &students)
+{
+    vector<Student_info> fail;
+    vector<Student_info>::size_type i = 0;
+
+    while ( i != students.size() )
+    {
+        if( fgrade(students[i]) )
+        {
+            fail.push_back(students[i]);
+            students.erase(students.begin() + i );
+        } else{
+            ++i;
+        }
+    }
+    return fail;
+}
+
+// 返回不及格的学生 实现2
+vector<Student_info> extract_fails1( vector<Student_info> &students )
+{
+    vector<Student_info> fail;
+    vector<Student_info>::iterator iter = students.begin();
+
+    while( iter != students.end() )
+    {
+        if( fgrade(*iter) )
+        {
+            fail.push_back(*iter);
+            // 进行 erase 操作后，所有位于删除元素后面的元素的迭代器都会失效。
+            // 所幸，erase 返回了一个迭代器，它指向我们刚刚删除的元素的后一个元素
+            // 所以赋值给 iter 后，迭代器继续生效
+            iter = students.erase(iter);
+        }
+        else
+            ++iter;
+    }
+    return fail;
+}
+
+// 使用 list 代替 vector 来实现高效的插入与删除操作
+list<Student_info> extract_fails( list<Student_info> &students )
+{
+    list<Student_info> fail;
+    list<Student_info>::iterator iter = students.begin();
+
+    while( iter != students.end() )
+    {
+        if( fgrade(*iter) )
+        {
+            fail.push_back(*iter);
+            // 进行 erase 操作后，所有位于删除元素后面的元素的迭代器都会失效。
+            // 所幸，erase 返回了一个迭代器，它指向我们刚刚删除的元素的后一个元素
+            // 所以赋值给 iter 后，迭代器继续生效
+            iter = students.erase(iter);
+        }
+        else
+            ++iter;
+    }
+    return fail;
 }
