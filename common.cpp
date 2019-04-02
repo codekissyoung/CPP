@@ -44,7 +44,6 @@ Sales_data add( const Sales_data &lhs, const Sales_data &rhs )
     return sum;
 }
 
-
 // ------------------------------ Screen class -------------------------------- //
 Screen &Screen::move( pos r, pos c )
 {

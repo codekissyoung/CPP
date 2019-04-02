@@ -1,3 +1,11 @@
+#include "common.h"
+#include "func.h"
+#include "stock.h"
+#include "median.h"
+#include "vector.h"
+#include "container.h"
+#include "date.h"
+
 #include <iomanip>
 #include <ios>
 #include <iostream>
@@ -18,14 +26,6 @@
 #include <cctype>
 #include <fstream>
 #include <cerrno>
-
-#include "common.h"
-#include "func.h"
-#include "stock.h"
-#include "median.h"
-#include "vector.h"
-#include "container.h"
-#include "date.h"
 
 using namespace std;
 
