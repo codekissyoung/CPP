@@ -1,3 +1,5 @@
+#include "median.h"
+
 #include <algorithm>
 #include <stdexcept>
 #include <vector>
@@ -47,4 +49,30 @@ istream &read_hw( istream &in, vector<double> &hw )
         in.clear();
     }
     return in;
+}
+
+// 读入一个学生的成绩
+istream &read( istream &is, Student_info &s )
+{
+    is >> s.name >> s.midterm_score >> s.final_score;
+    read_hw( is, s.homework );
+    return is;
+}
+
+// 算出一个学生的总成绩
+double grade( const Student_info &s )
+{
+    return grade( s.midterm_score, s.final_score, s.homework );
+}
+
+// 比较两个Student_info的大小
+bool compare( const Student_info &x, const Student_info &y )
+{
+    return x.name < y.name;
+}
+
+// 判断该成绩是否合格
+bool fgrade( const Student_info &s )
+{
+    return grade(s) < 60;
 }

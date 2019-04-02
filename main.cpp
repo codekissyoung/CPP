@@ -33,32 +33,33 @@ int main(int argc, char *argv[] )
 {
     try
     {
-        cout << "学生姓名 : ";
-        string name;
-        cin >> name;
-        
-        cout << "成绩: ";
-        double m_score, f_score;
-        cin >> m_score >> f_score;
+
+        vector<Student_info> students;
+
+        Student_info record;
+
+        while( read(cin, record) )
+        {
+            students.push_back(record);
+        }
+
+        sort(students.begin(), students.end(), compare );
 
 
-        cout << "家庭作业: ";
-        vector<double> homework;
-        
-        read_hw( cin, homework );
+        for( auto x : students )
+        {
+            cout << x.name << "  ";
 
-        double final_grade = grade( m_score, f_score, homework );
+            double final_grade = grade( x );
 
-        cout << endl
-             << "期中:" << m_score 
-             << " 期末:" << f_score 
-             << " 家庭:" << median( homework ) 
-             << " 总成绩:" << final_grade << endl;
- 
+            cout << "总成绩 : " << final_grade << endl;
+        }
+
         return 0;
     }
-    catch( domain_error )
+    catch( domain_error e )
     {
+        cout << e.what();
         cout << endl << "no homework grades" << endl;
     }
     catch( runtime_error& e )
