@@ -9,7 +9,8 @@ int square( int x )
     return x * x;
 }
 
-void skip_to_int() {
+void skip_to_int()
+{
     if(cin.fail())
     {
         cin.clear();
@@ -35,7 +36,6 @@ int get_int()
         skip_to_int();
     }
 }
-
 
 int get_int(int low, int high )
 {

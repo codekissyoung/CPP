@@ -1,6 +1,8 @@
 #ifndef __VECTOR__
 #define __VECTOR__
+
 #include <initializer_list>
+
 class Vector
 {
     private:
@@ -11,8 +13,7 @@ class Vector
     public:
 
         // 默认构造函数
-        Vector()
-        = default;
+        Vector() = default;
 
         // 使用 整数 的构造函数
         Vector( int s );

@@ -41,27 +41,25 @@ int main(int argc, char *argv[] )
         double m_score, f_score;
         cin >> m_score >> f_score;
 
-        double x = 0;
+
+        cout << "家庭作业: ";
         vector<double> homework;
-
-        while( cin >> x )
-            homework.push_back( x );
-
-        auto count = homework.size();
-
-        sort( homework.begin(), homework.end() );
         
-        auto mid = count / 2;
-        double median;
-        median = count % 2 == 0 ? ( homework[mid] + homework[mid-1] ) / 2 : homework[mid]; 
+        read_hw( cin, homework );
+
+        double final_grade = grade( m_score, f_score, homework );
 
         cout << endl
              << "期中:" << m_score 
              << " 期末:" << f_score 
-             << " 家庭:" << median
-             << " 总成绩:" << 0.2 * m_score + 0.4 * f_score + 0.4 * median << endl;
+             << " 家庭:" << median( homework ) 
+             << " 总成绩:" << final_grade << endl;
  
         return 0;
+    }
+    catch( domain_error )
+    {
+        cout << endl << "no homework grades" << endl;
     }
     catch( runtime_error& e )
     {

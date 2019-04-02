@@ -1,21 +1,50 @@
 #include <algorithm>
 #include <stdexcept>
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
-// 计算中值
+// 获取中值
 double median( vector<double> vec )
 {
-    typedef vector<double>::size_type vec_sz;
-    vec_sz size = vec.size();
+    auto size = vec.size();
 
     if( size == 0 )
         throw domain_error( "median of an empty vector " );
 
     sort( vec.begin(), vec.end() );
 
-    vec_sz mid = size / 2;
+    auto mid = size / 2;
 
     return ( size % 2 == 0 ) ? ( vec[mid] + vec[ mid - 1 ] ) / 2 : vec[ mid ];
+}
+
+// 计算总成绩
+double grade( double m_score, double f_score, double h_score )
+{
+    return 0.2 * m_score + 0.4 * f_score + 0.4 * h_score;
+}
+
+double grade( double m_score, double f_score, const vector<double> &hw )
+{
+    if( hw.size() == 0 )
+        throw domain_error("no homework");
+    return grade( m_score, f_score, median( hw ) );
+}
+
+// 读取家庭成绩
+istream &read_hw( istream &in, vector<double> &hw )
+{
+    if( in )
+    {
+        hw.clear();
+
+        double x;
+        while( in >> x )
+            hw.push_back(x);
+
+        in.clear();
+    }
+    return in;
 }

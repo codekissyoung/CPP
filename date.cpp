@@ -3,7 +3,8 @@
 #include <ostream>
 #include "date.h"
 using namespace std;
-namespace My{
+namespace My
+{
     Date::Date( int y, Month m, int d )
         : y( y ), m( m ), d(d)
     {

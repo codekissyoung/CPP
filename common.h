@@ -4,12 +4,6 @@
 #include <string>
 #include <vector>
 
-struct Student_info{
-    std::string name;
-    double midterm_score, final_score;
-    std::vector<double> homework;
-};
-
 struct Reading{
     int hour;
     double temperature;
