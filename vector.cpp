@@ -1,8 +1,10 @@
 #include "vector.h"
+
 #include <iostream>
 #include <initializer_list>
 
 using namespace std;
+
 Vector::Vector(int s)
 {
     if( s < 0 )
@@ -11,7 +13,8 @@ Vector::Vector(int s)
     sz = s;
 }
 
-void Vector::copy(const Vector &arg) {
+void Vector::copy(const Vector &arg)
+{
     for(int i = 0; i < arg.size(); ++i )
         elem[i] = arg.elem[i];
 }
@@ -23,11 +26,13 @@ Vector::Vector( const Vector& arg )
 }
 
 Vector::Vector( initializer_list<double> lst )
-    : elem{ new double[lst.size()] }, sz{ lst.size() }{
+    : elem{ new double[lst.size()] }, sz{ lst.size() }
+{
     ::copy( lst.begin(), lst.end(), elem );
 }
 
-Vector& Vector::operator=( const Vector& vec ){
+Vector& Vector::operator=( const Vector& vec )
+{
     double *p = new double[vec.size()];
     for( int i = 0; i < vec.size(); ++i )
         p[i] = vec[i];
@@ -49,7 +54,8 @@ int Vector::size() const
     return sz;
 }
 
-void Vector::read(){
+void Vector::read()
+{
     for( int i = 0; i != size(); i++ )
         cin >> elem[i];
 }

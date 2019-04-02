@@ -1,5 +1,7 @@
-#include <iostream>
 #include "stock.h"
+
+#include <iostream>
+
 using namespace std;
 
 Stock::Stock()
@@ -91,7 +93,3 @@ const Stock& Stock::topval( const Stock& s ) const
     else
         return *this;
 }
-
-
-
-

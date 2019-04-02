@@ -43,6 +43,7 @@ int main(int argc, char *argv[] )
 
         double x = 0;
         vector<double> homework;
+
         while( cin >> x )
             homework.push_back( x );
 
