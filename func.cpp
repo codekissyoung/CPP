@@ -8,6 +8,7 @@
 
 using namespace std;
 
+// 将一段字符拆分成单词
 vector<string> split( const string &s )
 {
     typedef string::size_type string_size;
@@ -33,6 +34,28 @@ vector<string> split( const string &s )
             i = j;
         }
     }
+
+    return ret;
+}
+
+// 获取一个 string 向量的最长字符串的 长度
+string::size_type width( const vector<string> &v )
+{
+    string::size_type maxlen = 0;
+    for( auto &x : v )
+    {
+        maxlen = max( maxlen, x.size() );
+    }
+    return maxlen;
+}
+
+vector<string> frame( const vector<string> &v )
+{
+    vector<string> ret;
+    string::size_type maxlen = width(v);
+    
+    for( auto x : v )
+        ret.push_back("* " + x + string(maxlen - x.size(),' ') + " *");
 
     return ret;
 }
