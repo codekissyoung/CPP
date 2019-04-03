@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <list>
 
 int square( int x );
 
@@ -30,5 +31,25 @@ bool is_palindrome( const std::string& s );
 
 // 不是 url 的字符
 bool not_url_char( char c );
+
+// 函数模板的使用
+template <typename elemType>
+void print( const std::vector<elemType> &vec )
+{
+    std::cout << "{ ";
+    for( auto x : vec )
+        std::cout << x << ", ";
+    std::cout << " }" << std::endl;
+}
+
+// 函数模板的使用
+template <typename elemType>
+void print( const std::list<elemType> &li )
+{
+    std::cout << "{ ";
+    for( auto x : li )
+        std::cout << x << ", ";
+    std::cout << " }" << std::endl;
+}
 
 #endif
