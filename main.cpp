@@ -34,21 +34,19 @@ int main( int argc, char *argv[] )
     try
     {
         vector<string> test_str {"hello","codekissyong","very funny"};
-
-        print(test_str);
-
         vector<int> test_int { 12, 34, 55, 67, 76, 32, 23 };
 
-        print( test_int );
+        print(test_int);
+        print(test_str);
 
         return 0;
     }
-    catch( domain_error e )
+    catch( domain_error &e )
     {
         cout << e.what();
         cout << endl << "no homework grades" << endl;
     }
-    catch( runtime_error& e )
+    catch( runtime_error &e )
     {
         cerr << "runtime error:" << e.what() << endl;
         return 1;

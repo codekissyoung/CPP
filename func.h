@@ -52,4 +52,6 @@ void print( const std::list<elemType> &li )
     std::cout << " }" << std::endl;
 }
 
+int *find( const std::vector<int> &vec, int value );
+
 #endif
