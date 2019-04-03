@@ -51,16 +51,6 @@ int main(int argc, char *argv[] )
             cout << x.name << "  " << "总成绩 : " << final_grade << endl;
         }
 
-        string test_str = "nice to meet you";
-
-        auto split_str_arr = split( test_str );
-
-        for( auto x : split_str_arr )
-        {
-            cout << x << " ";
-        }
-
-        cout << endl;
         return 0;
     }
     catch( domain_error e )
