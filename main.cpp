@@ -33,22 +33,47 @@ int main(int argc, char *argv[] )
 {
     try
     {
-        list<Student_info> students;
+        // list<Student_info> students;
+        // Student_info record;
 
-        Student_info record;
+        // while( read(cin, record) )
+        // {
+        //     students.push_back(record);
+        // }
 
-        while( read(cin, record) )
+        // extract_fails( students );
+        // students.sort( compare );
+
+        // for( auto x : students )
+        // {
+        //     double final_grade = grade( x );
+        //     cout << x.name << "  " << "总成绩 : " << final_grade << endl;
+        // }
+
+        vector<string> abc {"my name", "is", "codekissyoung"};
+        vector<string> abc_with_star = frame( abc );
+        for( auto x : abc_with_star )
         {
-            students.push_back(record);
+            cout << x ;
+            cout << endl;
         }
 
-        extract_fails( students );
-        students.sort( compare );
+        vector<string> efg {"my favorite food", "is", "apple", "hahhahh"};
 
-        for( auto x : students )
+        vector<string> vcat_str = frame( hcat( abc, efg ) );
+        for( auto x : vcat_str )
         {
-            double final_grade = grade( x );
-            cout << x.name << "  " << "总成绩 : " << final_grade << endl;
+            cout << x;
+            cout << endl;
+        }
+
+        string test_str {"hello i come from china"};
+
+        vector<string> test_str_vec = split1( test_str );
+        for( auto x : test_str_vec )
+        {
+            cout << x;
+            cout << endl;
         }
 
         return 0;
