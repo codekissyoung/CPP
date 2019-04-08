@@ -6,8 +6,40 @@
 #include <string>
 #include <cctype>
 #include <algorithm>
+#include <array>
 
 using namespace std;
+
+// 函数指针
+const double * (*p_fun)( const double *, int );
+
+// 一个数组，数组的每个元素都是 p1 函数指针
+const double * (*p_arr[3])( const double *, int );
+
+// 一个指针，指针指向 pa
+const double * (*(*p_pointer)[3])( const double *, int );
+
+void fill( array<double, Seasons> *pa )
+{
+    for( int i = 0; i < Seasons; i++ )
+    {
+        cout << "Enter " << Snames[i] << " expenses: ";
+        cin >> (*pa)[i];
+    }
+}
+
+void show( array<double, Seasons> da )
+{
+    double  total = 0.0;
+    cout << "\nEXPENSES\n";
+    for( int i = 0; i < Seasons; i++ )
+    {
+        cout << Snames[i] << " : $" << da[i] << endl;
+        total += da[i];
+    }
+    cout << "Total Expenses: $ " << total << endl;
+}
+
 
 typedef string::const_iterator iter;
 

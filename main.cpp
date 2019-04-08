@@ -33,6 +33,11 @@ int main( int argc, char *argv[] )
 {
     try
     {
+
+        array<double, Seasons> expenses;
+        fill( &expenses );
+        show( expenses );
+
         int *pt = new int {100};
         int *pt_arr = new int[10];
 

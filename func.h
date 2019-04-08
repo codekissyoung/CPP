@@ -1,10 +1,24 @@
-#ifndef __FUNC__
-#define __FUNC__
+#ifndef __FUNC_H__
+#define __FUNC_H__
 
 #include <iostream>
 #include <vector>
 #include <string>
 #include <list>
+#include <array>
+
+const int Seasons = 4;
+
+const std::array<std::string, Seasons> Snames = {
+        "Spring",
+        "Summer",
+        "Fall",
+        "Winter"
+};
+
+void fill( std::array<double, Seasons> *pa );
+
+void show( std::array<double, Seasons> da );
 
 int square( int x );
 
