@@ -9,6 +9,7 @@
 #include <iomanip>
 #include <ios>
 #include <iostream>
+#include <fstream>
 #include <complex>
 #include <vector>
 #include <string>
@@ -24,7 +25,6 @@
 #include <cmath>
 #include <climits>
 #include <cctype>
-#include <fstream>
 #include <cerrno>
 
 using namespace std;
