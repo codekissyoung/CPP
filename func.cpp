@@ -10,6 +10,8 @@
 
 using namespace std;
 
+typedef string::const_iterator iter;
+
 // 函数指针
 const double * (*p_fun)( const double *, int );
 
@@ -39,9 +41,6 @@ void show( array<double, Seasons> da )
     }
     cout << "Total Expenses: $ " << total << endl;
 }
-
-
-typedef string::const_iterator iter;
 
 bool not_url_char( char c )
 {

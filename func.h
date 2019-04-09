@@ -22,6 +22,8 @@ void show( std::array<double, Seasons> da );
 
 int square( int x );
 
+int *find( const std::vector<int> &vec, int value );
+
 // 将一段字符拆分成单词
 std::vector<std::string> split( const std::string &s );
 
@@ -65,7 +67,5 @@ void print( const std::list<elemType> &li )
         std::cout << x << ", ";
     std::cout << " }" << std::endl;
 }
-
-int *find( const std::vector<int> &vec, int value );
 
 #endif

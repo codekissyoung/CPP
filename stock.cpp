@@ -7,13 +7,29 @@ using namespace std;
 Stock::Stock()
 {
     company     = "unknown Company";
-    shares      = 10;
-    share_val   = 1;
+    shares      = 0;
+    share_val   = 0;
     set_tot();
 }
 
-// 管理某个公司的股票 首次购买
 Stock::Stock( const string& co, long n, double pr )
+{
+    company = co;
+    if( n < 0 )
+    {
+        cout << "Number of shares can not be negative " << company  << " shares set to 0 \n";
+        shares = 0;
+    }
+    else
+    {
+        shares = n;
+    }
+
+    share_val = pr;
+    set_tot();
+}
+
+void Stock::acquire( const string& co, long n, double pr )
 {
     company = co;
     if( n < 0 )
@@ -32,10 +48,10 @@ Stock::Stock( const string& co, long n, double pr )
 
 Stock::~Stock()
 {
-//    cout << company <<" 调用析构函数" << endl;
+   cout << company << "~Stock 析构\n" << endl;
 }
 
-// 买入股票
+
 void Stock::buy( long num, double price )
 {
     if( num < 0 )
@@ -50,7 +66,6 @@ void Stock::buy( long num, double price )
     }
 }
 
-// 卖出股票
 void Stock::sell( long num, double price )
 {
     if( num < 0)
@@ -69,14 +84,13 @@ void Stock::sell( long num, double price )
     }
 }
 
-// 更新股价
 void Stock::update( double price )
 {
     share_val = price;
     set_tot();
 }
 
-// 显示大概情况
+
 void Stock::show()
 {
     cout << "Company : " << company << "\t"
@@ -85,8 +99,8 @@ void Stock::show()
          << "Total Worth : " << total_val << endl;
 }
 
-// 获取总股价更高的那个对象
-const Stock& Stock::topval( const Stock& s ) const
+
+const Stock &Stock::topval( const Stock &s ) const
 {
     if ( s.total_val > total_val )
         return s;
