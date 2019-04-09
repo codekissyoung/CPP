@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(.)
 
 add_executable(CPP
+        common.cpp
         common.h
         func.cpp
         main.cpp
@@ -19,4 +20,6 @@ add_executable(CPP
         container.cpp
         container.h
         date.h
-        date.cpp)
+        date.cpp
+        stack.h
+        stack.cpp)

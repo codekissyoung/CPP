@@ -99,7 +99,6 @@ void Stock::show()
          << "Total Worth : " << total_val << endl;
 }
 
-
 const Stock &Stock::topval( const Stock &s ) const
 {
     if ( s.total_val > total_val )
