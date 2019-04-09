@@ -33,7 +33,23 @@ int main( int argc, char *argv[] )
 {
     try
     {
-        vector<string> test_str {"hello","codekissyong","very funny"};
+
+        array<double, Seasons> expenses;
+        fill( &expenses );
+        show( expenses );
+
+        int *pt = new int {100};
+        int *pt_arr = new int[10];
+
+        int arr[10] = { 10, 23, 45, 56, 67, 76};
+
+        cout << "sizeof pt_arr" << sizeof(pt_arr) << endl;
+        cout << "sizeof arr" << sizeof(arr) << endl;
+        cout << "*pt: " << *pt << endl;
+
+        delete pt;
+
+        vector<string> test_str {"hello", "codekissyong", "very funny"};
         vector<int> test_int { 12, 34, 55, 67, 76, 32, 23 };
 
         print(test_int);
