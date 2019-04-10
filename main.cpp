@@ -8,6 +8,8 @@
 #include "stack.h"
 
 #include <iostream>
+#include <cmath>
+#include <ctime>
 
 int main( int argc, char *argv[] )
 {
@@ -15,11 +17,25 @@ int main( int argc, char *argv[] )
 
     try
     {
+        const int MOD = 1000000;
+        int n, S = 0;
+        scanf("%d", &n);
 
+        for( int i = 1; i <= n; i++ )
+        {
+            int factorial = 1;
+            for( int j = 1; j <= i; j++ )
+            {
+                factorial = factorial * j % MOD;
+            }
+            S = (S + factorial) % MOD;
+        }
+        printf("%d\n", S);
+        printf("time used = %.2f \n", (double)clock() / CLOCKS_PER_SEC);
+
+        /*
         Stack st;
-        
         char ch;
-
         unsigned long po;
         cout << "a for add, p for pop, q for Quit:";
         while( cin >> ch && toupper(ch) != 'Q')
@@ -54,6 +70,7 @@ int main( int argc, char *argv[] )
             }
             cout << "a for add, p for pop, q for Quit:";
         }
+        */
         
         /*
         // 测试股票
