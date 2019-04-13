@@ -18,6 +18,7 @@ int main( int argc, char *argv[] )
 
     try
     {
+        cout << PI << endl;
         uint64_t count;
         cout << "count:";
         cin >> count;

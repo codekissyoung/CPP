@@ -1,5 +1,10 @@
 #include "common.h"
 
+// 常量定义
+extern const double PI = 3.1415926535;
+extern const double PI_under_180 = 180.0f/PI;
+extern const double PI_over_180 = PI/180.0f;
+
 using namespace std;
 
 Sales_data::Sales_data( std::istream &is )
