@@ -4,6 +4,11 @@
 #include <string>
 #include <vector>
 
+// 常量声明，定义在别处，所以需要注明 extern
+extern const double PI;
+extern const double PI_under_180;
+extern const double PI_over_180;
+
 struct Reading{
     int hour;
     double temperature;
