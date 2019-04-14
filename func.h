@@ -54,8 +54,8 @@ void print( const std::vector<elemType> &vec )
 {
     std::cout << "{ ";
     for( auto x : vec )
-        std::cout << x << ", ";
-    std::cout << " }" << std::endl;
+        std::cout << x << " ";
+    std::cout << "}" << std::endl;
 }
 
 // 函数模板的使用
@@ -64,8 +64,34 @@ void print( const std::list<elemType> &li )
 {
     std::cout << "{ ";
     for( auto x : li )
-        std::cout << x << ", ";
+        std::cout << x << " ";
+    std::cout << "}" << std::endl;
+}
+
+// 打印数组
+template <typename elemType>
+void print( elemType* arr, int n )
+{
+    std::cout << "{ ";
+    for( int i = 0; i < n; i++ )
+    {
+        std::cout << arr[i];
+        if( i != n -1 )
+            std::cout << ", ";
+    }
     std::cout << " }" << std::endl;
 }
+
+template <typename elemType>
+void swap( elemType &v1, elemType &v2 )
+{
+    elemType temp;
+    temp = v1;
+    v1 = v2;
+    v2 = temp;
+}
+
+// 全排列算法
+void permutation( int* arr, int s, int e );
 
 #endif

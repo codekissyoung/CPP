@@ -12,30 +12,15 @@
 #include <ctime>
 #include <cstdio>
 
+using namespace std;
+
 int main( int argc, char *argv[] )
 {
-    using namespace std;
-
     try
     {
-        uint64_t count;
-        cout << "count:";
-        cin >> count;
+        int arr[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
-        uint64_t begin = pow(10, count -1);
-        uint64_t end   = pow(10, count);
-
-        for(uint64_t num = begin; num < end; ++num )
-        {
-            uint64_t sum = 0;
-            for(uint64_t pos = 0; pos < count; pos++ )
-            {
-                uint64_t divisor = pow(10, pos);
-                sum += pow( num / divisor % 10, count);
-            }
-            if( num == sum )
-                cout << num << endl;
-        }
+        permutation( arr, 0, sizeof(arr)/ sizeof(int) - 1 );
 
         return 0;
     }

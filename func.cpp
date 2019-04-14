@@ -265,3 +265,25 @@ int get_int(int low, int high )
         cout << n << " not between " << low << " - " << high << endl;
     }
 }
+
+// 全排列算法
+void permutation( int* arr, int s, int e )
+{
+    if( s == e )
+    {
+        auto a = arr[0] * 100 + arr[1] * 10 + arr[2];
+        auto b = arr[3] * 100 + arr[4] * 10 + arr[5];
+        auto c = arr[6] * 100 + arr[7] * 10 + arr[8];
+        if( b == a + a && c == a + a + a ) // 验证 a:b:c = 1:2:3
+            printf("%d %d %d\n", a, b, c);
+    }
+    else
+    {
+        for( int i = s; i <= e; i++ )
+        {
+            ::swap( arr[s], arr[i] );
+            permutation( arr, s + 1, e );
+            ::swap( arr[s], arr[i] );
+        }
+    }
+}
