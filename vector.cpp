@@ -19,14 +19,12 @@ void Vector::copy(const Vector &arg)
         elem[i] = arg.elem[i];
 }
 
-Vector::Vector( const Vector& arg )
-    : elem{ new double[arg.size()] }, sz{ arg.sz }
+Vector::Vector( const Vector& arg ) : elem{ new double[arg.size()] }, sz{ arg.sz }
 {
     copy(arg);
 }
 
-Vector::Vector( initializer_list<double> lst )
-    : elem{ new double[lst.size()] }, sz{ lst.size() }
+Vector::Vector( initializer_list<double> lst ) : elem{ new double[lst.size()] }, sz{ lst.size() }
 {
     ::copy( lst.begin(), lst.end(), elem );
 }

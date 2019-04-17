@@ -29,7 +29,7 @@ Stock::Stock( const string& co, long n, double pr )
     set_tot();
 }
 
-void Stock::acquire( const string& co, long n, double pr )
+void Stock::acquire( const string &co, long n, double pr )
 {
     company = co;
     if( n < 0 )

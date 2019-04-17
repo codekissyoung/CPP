@@ -4,20 +4,18 @@
 
 class Stock
 {
-    private :
+    std::string company; // 持有公司名称
 
-        std::string company; // 持有公司名称
-    
-        long shares; // 股票数量
+    long shares; // 股票数量
 
-        double share_val; // 每股价格
+    double share_val; // 每股价格
 
-        double total_val; // 持股总价格
+    double total_val; // 持股总价格
 
-        void set_tot()
-        {
-            total_val = shares * share_val;
-        }
+    void set_tot()
+    {
+        total_val = shares * share_val;
+    }
 
     public :
 
