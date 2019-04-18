@@ -1,9 +1,9 @@
 #include "common.h"
 
 // 常量定义
-extern const double PI = 3.1415926535;
-extern const double PI_under_180 = 180.0f/PI;
-extern const double PI_over_180 = PI/180.0f;
+const double PI = 3.1415926535;
+const double PI_under_180 = 180.0f/PI;
+const double PI_over_180 = PI/180.0f;
 
 using namespace std;
 
@@ -37,7 +37,10 @@ istream &read( istream &is, Sales_data &item )
 
 ostream &print( ostream &os, const Sales_data &item )
 {
-    os << "isbn: " << item.isbn() << " sold: " << item.units_sold << " revenue: " << item.revenue << " avg_price: " << item.avg_price();
+    os << "isbn: " << item.isbn()
+       << " sold: " << item.units_sold
+       << " revenue: " << item.revenue
+       << " avg_price: " << item.avg_price();
     return os;
 }
 

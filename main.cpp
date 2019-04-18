@@ -21,7 +21,7 @@ int main( int argc, char *argv[] )
 {
     try
     {
-
+        cout << PI << endl;
         return 0;
     }
     catch( domain_error &e )
@@ -40,4 +40,3 @@ int main( int argc, char *argv[] )
         return 2;
     }
 }
-
