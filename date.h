@@ -37,6 +37,6 @@ namespace My{
     std::ostream& operator<<( std::ostream& os, const Date& d );
 
     std::istream& operator>>( std::istream& is, Date& dd );
-};
+}
 
 #endif

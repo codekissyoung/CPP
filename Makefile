@@ -4,7 +4,7 @@ BIN = main
 
 OBJ = $(patsubst %.cpp,%.o,$(wildcard *.cpp))
 
-CPPFLAGS=-std=c++17 -Wall -g
+CPPFLAGS=-std=c++17 -Wall -pedantic -g
 # CPPFLAGS=-std=c++17 -Wall -O2
 
 $(BIN) : $(OBJ)
