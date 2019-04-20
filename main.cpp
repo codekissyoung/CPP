@@ -6,6 +6,7 @@
 #include "container.h"
 #include "date.h"
 #include "stack.h"
+#include "my_string.h"
 
 #include <iostream>
 #include <array>
@@ -21,7 +22,17 @@ int main( int argc, char *argv[] )
 {
     try
     {
-        cout << PI << endl;
+        StringBad headline("codekissyoung at coding");
+        StringBad headline2("zhangjian coding");
+        StringBad sports("Spinish Leaves Bowl for Dollars");
+
+        callme2( headline2 );
+
+        StringBad sailor = sports;
+
+        StringBad knot;
+        knot = headline;
+
         return 0;
     }
     catch( domain_error &e )
