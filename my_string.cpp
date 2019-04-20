@@ -7,6 +7,15 @@ using namespace std;
 
 int StringBad::num_strings = 0;
 
+StringBad::StringBad()
+{
+    len = 0;
+    str = new char[1];
+    str[0] = '\0';
+    ++num_strings;
+    cout << num_strings << " : " << str << " object created" << endl;
+}
+
 StringBad::StringBad( const char *s )
 {
     len = strlen( s );
@@ -25,6 +34,7 @@ StringBad::StringBad( const StringBad &st ){
     cout << num_strings << " object copyed" << endl;
 }
 
+// assign StringBad to StringBad
 StringBad &StringBad::operator=( const StringBad &st ){
     cout << "= operator run" << endl;
     if( this == &st )
@@ -37,24 +47,41 @@ StringBad &StringBad::operator=( const StringBad &st ){
     return *this;
 }
 
-StringBad::StringBad()
-{
-    len = 4;
-    str = new char[4];
-    strcpy( str, "C++" );
-    ++num_strings;
-    cout << num_strings << " : " << str << " object created" << endl;
+// assign C-Style-string to StringBad
+StringBad &StringBad::operator=(const char *s ) {
+    delete[] str;
+    len = strlen(s);
+    str = new char[len + 1];
+    strcpy( str, s );
+    return *this;
 }
 
-StringBad::~StringBad()
-{
-    cout << str << " object deleted ";
+// read-write char access for StringBad
+char &StringBad::operator[](int i) {
+    return str[i];
+}
 
-    --num_strings;
+// read-only char access for const StringBad
+const char& StringBad::operator[](int i) const {
+    return str[i];
+}
 
-    cout << num_strings << " left" << endl;
+bool operator<( const StringBad &st1, const StringBad &st2 ) {
+    return strcmp(st1.str, st2.str ) < 0 ;
+}
 
-    delete[] str;
+bool operator>( const StringBad &st1, const StringBad &st2 ){
+    return st2 < st1;
+}
+
+istream &operator>>( istream &is, StringBad &st ){
+    char temp[80];
+    is.get( temp, 80 );
+    if( is )
+        st = temp;
+    while( is && is.get() != '\n' )
+        continue;
+    return is;
 }
 
 ostream &operator<<( ostream &os, const StringBad &st )
@@ -73,4 +100,11 @@ void callme2( StringBad sb )
 {
     cout << "String passed by value : ";
     cout << sb << endl;
+}
+
+StringBad::~StringBad()
+{
+    --num_strings;
+    cout << str << " object deleted " << num_strings << " left" << endl;
+    delete[] str;
 }
