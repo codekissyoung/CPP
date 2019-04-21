@@ -21,7 +21,8 @@ int main( int argc, char *argv[] )
 {
     try
     {
-
+        const int &a = 10;
+        cout << a << endl;
         return EXIT_SUCCESS;
     }
     catch( domain_error &e )
