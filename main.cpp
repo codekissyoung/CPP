@@ -9,7 +9,6 @@
 #include "my_string.h"
 
 #include <iostream>
-#include <array>
 
 #include <cmath>
 #include <ctime>
@@ -22,32 +21,22 @@ int main( int argc, char *argv[] )
 {
     try
     {
-        StringBad headline("codekissyoung at coding");
-        StringBad headline2("zhangjian coding");
-        StringBad sports("Spinish Leaves Bowl for Dollars");
 
-        callme2( headline2 );
-
-        StringBad sailor = sports;
-
-        StringBad knot;
-        knot = headline;
-
-        return 0;
+        return EXIT_SUCCESS;
     }
     catch( domain_error &e )
     {
-        cout << e.what();
-        cout << endl << "no homework grades" << endl;
+        cout << e.what() << endl;
+        return 1;
     }
     catch( runtime_error &e )
     {
         cerr << "runtime error:" << e.what() << endl;
-        return 1;
+        return 2;
     }
     catch( ... )
     {
         cout << "unknown exception !" << endl;
-        return 2;
+        return -1;
     }
 }

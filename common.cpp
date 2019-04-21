@@ -1,9 +1,9 @@
 #include "common.h"
 
 // 常量定义
-const double PI = 3.1415926535;
+const double PI           = 3.1415926535;
 const double PI_under_180 = 180.0f/PI;
-const double PI_over_180 = PI/180.0f;
+const double PI_over_180  = PI/180.0f;
 
 using namespace std;
 

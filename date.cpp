@@ -1,8 +1,9 @@
-#include <iostream>
-#include <istream>
-#include <ostream>
 #include "date.h"
+
+#include <iostream>
+
 using namespace std;
+
 namespace My
 {
     Date::Date( int y, Month m, int d )
