@@ -90,18 +90,6 @@ ostream &operator<<( ostream &os, const StringBad &st )
     return os;
 }
 
-void callme1(StringBad &rsb)
-{
-    cout << "String passed by referencen : ";
-    cout << rsb << endl;
-}
-
-void callme2( StringBad sb )
-{
-    cout << "String passed by value : ";
-    cout << sb << endl;
-}
-
 StringBad::~StringBad()
 {
     --num_strings;

@@ -34,7 +34,4 @@ std::istream &operator>>( std::istream &is, StringBad &st );
 bool operator<( const StringBad &st, const StringBad &st2 );
 bool operator>( const StringBad &st, const StringBad &st2 );
 
-void callme1( StringBad &rsb );
-void callme2( StringBad );
-
 #endif //CPP_STRING_H
