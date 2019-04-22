@@ -18,8 +18,6 @@ add_executable(
         stock.h
         vector.cpp
         vector.h
-        container.cpp
-        container.h
         date.h
         date.cpp
         stack.h

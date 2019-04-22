@@ -2,10 +2,10 @@
 
 #include <iostream>
 
-using namespace std;
-
 namespace My
 {
+    using namespace std;
+
     Date::Date( int y, Month m, int d )
         : y( y ), m( m ), d(d)
     {
