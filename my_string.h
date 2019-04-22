@@ -11,10 +11,10 @@ class StringBad
         static int num_strings;
 
     public:
-        StringBad( const char *s );       // 构造函数
-        StringBad();                      // 默认构造函数
-        StringBad( const StringBad &st ); // 复制构造函数
-        ~StringBad();                     // 析构函数
+        explicit StringBad( const char *s ); // 构造函数
+        StringBad();                         // 默认构造函数
+        StringBad( const StringBad &st );    // 复制构造函数
+        ~StringBad();                        // 析构函数
 
         StringBad &operator=( const StringBad &st );
         StringBad &operator=( const char * );
@@ -30,7 +30,7 @@ class StringBad
 };
 
 std::ostream &operator<<( std::ostream &os, const StringBad &st );
-std::istream &operator>>(std::istream &is, StringBad &st);
+std::istream &operator>>( std::istream &is, StringBad &st );
 bool operator<( const StringBad &st, const StringBad &st2 );
 bool operator>( const StringBad &st, const StringBad &st2 );
 
