@@ -6,8 +6,6 @@
 
 // 常量声明，定义在别处，所以需要注明 extern
 extern const double PI;
-extern const double PI_under_180;
-extern const double PI_over_180;
 
 struct Reading{
     int hour;
@@ -22,11 +20,6 @@ int get_int(int low, int high);
 // ------------------------------------- Sales_data class ------------------------------------- //
 class Sales_data
 {
-    // Sales_data 友元声明
-    friend Sales_data add( const Sales_data&, const Sales_data& );
-    friend std::ostream &print( std::ostream&, const Sales_data& );
-    friend std::istream &read( std::istream&, Sales_data& );
-
     public:
         Sales_data() = default; // 默认构造函数
         Sales_data( const std::string &s ) : bookNo(s) { }
@@ -37,6 +30,10 @@ class Sales_data
 
         Sales_data& combine( const Sales_data& );
         double avg_price() const;
+
+        friend Sales_data add( const Sales_data&, const Sales_data& );
+        friend std::ostream &print( std::ostream&, const Sales_data& );
+        friend std::istream &read( std::istream&, Sales_data& );
 
     private:
         std::string bookNo;
@@ -81,7 +78,8 @@ class Screen
 
     private:
         pos cursor = 0;
-        pos height = 0, width = 0;
+        pos height = 0;
+        pos width = 0;
         std::string contents;
 
         void do_display( std::ostream &os ) const
