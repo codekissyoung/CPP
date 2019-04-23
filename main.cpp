@@ -18,23 +18,8 @@ using namespace std;
 
 int main( int argc, char *argv[] )
 {
-    try{
 
-        Screen a { 10, 20, '#' };
 
-        cout << "Hello CLion!" << endl;
-        return EXIT_SUCCESS;
-    }
-    catch( domain_error &e ){
-        cout << e.what() << endl;
-        return 1;
-    }
-    catch( runtime_error &e ) {
-        cerr << "runtime error:" << e.what() << endl;
-        return 2;
-    }
-    catch( ... ){
-        cout << "unknown exception !" << endl;
-        return -1;
-    }
+
+    return EXIT_SUCCESS;
 }

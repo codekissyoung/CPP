@@ -1,27 +1,41 @@
 #ifndef CPP_MEDIAN_H
 #define CPP_MEDIAN_H
+
 #include <vector>
 #include <iostream>
 #include <list>
 
 struct Student_info{
     std::string name;
-    double midterm_score, final_score;
+    double midterm_score;
+    double final_score;
     std::vector<double> homework;
 };
 
+// 获取中值
 double median( std::vector<double> vec );
 
-double grade( double m_score, double f_score, double h_score );
-double grade( double m_score, double f_score, const std::vector<double> &hw );
-double grade( const Student_info &s );
+// 计算总成绩
+double grade( double, double, double );
+double grade( double, double, const std::vector<double> & );
 
-std::istream &read_hw( std::istream &in, std::vector<double> &hw );
-std::istream &read( std::istream &is, Student_info &s );
+// 算出一个学生的总成绩
+double grade( const Student_info & );
 
-bool compare( const Student_info &x, const Student_info &y );
+// 读取家庭成绩
+std::istream &read_hw( std::istream &, std::vector<double> & );
 
-std::vector<Student_info> extract_fails1( std::vector<Student_info> &students );
-std::list<Student_info> extract_fails( std::list<Student_info> &students );
+// 读入一个学生的成绩
+std::istream &read( std::istream &, Student_info & );
+
+// 比较两个Student_info的大小
+bool compare( const Student_info &, const Student_info & );
+
+// 判断该成绩是否合格
+bool fgrade( const Student_info & );
+
+// 返回不及格的学生
+std::vector<Student_info> extract_fails( std::vector<Student_info> & );
+std::list<Student_info> extract_fails( std::list<Student_info> & );
 
 #endif
