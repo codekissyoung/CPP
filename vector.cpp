@@ -29,9 +29,9 @@ Vector::Vector( initializer_list<double> lst ) : elem{ new double[lst.size()] },
     ::copy( lst.begin(), lst.end(), elem );
 }
 
-Vector& Vector::operator=( const Vector& vec )
+Vector &Vector::operator=( const Vector& vec )
 {
-    double *p = new double[vec.size()];
+    auto *p = new double[vec.size()];
     for( int i = 0; i < vec.size(); ++i )
         p[i] = vec[i];
     delete[] elem;
@@ -40,7 +40,7 @@ Vector& Vector::operator=( const Vector& vec )
     return *this;
 }
 
-double& Vector::operator[](int i) const
+double &Vector::operator[](int i) const
 {
     if( i < 0 || i >= size() )
         throw out_of_range { "Vector::operator[]" };

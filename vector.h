@@ -16,7 +16,7 @@ class Vector
         Vector() = default;
 
         // 使用 整数 的构造函数
-        Vector( int s );
+        explicit Vector( int s );
 
         // 使用 初始化列表 的构造函数
         Vector( std::initializer_list<double> lst );
