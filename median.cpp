@@ -31,7 +31,7 @@ double grade( double m_score, double f_score, double h_score )
 
 double grade( double m_score, double f_score, const vector<double> &hw )
 {
-    if( hw.size() == 0 )
+    if( hw.empty() )
         throw domain_error("no homework");
     return grade( m_score, f_score, median( hw ) );
 }
@@ -101,7 +101,7 @@ vector<Student_info> extract_fails(vector<Student_info> &students)
 vector<Student_info> extract_fails1( vector<Student_info> &students )
 {
     vector<Student_info> fail;
-    vector<Student_info>::iterator iter = students.begin();
+    auto iter = students.begin();
 
     while( iter != students.end() )
     {
@@ -123,7 +123,7 @@ vector<Student_info> extract_fails1( vector<Student_info> &students )
 list<Student_info> extract_fails( list<Student_info> &students )
 {
     list<Student_info> fail;
-    list<Student_info>::iterator iter = students.begin();
+    auto iter = students.begin();
 
     while( iter != students.end() )
     {

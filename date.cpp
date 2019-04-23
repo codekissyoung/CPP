@@ -1,10 +1,11 @@
-#include <iostream>
-#include <istream>
-#include <ostream>
 #include "date.h"
-using namespace std;
+
+#include <iostream>
+
 namespace My
 {
+    using namespace std;
+
     Date::Date( int y, Month m, int d )
         : y( y ), m( m ), d(d)
     {
