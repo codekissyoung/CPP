@@ -1,5 +1,5 @@
-#ifndef CPP_MEDIAN_H
-#define CPP_MEDIAN_H
+#ifndef CPP_STUDENT_H
+#define CPP_STUDENT_H
 
 #include <vector>
 #include <iostream>

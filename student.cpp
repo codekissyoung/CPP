@@ -1,20 +1,20 @@
-#include "median.h"
+#include "student.h"
 
+#include <iostream>
 #include <algorithm>
 #include <stdexcept>
 #include <vector>
-#include <iostream>
+
 #include <list>
 
 using namespace std;
-
 
 double median( vector<double> vec )
 {
     auto size = vec.size();
 
-    if( size == 0 )
-        throw domain_error( "median of an empty vector " );
+    if( vec.empty() )
+        throw domain_error( "median of an empty vector" );
 
     sort( vec.begin(), vec.end() );
 
@@ -74,7 +74,6 @@ bool fgrade( const Student_info &s )
 {
     return grade(s) < 60;
 }
-
 
 vector<Student_info> extract_fails( vector<Student_info> &students )
 {

@@ -1,7 +1,7 @@
 #include "common.h"
 #include "func.h"
 #include "stock.h"
-#include "median.h"
+#include "student.h"
 #include "vector.h"
 #include "date.h"
 #include "stack.h"

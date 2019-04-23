@@ -12,8 +12,8 @@ add_executable(
         func.cpp
         main.cpp
         Makefile
-        median.cpp
-        median.h
+        student.cpp
+        student.h
         stock.cpp
         stock.h
         vector.cpp
