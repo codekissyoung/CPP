@@ -22,14 +22,14 @@ double grade( double, double, const std::vector<double> & );
 // 算出一个学生的总成绩
 double grade( const Student_info & );
 
-// 读取家庭成绩
+// 将输入流中家庭作业的成绩读入到vector中
 std::istream &read_hw( std::istream &, std::vector<double> & );
 
 // 读入一个学生的成绩
 std::istream &read( std::istream &, Student_info & );
 
 // 比较两个Student_info的大小
-bool compare( const Student_info &, const Student_info & );
+bool comp_name(const Student_info &, const Student_info &);
 
 // 判断该成绩是否合格
 bool fgrade( const Student_info & );
@@ -38,4 +38,5 @@ bool fgrade( const Student_info & );
 std::vector<Student_info> extract_fails( std::vector<Student_info> & );
 std::list<Student_info> extract_fails( std::list<Student_info> & );
 
+std::ostream &operator<<( std::ostream &, Student_info & );
 #endif
