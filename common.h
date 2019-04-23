@@ -53,7 +53,7 @@ class Screen
     public:
         typedef std::string::size_type pos;
         Screen() = default;
-        Screen( pos ht, pos wd, char c ): height(ht), width(wd), contents( ht * wd, c ) { }
+        Screen( pos ht, pos wd, char c );
 
         // 读取光标处字符
         inline char get() const { return contents[cursor]; }
@@ -61,7 +61,8 @@ class Screen
 
         // 设置光标所在处的字符
         Screen &set(char);
-        inline Screen &set(pos, pos, char);
+
+        inline Screen &set( pos, pos, char );
 
         Screen &move( pos r, pos c );
 
@@ -71,6 +72,8 @@ class Screen
             return *this;
         }
 
+        pos get_high() { return high; }
+
         const Screen &display( std::ostream &os ) const
         {
             do_display(os);
@@ -79,8 +82,8 @@ class Screen
 
     private:
         pos cursor = 0;
-        pos height = 0;
-        pos width = 0;
+        pos high   = 0;
+        pos width  = 0;
         std::string contents;
 
         void do_display( std::ostream &os ) const

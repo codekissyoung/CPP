@@ -19,6 +19,9 @@ using namespace std;
 int main( int argc, char *argv[] )
 {
     try{
+
+        Screen a { 10, 20, '#' };
+
         cout << "Hello CLion!" << endl;
         return EXIT_SUCCESS;
     }

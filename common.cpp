@@ -76,5 +76,7 @@ Screen &Screen::set( pos r, pos col, char ch )
     return *this;
 }
 
+Screen::Screen(Screen::pos ht, Screen::pos wd, char c) : high(ht), width(wd), contents( ht * wd, c ) { }
+
 // ------------------------------ Window_mgr class -------------------------------- //
 
