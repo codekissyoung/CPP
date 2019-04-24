@@ -8,6 +8,8 @@
 #include "my_string.h"
 
 #include <iostream>
+#include <map>
+#include <algorithm>
 
 #include <cmath>
 #include <ctime>
@@ -15,15 +17,22 @@
 #include <cstring>
 #include <fstream>
 
-using namespace std;
 
 int main( int argc, char *argv[] )
 {
-    string str = " welcome to http://www.baidu.com/abc/gde ，we are big family. refer to http://codekissyoung.com eg. ";
+    using namespace std;
 
-    auto vec_str = find_urls( str );
+    string s;
+    map<string, int> counters;
 
-    cout << vec_str;
+    while( cin >> s )
+        ++counters[s];
+
+    cout << counters;
+//    for( auto x : counters )
+//    {
+//        cout << x.first << x.second << endl;
+//    }
 
     return EXIT_SUCCESS;
 }

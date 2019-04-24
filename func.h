@@ -6,9 +6,12 @@
 #include <string>
 #include <list>
 #include <array>
+#include <map>
 
 typedef std::array<std::string, 4> ARRAY_SEA;
 typedef std::string::const_iterator iter;
+
+extern const std::string test_url_str;
 
 extern const ARRAY_SEA Snames;
 
@@ -69,6 +72,18 @@ std::ostream &operator<<(std::ostream &os, std::vector<T> &vec )
     str += " }";
     os << str << std::endl;
 
+    return os;
+}
+
+// 打印一个 string 为键的关联数组
+template <typename T>
+std::ostream &operator<<( std::ostream &os, std::map<std::string,T> &m )
+{
+    os << "{" << std::endl;
+    for( auto x : m )
+        os << "\t" << x.first << " : " << x.second << "," << std::endl;
+
+    os << "}" << std::endl;
     return os;
 }
 

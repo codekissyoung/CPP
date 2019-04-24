@@ -10,6 +10,9 @@
 
 using namespace std;
 
+extern const string test_url_str = " welcome to http://www.baidu.com/abc/gde ，"
+                                        "we are big family. refer to http://codekissyoung.com eg. ";
+
 // 函数指针
 const double * (*p_fun)( const double *, int );
 
