@@ -10,8 +10,6 @@
 
 using namespace std;
 
-typedef string::const_iterator iter;
-
 // 函数指针
 const double * (*p_fun)( const double *, int );
 
@@ -28,20 +26,20 @@ const ARRAY_SEA Snames = {
         "Winter"
 };
 
-void fill( array<double, Seasons> *pa )
+void fill( ARRAY_SEA *pa )
 {
-    for( int i = 0; i < Seasons; i++ )
+    for( int i = 0; i < (*pa).size(); i++ )
     {
         cout << "Enter " << Snames[i] << " expenses: ";
         cin >> (*pa)[i];
     }
 }
 
-void show( array<double, Seasons> da )
+void show( array<double, 4> da )
 {
     double  total = 0.0;
     cout << "\nEXPENSES\n";
-    for( int i = 0; i < Seasons; i++ )
+    for( int i = 0; i < da.size(); i++ )
     {
         cout << Snames[i] << " : $" << da[i] << endl;
         total += da[i];
@@ -51,22 +49,38 @@ void show( array<double, Seasons> da )
 
 bool not_url_char( char c )
 {
-    static const string url_ch = " ~;/?:@=&$-_.+!*'(),`";
-    return find( url_ch.begin(), url_ch.end(), c ) != url_ch.end();
+    // URL 中允许的字符
+    static string url_ch = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                           "abcdefghijklmnopqrstuvwxyz-_.~!*'();:@&=+$,/?#[]";
+    return find( url_ch.begin(), url_ch.end(), c ) == url_ch.end();
+}
+
+bool url_char( char c )
+{
+    return !not_url_char( c );
 }
 
 iter url_beg( iter b, iter e )
 {
     static const string sep = "://";
 
-    iter i = b;
+    auto i = b;
 
-    while( (i = search(i, e, sep.begin(), sep.end())) != e )
+    while( (i = search( i, e, sep.begin(), sep.end() ) ) != e )
     {
-        if( i != b && i + sep.size() != e )
-        {
+        auto beg = i;
 
-        }
+        // 将 beg 往前移动, 第一个不是字母处，即是 url 的开始处
+        while( beg != b && isalpha( *(beg - 1) ) )
+            --beg;
+
+        // 判断是否是一个合格的 beg 的条件
+        // 1. :// 前面必须有字母
+        // 2. :// 后面必须有 url 字符
+        if( beg != i && i + sep.size() != e && url_char( *(i + sep.size()) ) )
+            return beg;
+        else
+            i += sep.size();
     }
     return e;
 }
@@ -76,11 +90,13 @@ iter url_end( iter b, iter e )
     return find_if( b, e, not_url_char );
 }
 
-// 正文http://网址 正文
-vector<string> find_urls( const string& s )
+// 查找出字符串里所有的 http: 链接，返回 vec
+vector<string> find_urls( const string &s )
 {
     vector<string> ret;
-    iter b = s.begin(), e = s.end();
+
+    auto b = s.begin();
+    auto e = s.end();
 
     while( b != e )
     {
@@ -99,12 +115,10 @@ vector<string> find_urls( const string& s )
     return ret;
 }
 
-
 bool is_palindrome( const string& s )
 {
     return equal( s.begin(), s.end(), s.rbegin() );
 }
-
 
 bool space( char c )
 {

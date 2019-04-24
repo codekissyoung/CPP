@@ -7,9 +7,8 @@
 #include <list>
 #include <array>
 
-const int Seasons = 4;
-
-typedef std::array<std::string, Seasons> ARRAY_SEA;
+typedef std::array<std::string, 4> ARRAY_SEA;
+typedef std::string::const_iterator iter;
 
 extern const ARRAY_SEA Snames;
 
@@ -44,6 +43,16 @@ bool is_palindrome( const std::string &s );
 
 // 不是 url 的字符
 bool not_url_char( char c );
+
+// 是 url 的字符
+bool url_char( char c );
+
+iter url_beg( iter b, iter e );
+
+iter url_end( iter b, iter e );
+
+// 查找一个字符串中包含的所有 url
+std::vector<std::string> find_urls( const std::string &s );
 
 // 格式化输出 vector
 template <typename T>

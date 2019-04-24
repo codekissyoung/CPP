@@ -19,19 +19,9 @@ using namespace std;
 
 int main( int argc, char *argv[] )
 {
-//    vector<Student_info> students;
-//    Student_info temp {};
-//
-//    while( read( cin, temp ) )
-//        students.push_back(temp);
-//
-//    vector<Student_info> fail_students = extract_fails( students );
-//
-//    for( auto x : students )
-//        cout << x;
+    string str = " welcome to http://www.baidu.com/abc/gde ，we are big family. refer to http://codekissyoung.com eg. ";
 
-    string str = " nice to meet you ";
-    vector<string> vec_str = split( str );
+    auto vec_str = find_urls( str );
 
     cout << vec_str;
 
