@@ -9,16 +9,13 @@
 
 const int Seasons = 4;
 
-const std::array<std::string, Seasons> Snames = {
-        "Spring",
-        "Summer",
-        "Fall",
-        "Winter"
-};
+typedef std::array<std::string, Seasons> ARRAY_SEA;
 
-void fill( std::array<double, Seasons> *pa );
+extern const ARRAY_SEA Snames;
 
-void show( std::array<double, Seasons> da );
+void fill( ARRAY_SEA *pa );
+
+void show( ARRAY_SEA da );
 
 int square( int x );
 
@@ -43,24 +40,32 @@ std::vector<std::string> vcat( const std::vector<std::string>& top, const std::v
 std::vector<std::string> hcat( const std::vector<std::string> &left, const std::vector<std::string> &right );
 
 // 判断一个字符串是否是回文
-bool is_palindrome( const std::string& s );
+bool is_palindrome( const std::string &s );
 
 // 不是 url 的字符
 bool not_url_char( char c );
 
-// 函数模板的使用
-template <typename elemType>
-void print( const std::vector<elemType> &vec )
+// 格式化输出 vector
+template <typename T>
+std::ostream &operator<<(std::ostream &os, std::vector<T> &vec )
 {
-    std::cout << "{ ";
+    std::string str = "{ ";
     for( auto x : vec )
-        std::cout << x << " ";
-    std::cout << "}" << std::endl;
+    {
+        str += x;
+        str += ", ";
+    }
+    str.pop_back();
+    str.pop_back();
+    str += " }";
+    os << str << std::endl;
+
+    return os;
 }
 
 // 函数模板的使用
-template <typename elemType>
-void print( const std::list<elemType> &li )
+template <typename T>
+void print( const std::list<T> &li )
 {
     std::cout << "{ ";
     for( auto x : li )
@@ -69,8 +74,8 @@ void print( const std::list<elemType> &li )
 }
 
 // 打印数组
-template <typename elemType>
-void print( elemType* arr, int n )
+template <typename T>
+void print( T* arr, int n )
 {
     std::cout << "{ ";
     for( int i = 0; i < n; i++ )
@@ -82,10 +87,10 @@ void print( elemType* arr, int n )
     std::cout << " }" << std::endl;
 }
 
-template <typename elemType>
-void swap( elemType &v1, elemType &v2 )
+template <typename T>
+void swap( T &v1, T &v2 )
 {
-    elemType temp;
+    T temp;
     temp = v1;
     v1 = v2;
     v2 = temp;

@@ -21,6 +21,13 @@ const double * (*p_arr[3])( const double *, int );
 // 一个指针，指针指向 pa
 const double * (*(*p_pointer)[3])( const double *, int );
 
+const ARRAY_SEA Snames = {
+        "Spring",
+        "Summer",
+        "Fall",
+        "Winter"
+};
+
 void fill( array<double, Seasons> *pa )
 {
     for( int i = 0; i < Seasons; i++ )
@@ -92,6 +99,13 @@ vector<string> find_urls( const string& s )
     return ret;
 }
 
+
+bool is_palindrome( const string& s )
+{
+    return equal( s.begin(), s.end(), s.rbegin() );
+}
+
+
 bool space( char c )
 {
     return isspace( c );
@@ -102,28 +116,22 @@ bool not_space( char c )
     return !isspace( c );
 }
 
-bool is_palindrome( const string& s )
-{
-    return equal( s.begin(), s.end(), s.rbegin() );
-}
-
 vector<string> split( const string &s )
 {
-    typedef string::size_type string_size;
-
     vector<string> ret;
 
-    string_size i = 0; // 单词的第一个字符 索引
-    string_size j = 0; // 单词的最后一个字符索引的 后一位
+    string::size_type i = 0; // 单词的第一个字符 索引
+    string::size_type j = 0; // 单词的最后一个字符索引的 后一位
 
     while ( i != s.size() )
     {
-        // 忽略前段的空白字符
-        while ( i != s.size() && isspace(s[i]) )
+        // 第一个不是空白的字符，即为单词的开始
+        while ( i != s.size() && space(s[i]) )
             ++i;
 
+        // 从单词的开始处寻找，第一个空白处即为单词的结束
         j = i;
-        while ( j != s.size() && !isspace(s[j]) )
+        while ( j != s.size() && not_space(s[j]) )
             ++j;
 
         if( i != j )
@@ -140,18 +148,21 @@ vector<string> split1( const string &str )
 {
     vector<string> ret;
 
-    iter i = str.begin();
-    while( i != str.end() )
+    auto b_iter = str.begin();
+
+    while( b_iter != str.end() )
     {
-        i = find_if( i, str.end(), not_space );
+        // 第一个不是空白的字符，即为单词的开始，b_iter 即为单词的开始
+        b_iter = find_if( b_iter, str.end(), not_space );
 
-        iter j = find_if(i, str.end(), space);
+        // 从单词的开始处寻找，第一个空白处即为单词的结束，e_iter即为单词的结束
+        auto e_iter = find_if( b_iter, str.end(), space );
 
-        if( i != str.end() )
-        {
-            ret.push_back( string(i, j) );
-        }
-        i = j;
+        // 复制[b_iter,e_iter)中的字符
+        if( b_iter != str.end() )
+            ret.push_back( string( b_iter, e_iter ) );
+
+        b_iter = e_iter;
     }
     return ret;
 }
@@ -169,9 +180,9 @@ string::size_type width( const vector<string> &v )
 vector<string> frame( const vector<string> &v )
 {
     vector<string> ret;
-    string::size_type maxlen = width(v);
+    auto maxlen = width(v);
     
-    ret.push_back( string( maxlen + 4, '*') );
+    ret.emplace_back( string( maxlen + 4, '*') );
 
     for( auto x : v )
         ret.push_back("* " + x + string(maxlen - x.size(),' ') + " *");
@@ -185,11 +196,6 @@ vector<string> vcat( const vector<string>& top, const vector<string> &bottom )
 {
     vector<string> ret = top;
 
-    // for( vector<string>::const_iterator it = bottom.begin(); it != bottom.end(); ++it )
-    // {
-    //     ret.push_back( *it );
-    // }
-
     ret.insert( ret.end(), bottom.begin(), bottom.end() );
 
     return ret;
@@ -199,7 +205,7 @@ vector<string> hcat( const vector<string> &left, const vector<string> & right )
 {
     vector<string> ret;
 
-    string::size_type width_left = width( left ) + 1;
+    auto width_left = width( left ) + 1;
 
     vector<string>::size_type i = 0, j = 0;
 

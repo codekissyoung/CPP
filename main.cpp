@@ -19,16 +19,21 @@ using namespace std;
 
 int main( int argc, char *argv[] )
 {
-    vector<Student_info> students;
-    Student_info temp;
+//    vector<Student_info> students;
+//    Student_info temp {};
+//
+//    while( read( cin, temp ) )
+//        students.push_back(temp);
+//
+//    vector<Student_info> fail_students = extract_fails( students );
+//
+//    for( auto x : students )
+//        cout << x;
 
-    while( read( cin, temp ) )
-        students.push_back(temp);
+    string str = " nice to meet you ";
+    vector<string> vec_str = split( str );
 
-    vector<Student_info> fail_students = extract_fails( students );
-
-    for( auto x : students )
-        cout << x;
+    cout << vec_str;
 
     return EXIT_SUCCESS;
 }
