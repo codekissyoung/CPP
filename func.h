@@ -10,6 +10,7 @@
 
 typedef std::array<std::string, 4> ARRAY_SEA;
 typedef std::string::const_iterator iter;
+typedef std::vector<std::string> p_func_str_in_vec_out(const std::string &);
 
 extern const std::string test_url_str;
 
@@ -57,6 +58,10 @@ iter url_end( iter b, iter e );
 // 查找一个字符串中包含的所有 url
 std::vector<std::string> find_urls( const std::string &s );
 
+// 记录输入的单词，以及单词出现的行数
+std::map<std::string, std::vector<int>>
+xref( std::istream &in, std::vector<std::string> (*)(const std::string &) = split );
+
 // 格式化输出 vector
 template <typename T>
 std::ostream &operator<<(std::ostream &os, std::vector<T> &vec )
@@ -64,7 +69,7 @@ std::ostream &operator<<(std::ostream &os, std::vector<T> &vec )
     std::string str = "{ ";
     for( auto x : vec )
     {
-        str += x;
+        str += std::to_string( x );
         str += ", ";
     }
     str.pop_back();

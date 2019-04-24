@@ -17,22 +17,17 @@
 #include <cstring>
 #include <fstream>
 
-
 int main( int argc, char *argv[] )
 {
     using namespace std;
 
-    string s;
-    map<string, int> counters;
+    auto ret = xref( cin );
 
-    while( cin >> s )
-        ++counters[s];
-
-    cout << counters;
-//    for( auto x : counters )
-//    {
-//        cout << x.first << x.second << endl;
-//    }
+    for( auto x : ret )
+    {
+        cout << x.first << " : ";
+        cout << x.second;
+    }
 
     return EXIT_SUCCESS;
 }

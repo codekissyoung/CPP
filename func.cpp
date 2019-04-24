@@ -7,11 +7,12 @@
 #include <cctype>
 #include <algorithm>
 #include <array>
+#include <map>
 
 using namespace std;
 
 extern const string test_url_str = " welcome to http://www.baidu.com/abc/gde ，"
-                                        "we are big family. refer to http://codekissyoung.com eg. ";
+                                   "we are big family. refer to http://codekissyoung.com eg. ";
 
 // 函数指针
 const double * (*p_fun)( const double *, int );
@@ -31,7 +32,7 @@ const ARRAY_SEA Snames = {
 
 void fill( ARRAY_SEA *pa )
 {
-    for( int i = 0; i < (*pa).size(); i++ )
+    for( decltype((*pa).size()) i = 0; i < (*pa).size(); i++ )
     {
         cout << "Enter " << Snames[i] << " expenses: ";
         cin >> (*pa)[i];
@@ -42,7 +43,7 @@ void show( array<double, 4> da )
 {
     double  total = 0.0;
     cout << "\nEXPENSES\n";
-    for( int i = 0; i < da.size(); i++ )
+    for( decltype(da.size()) i = 0; i < da.size(); i++ )
     {
         cout << Snames[i] << " : $" << da[i] << endl;
         total += da[i];
@@ -309,4 +310,20 @@ void permutation( int* arr, int s, int e )
             ::swap( arr[s], arr[i] );
         }
     }
+}
+
+map<string, vector<int>> xref( istream &in, vector<string> (*explode_words)(const string&) )
+{
+    string line;
+    int line_number = 0;
+    map<string, vector<int>> ret;
+
+    while( getline( in, line ) )
+    {
+        ++line_number;
+        auto words = explode_words( line );
+        for( auto it = words.begin(); it != words.end(); ++it )
+            ret[*it].push_back( line_number );
+    }
+    return ret;
 }
