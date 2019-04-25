@@ -20,20 +20,25 @@
 int main( int argc, char *argv[] )
 {
     using namespace std;
+//
+//    string str = "you are a nice people";
+//
+//    list<string> list_str;
+//
+//    split( str, back_inserter(list_str) );
+//
+//    vector<string> vec_str;
+//
+//    split( str, back_inserter(vec_str) );
+//
+//    cout << vec_str;
+//
+//    cout << list_str;
 
-    string str = "you are a nice people";
+    string s;
 
-    list<string> list_str;
-
-    split( str, back_inserter(list_str) );
-
-    vector<string> vec_str;
-
-    split( str, back_inserter(vec_str) );
-
-    cout << vec_str;
-
-    cout << list_str;
+    while( getline(cin, s) )
+        split(s,ostream_iterator<string>(cout, ", "));
 
     return EXIT_SUCCESS;
 }
