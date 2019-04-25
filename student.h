@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include <list>
+#include <exception>
 
 struct Student_info{
     std::string name;
@@ -14,6 +15,19 @@ struct Student_info{
 
 // 获取中值
 double median( std::vector<double> vec );
+
+// 获取中值 泛化
+template <typename T>
+T median( std::vector<T> v )
+{
+    auto size = v.size();
+    if( v.empty() )
+        throw std::domain_error("median of an empty vector");
+    sort( v.begin(), v.end() );
+
+    auto mid = size / 2;
+    return ( size % 2 == 0 ) ? ( v[mid] + v[mid-1] ) / 2 : v[mid];
+}
 
 // 计算总成绩
 double grade( double, double, double );

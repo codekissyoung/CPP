@@ -21,13 +21,19 @@ int main( int argc, char *argv[] )
 {
     using namespace std;
 
-    auto ret = xref( cin );
+    string str = "you are a nice people";
 
-    for( auto x : ret )
-    {
-        cout << x.first << " : ";
-        cout << x.second;
-    }
+    list<string> list_str;
+
+    split( str, back_inserter(list_str) );
+
+    vector<string> vec_str;
+
+    split( str, back_inserter(vec_str) );
+
+    cout << vec_str;
+
+    cout << list_str;
 
     return EXIT_SUCCESS;
 }
