@@ -28,7 +28,7 @@ bool space( char c);
 int square( int x );
 
 template <typename T>
-void swap( T &v1, T &v2 )
+void my_swap( T &v1, T &v2 )
 {
     T temp;
     temp = v1;
