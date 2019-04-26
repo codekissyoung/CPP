@@ -6,11 +6,20 @@
 #include <list>
 #include <exception>
 
-struct Student_info{
-    std::string name;
-    double midterm_score;
-    double final_score;
-    std::vector<double> homework;
+class Student_info{
+    private:
+        std::string name;
+        double midterm_score;
+        double final_score;
+        std::vector<double> homework;
+
+    public:
+        Student_info();
+        explicit Student_info(std::istream &);
+        std::istream &read( std::istream& );
+        double grade() const;
+        std::string get_name() const { return name; } // 存取器函数
+        bool valid() const { return !homework.empty(); }
 };
 
 // 获取中值
@@ -32,9 +41,6 @@ T median( std::vector<T> v )
 // 计算总成绩
 double grade( double, double, double );
 double grade( double, double, const std::vector<double> & );
-
-// 算出一个学生的总成绩
-double grade( const Student_info & );
 
 // 将输入流中家庭作业的成绩读入到vector中
 std::istream &read_hw( std::istream &, std::vector<double> & );

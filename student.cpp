@@ -31,15 +31,11 @@ double grade( double m_score, double f_score, const vector<double> &hw )
         throw domain_error("no homework");
     return grade( m_score, f_score, median( hw ) );
 }
-double grade( const Student_info &s )
-{
-    return grade( s.midterm_score, s.final_score, s.homework );
-}
 
 // 判定不及格
 bool fgrade( const Student_info &s )
 {
-    return grade( s ) < 60;
+    return s.grade() < 60;
 }
 
 istream &read_hw( istream &in, vector<double> &hw )
@@ -55,19 +51,26 @@ istream &read_hw( istream &in, vector<double> &hw )
     return in;
 }
 
-istream &read( istream &is, Student_info &s )
+istream &Student_info::read( istream &is )
 {
-    is >> s.name >> s.midterm_score >> s.final_score;
-    read_hw( is, s.homework );
+    is >> name >> midterm_score >> final_score;
+    read_hw( is, homework );
     return is;
 }
 
-
+double Student_info::grade() const
+{
+    return ::grade( midterm_score, final_score, homework );
+}
 
 bool comp_name(const Student_info &x, const Student_info &y)
 {
-    return x.name < y.name;
+    return x.get_name() < y.get_name();
 }
+
+Student_info::Student_info() : midterm_score(0), final_score(0) {}
+
+Student_info::Student_info( istream &is ) { read(is); }
 
 vector<Student_info> extract_fails( vector<Student_info> &students )
 {
@@ -106,15 +109,4 @@ list<Student_info> extract_fails( list<Student_info> &students )
             ++iter;
     }
     return fail;
-}
-
-std::ostream &operator<<( std::ostream &o, Student_info &s )
-{
-    o << s.name << "," << s.final_score << "," << s.midterm_score << ",homework: ";
-    for( auto x : s.homework )
-    {
-        o << x << " ";
-    }
-    o << endl;
-    return o;
 }
