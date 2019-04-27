@@ -24,4 +24,4 @@ add_executable(
         stack.cpp
         my_string.cpp
         my_string.h
-)
+        vec.cpp vec.h)

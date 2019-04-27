@@ -6,6 +6,7 @@
 #include "date.h"
 #include "stack.h"
 #include "my_string.h"
+#include "vec.h"
 
 #include <iostream>
 #include <map>
