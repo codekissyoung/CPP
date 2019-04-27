@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Vector::Vector(int s)
+My_vector::My_vector(int s)
 {
     if( s < 0 )
         throw length_error{"length < 0"};
@@ -13,23 +13,23 @@ Vector::Vector(int s)
     sz = s;
 }
 
-void Vector::copy(const Vector &arg)
+void My_vector::copy(const My_vector &arg)
 {
     for(int i = 0; i < arg.size(); ++i )
         elem[i] = arg.elem[i];
 }
 
-Vector::Vector( const Vector& arg ) : elem{ new double[arg.size()] }, sz{ arg.sz }
+My_vector::My_vector( const My_vector& arg ) : elem{ new double[arg.size()] }, sz{ arg.sz }
 {
     copy(arg);
 }
 
-Vector::Vector( initializer_list<double> lst ) : elem{ new double[lst.size()] }, sz{ lst.size() }
+My_vector::My_vector( initializer_list<double> lst ) : elem{ new double[lst.size()] }, sz{ lst.size() }
 {
     ::copy( lst.begin(), lst.end(), elem );
 }
 
-Vector &Vector::operator=( const Vector& vec )
+My_vector &My_vector::operator=( const My_vector& vec )
 {
     auto *p = new double[vec.size()];
     for( int i = 0; i < vec.size(); ++i )
@@ -40,31 +40,31 @@ Vector &Vector::operator=( const Vector& vec )
     return *this;
 }
 
-double &Vector::operator[](int i) const
+double &My_vector::operator[](int i) const
 {
     if( i < 0 || i >= size() )
-        throw out_of_range { "Vector::operator[]" };
+        throw out_of_range { "My_vector::operator[]" };
     return elem[i];
 }
 
-int Vector::size() const
+int My_vector::size() const
 {
     return sz;
 }
 
-void Vector::read()
+void My_vector::read()
 {
     for( int i = 0; i != size(); i++ )
         cin >> elem[i];
 }
 
-void Vector::push_back( double i )
+void My_vector::push_back( double i )
 {
     elem[size() - 1] = i;
     sz ++;
 }
 
-double Vector::sum()
+double My_vector::sum()
 {
     double sum = 0;
     for( int i = 0; i != size(); i++ )

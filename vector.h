@@ -3,34 +3,26 @@
 
 #include <initializer_list>
 
-class Vector
+class My_vector
 {
     private:
         double* elem{};
         unsigned long sz{};
-        void copy( const Vector& );
+        void copy( const My_vector& );
 
     public:
 
-        // 默认构造函数
-        Vector() = default;
+        My_vector() = default;
 
-        // 使用 整数 的构造函数
-        explicit Vector( int s );
+        explicit My_vector( int s );
 
-        // 使用 初始化列表 的构造函数
-        Vector( std::initializer_list<double> lst );
+        My_vector( std::initializer_list<double> lst );
 
-        // 拷贝构造函数
-        Vector( const Vector& arg );
+        My_vector( const My_vector& arg );
 
-        // 拷贝赋值操作
-        Vector& operator=( const Vector& );
+        My_vector& operator=( const My_vector& );
 
-        ~Vector()
-        {
-            delete[] elem;
-        }
+        ~My_vector(){ delete[] elem; }
 
         double& operator[]( int i ) const;
 
