@@ -15,18 +15,20 @@ ostream &operator<<( ostream &os, const Str &s )
 
 istream &operator>>( istream &is, Str &s )
 {
-    s.data.clear();
+//    s.data.clear();
+//
+//    char c;
+//
+//    while( is.get(c) && isspace(c) )
+//        ;
+//    if(is)
+//    {
+//        do
+//        {
+//            s.data.push_back( c );
+//
+//        }while( is.get(c) && !isspace(c));
+//    }
 
-    char c;
-
-    while( is.get(c) && isspace(c) )
-        ;
-    if(is)
-    {
-        do
-        {
-            s.data.push_back( c );
-        }while( is.get(c) && !isspace(c));
-    }
     return is;
 }

@@ -28,7 +28,7 @@ class Str {
         const char &operator[](size_type i) const { return data[i]; }
 
         friend std::istream & operator>>( std::istream &, Str & );
-        friend std::ostream & operator<<( std::ostream &, const Str & );
+//        friend std::ostream & operator<<( std::ostream &, const Str & );
 
         size_type size() const { return data.size(); }
 

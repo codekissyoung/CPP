@@ -34,7 +34,7 @@ class Vec {
         iterator end() { return avail; }
         const_iterator end() const { return avail; }
 
-        void push_back( const T& val )
+        void push_back( const T &val )
         {
             if( avail == limit )
                 grow(); // 重新申请内存
@@ -52,7 +52,7 @@ class Vec {
 
         void create();
 
-        void create(size_type, const T&);
+        void create(size_type, const T &);
 
         void create(const_iterator, const_iterator);
 
@@ -60,7 +60,7 @@ class Vec {
 
         void grow();
 
-        void unchecked_append( const T& );
+        void unchecked_append( const T & );
 };
 
 #endif
