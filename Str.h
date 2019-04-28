@@ -3,6 +3,8 @@
 
 #include "vec.h"
 
+#include <cstring>
+
 class Str {
     public:
         typedef Vec<char>::size_type size_type;
