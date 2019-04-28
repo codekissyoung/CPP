@@ -7,21 +7,14 @@ include_directories(.)
 
 add_executable(
         CPP
-        common.cpp
-        common.h
-        func.cpp
+        common.cpp common.h
+        func.cpp func.h
         main.cpp
         Makefile
-        student.cpp
-        student.h
-        stock.cpp
-        stock.h
-        vector.cpp
-        vector.h
-        date.h
-        date.cpp
-        stack.h
-        stack.cpp
-        my_string.cpp
-        my_string.h
-        vec.cpp vec.h)
+        student.cpp student.h
+        stock.cpp stock.h
+        vector.cpp vector.h
+        date.h date.cpp
+        stack.h stack.cpp
+        my_string.cpp my_string.h
+        vec.cpp vec.h Str.cpp Str.h)
