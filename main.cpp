@@ -21,6 +21,9 @@
 int main( int argc, char *argv[] )
 {
     using namespace std;
+    cout << "runing ..." << endl;
 
+
+    cout << "done!" << endl;
     return EXIT_SUCCESS;
 }

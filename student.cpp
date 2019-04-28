@@ -110,3 +110,34 @@ list<Student_info> extract_fails( list<Student_info> &students )
     }
     return fail;
 }
+
+
+// ---------------------------- class Core ------------------------ //
+string Core::get_name() const { return name; }
+
+double Core::grade() const {
+    return ::grade(midterm_score,final_score,homework);
+}
+
+istream &Core::read_common( istream &in ) {
+    in>>name>>midterm_score>>final_score;
+    return in;
+}
+
+istream &Core::read( istream &in ) {
+    read_common(in);
+    read_hw(in, homework);
+    return in;
+}
+
+
+istream &Grad::read(istream &in){
+    Core::read_common(in);
+    in>>thesis;
+    read_hw(in,Core::homework);
+    return in;
+}
+
+double Grad::grade() const {
+    return min(Core::grade(),thesis);
+}

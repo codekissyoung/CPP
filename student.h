@@ -6,6 +6,7 @@
 #include <list>
 #include <exception>
 
+// -------------------------- Class Student_info -------------------------//
 class Student_info{
     private:
         std::string name;
@@ -59,4 +60,39 @@ std::vector<Student_info> extract_fails( std::vector<Student_info> & );
 std::list<Student_info> extract_fails( std::list<Student_info> & );
 
 std::ostream &operator<<( std::ostream &, Student_info & );
+
+// -------------------------- Class Core -------------------------------//
+class Core{
+
+public:
+        Core();
+        Core(std::istream &);
+        std::string get_name() const;
+        std::istream &read( std::istream & );
+        double grade() const;
+
+protected:
+        std::istream &read_common( std::istream& );
+        double midterm_score;
+        double final_score;
+        std::vector<double> homework;
+
+private:
+        std::string name;
+
+};
+
+// -------------------------- Class Grad -------------------------------//
+class Grad : public Core{
+
+public:
+        Grad();
+        Grad(std::istream &);
+        double grade() const;
+        std::istream &read(std::istream &);
+
+private:
+        double thesis;
+};
+
 #endif
