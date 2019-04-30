@@ -7,6 +7,8 @@
 #include "stack.h"
 #include "my_string.h"
 #include "vec.h"
+#include "Sales_item.h"
+#include "Str.h"
 
 #include <iostream>
 #include <map>
@@ -23,6 +25,14 @@ int main( int argc, char *argv[] )
     using namespace std;
     cout << "runing ..." << endl;
 
+    Sales_item book;
+
+    cout << "录入书籍信息：";
+
+    while( cin >> book ){
+        cout << "ISBN \t sold \t price \t revenue" << endl;
+        cout << book << endl;
+    }
 
     cout << "done!" << endl;
     return EXIT_SUCCESS;
