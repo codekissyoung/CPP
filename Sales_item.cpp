@@ -34,6 +34,6 @@ istream &operator>>(std::istream &is, Sales_item &s )
 
 ostream &operator<<(std::ostream &os, const Sales_item &s)
 {
-    os << s.isbn << "\t" << s.units_sold << "\t" << s.avg_price() << "\t" << s.revenue << endl;
+    os << s.isbn << "\t\t\t" << s.units_sold << "\t" << s.avg_price() << "\t" << s.revenue;
     return os;
 }
