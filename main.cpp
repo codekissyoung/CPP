@@ -26,7 +26,6 @@ int main( int argc, char *argv[] )
     cout << "runing ..." << endl;
 
     Sales_item book;
-
     cout << "ISBN\t\t\t\tsold\tprice\trevenue" << endl;
     while( cin >> book ){
         cout << book << endl;
