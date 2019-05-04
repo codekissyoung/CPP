@@ -20,16 +20,20 @@
 #include <cstring>
 #include <fstream>
 
+int j = 0;
+constexpr int i = 42;
+
 int main( int argc, char *argv[] )
 {
     using namespace std;
     cout << "runing ..." << endl;
 
-    Sales_item book;
-    cout << "ISBN\t\t\t\tsold\tprice\trevenue" << endl;
-    while( cin >> book ){
-        cout << book << endl;
-    }
+//    const int *p        = nullptr;
+    constexpr int *q    = nullptr;
+    constexpr int *np   = nullptr;
+
+    constexpr const int *p  = &i;
+    constexpr int *p1       = &j;
 
     cout << "done!" << endl;
     return EXIT_SUCCESS;

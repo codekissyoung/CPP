@@ -17,4 +17,7 @@ add_executable(
         date.h date.cpp
         stack.h stack.cpp
         my_string.cpp my_string.h
-        vec.cpp vec.h Str.cpp Str.h Sales_item.cpp Sales_item.h)
+        vec.cpp vec.h
+        Str.cpp Str.h
+        Sales_item.cpp Sales_item.h
+)
