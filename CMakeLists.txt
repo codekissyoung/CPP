@@ -21,4 +21,6 @@ add_executable(
         Str.cpp Str.h
         Sales_item.cpp Sales_item.h
         Sales_data.cpp Sales_data.h
-        Screen.cpp Screen.h Window_mgr.cpp Window_mgr.h)
+        Screen.cpp Screen.h
+        Window_mgr.cpp Window_mgr.h
+)
