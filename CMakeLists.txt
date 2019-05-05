@@ -20,4 +20,4 @@ add_executable(
         vec.cpp vec.h
         Str.cpp Str.h
         Sales_item.cpp Sales_item.h
-)
+        Sales_data.cpp Sales_data.h Screen.cpp Screen.h)

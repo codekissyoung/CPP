@@ -13,6 +13,12 @@ typedef std::array<std::string, 4> ARRAY_SEA;
 typedef std::string::const_iterator iter;
 typedef std::vector<std::string> p_func_str_in_vec_out(const std::string &);
 
+void skip_to_int();
+
+int get_int();
+
+int get_int(int low, int high);
+
 extern const std::string test_url_str;
 
 extern const ARRAY_SEA Snames;

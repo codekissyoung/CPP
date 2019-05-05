@@ -8,6 +8,7 @@
 #include "my_string.h"
 #include "vec.h"
 #include "Sales_item.h"
+#include "Sales_data.h"
 #include "Str.h"
 
 #include <iostream>
@@ -53,7 +54,6 @@ int main( int argc, char *argv[] )
     {
         cerr << "No data?" << endl;
     }
-
 
     cout << "done!" << endl;
     return EXIT_SUCCESS;
