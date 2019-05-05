@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 
-// 常量声明，定义在别处，所以需要注明 extern
 extern const double PI;
 
 struct Reading{
@@ -21,31 +20,31 @@ int get_int(int low, int high);
 // ------------------------------------- Sales_data class ------------------------------------- //
 class Sales_data
 {
-    public:
-        Sales_data() = default; // 默认构造函数
-        Sales_data( const std::string &s ) : bookNo(s) { }
-        Sales_data( const std::string &s, unsigned n, double p ) : bookNo(s), units_sold(n), revenue( p * n ) { }
-        Sales_data( std::istream& );
+    friend Sales_data add( const Sales_data &, const Sales_data & );
+    friend std::ostream &print( std::ostream &, const Sales_data & );
+    friend std::istream &read( std::istream &, Sales_data & );
 
-        std::string isbn() const { return bookNo; }
+public:
+    Sales_data() = default;
+    explicit Sales_data( const std::string &s ) : bookNo(s) { }
+    explicit Sales_data( std::istream &is ) { read( is, *this); }
+    Sales_data( const std::string &s, unsigned n, double p ) : bookNo(s), units_sold(n), revenue(p*n) { }
 
-        Sales_data& combine( const Sales_data& );
-        double avg_price() const;
+    std::string isbn() const { return bookNo; }
 
-        friend Sales_data add( const Sales_data&, const Sales_data& );
-        friend std::ostream &print( std::ostream&, const Sales_data& );
-        friend std::istream &read( std::istream&, Sales_data& );
+    Sales_data &combine( const Sales_data & );
 
-    private:
-        std::string bookNo;
-        unsigned units_sold = 0;
-        double revenue = 0.0;
+    double avg_price() const;
+
+private:
+    std::string bookNo;         // 书名
+    unsigned units_sold = 0;    // 售出数量
+    double revenue = 0.0;       // 总收入
 };
 
-// Sales_data 的非成员函数声明
-Sales_data add( const Sales_data&, const Sales_data& );
-std::ostream &print( std::ostream&, const Sales_data& );
-std::istream &read( std::istream&, Sales_data& );
+Sales_data add( const Sales_data &, const Sales_data & );
+std::ostream &print( std::ostream &, const Sales_data & );
+std::istream &read( std::istream &, Sales_data & );
 
 // ------------------------------------- Screen class ------------------------------------- //
 class Screen

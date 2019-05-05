@@ -1,14 +1,8 @@
 #include "common.h"
 
+extern const double PI = 3.1415926535;
+
 using namespace std;
-
-// 常量定义
-const double PI = 3.1415926535;
-
-Sales_data::Sales_data( istream &is )
-{
-    read( is, *this );
-}
 
 double Sales_data::avg_price() const 
 {
@@ -18,11 +12,11 @@ double Sales_data::avg_price() const
         return 0;
 }
 
-Sales_data& Sales_data::combine( const Sales_data &rhs )
+Sales_data &Sales_data::combine( const Sales_data &rhs )
 {
     units_sold += rhs.units_sold;
     revenue += rhs.revenue;
-    return *this; // 返回调用该函数的对象
+    return *this;
 }
 
 istream &read( istream &is, Sales_data &item )
@@ -44,8 +38,7 @@ ostream &print( ostream &os, const Sales_data &item )
 
 Sales_data add( const Sales_data &lhs, const Sales_data &rhs )
 {
-    // 默认情况下，拷贝对象的数据成员
-    Sales_data sum = lhs;
+    Sales_data sum = lhs;// 默认情况下，拷贝对象的数据成员
     sum.combine( rhs );
     return sum;
 }

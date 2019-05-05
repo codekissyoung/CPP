@@ -13,6 +13,8 @@
 #include <iostream>
 #include <map>
 #include <algorithm>
+#include <string>
+#include <initializer_list>
 
 #include <cmath>
 #include <ctime>
@@ -20,20 +22,38 @@
 #include <cstring>
 #include <fstream>
 
-int j = 0;
-constexpr int i = 42;
+using namespace std;
 
 int main( int argc, char *argv[] )
 {
-    using namespace std;
     cout << "runing ..." << endl;
 
-//    const int *p        = nullptr;
-    constexpr int *q    = nullptr;
-    constexpr int *np   = nullptr;
+    Sales_data total;
 
-    constexpr const int *p  = &i;
-    constexpr int *p1       = &j;
+    if( read( cin, total ) )
+    {
+        Sales_data trans;
+        while( read(cin, trans) )
+        {
+            if( total.isbn() == trans.isbn() )
+            {
+                total.combine(trans);
+            }
+            else
+            {
+                print(cout, total);
+                cout << endl;
+                total = trans;
+            }
+        }
+        print(cout, total);
+        cout << endl;
+    }
+    else
+    {
+        cerr << "No data?" << endl;
+    }
+
 
     cout << "done!" << endl;
     return EXIT_SUCCESS;
