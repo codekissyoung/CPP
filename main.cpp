@@ -10,6 +10,8 @@
 #include "Sales_item.h"
 #include "Sales_data.h"
 #include "Str.h"
+#include "Screen.h"
+#include "Window_mgr.h"
 
 #include <iostream>
 #include <map>
@@ -29,31 +31,13 @@ int main( int argc, char *argv[] )
 {
     cout << "runing ..." << endl;
 
-    Sales_data total;
+    Screen myScreen = Screen( 5, 5, 'X');
 
-    if( read( cin, total ) )
-    {
-        Sales_data trans;
-        while( read(cin, trans) )
-        {
-            if( total.isbn() == trans.isbn() )
-            {
-                total.combine(trans);
-            }
-            else
-            {
-                print(cout, total);
-                cout << endl;
-                total = trans;
-            }
-        }
-        print(cout, total);
-        cout << endl;
-    }
-    else
-    {
-        cerr << "No data?" << endl;
-    }
+    myScreen.move( 4, 0 ).set('#').display( cout );
+    cout << endl;
+
+    myScreen.display( cout );
+    cout << endl;
 
     cout << "done!" << endl;
     return EXIT_SUCCESS;
