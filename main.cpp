@@ -66,6 +66,16 @@ int main( int argc, char *argv[] )
 
     names.assign( oldstyle.cbegin(), oldstyle.cend() );
 
+    // 比较运算符
+    vector<int> v1 = {1,3,5,7,9,12};
+    vector<int> v2 = {1,3,9};
+    vector<int> v3 = {1,3,5,7};
+    vector<int> v4 = {1,3,5,7,9,12};
+
+    cout << (v1 < v2) << endl;
+
+    cout << ( v1 == v4 ) << endl;
+
     cout << "done!" << endl;
     return EXIT_SUCCESS;
 }
