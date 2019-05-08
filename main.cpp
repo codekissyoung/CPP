@@ -14,8 +14,8 @@
 #include "Window_mgr.h"
 
 #include <iostream>
-#include <map>
 #include <algorithm>
+#include <map>
 #include <string>
 #include <initializer_list>
 
@@ -31,13 +31,6 @@ int main( int argc, char *argv[] )
 {
     cout << "runing ..." << endl;
 
-    Screen myScreen = Screen( 5, 5, 'X');
-
-    myScreen.move( 4, 0 ).set('#').display( cout );
-    cout << endl;
-
-    myScreen.display( cout );
-    cout << endl;
 
     cout << "done!" << endl;
     return EXIT_SUCCESS;

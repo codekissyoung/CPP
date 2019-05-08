@@ -3,18 +3,19 @@
 
 #include <iostream>
 #include <string>
+#include <utility>
 
 class Sales_item {
 
 private:
-    std::string isbn;       // 书编号
-    unsigned    units_sold; // 售出次数
-    double      revenue;    // 售出总额
+    std::string isbn;           // 书编号
+    unsigned    units_sold = 0; // 售出次数
+    double      revenue = 0.0;  // 售出总额
 
 public:
     Sales_item() : units_sold(0),revenue(0.0) {}
-    explicit Sales_item(const std::string &book) : isbn(book),units_sold(0),revenue(0.0) {}
-    explicit Sales_item(std::istream &is){ is >> *this; }
+    explicit Sales_item( const std::string &&book ) : isbn(book),units_sold(0),revenue(0.0) {}
+    explicit Sales_item( std::istream &is ){ is >> *this; }
 
     friend std::istream &operator>>(std::istream &, Sales_item &);
     friend std::ostream &operator<<(std::ostream &, const Sales_item &);

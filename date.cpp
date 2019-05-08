@@ -1,26 +1,25 @@
 #include "date.h"
 
 #include <iostream>
+#include <exception>
 
 namespace My
 {
     using namespace std;
 
-    Date::Date( int y, Month m, int d )
-        : y( y ), m( m ), d(d)
+    Date::Date( int y, Month m, int d ) : y( y ), m( m ), d(d)
     {
         if( !is_date( y, m, d ) )
-            throw invalid();
+            throw range_error( "range error" );
     }
 
-    Date& default_date()
+    Date &default_date()
     {
         static Date d( 2001, Date::jan, 1 );
         return d;
     }
 
-    Date::Date()
-        : y( default_date().year()), m( default_date().month() ), d( default_date().day() )
+    Date::Date() : y( default_date().year()), m( default_date().month() ), d( default_date().day() )
     {
     
     }
@@ -47,15 +46,12 @@ namespace My
 
     bool is_date( int y, Date::Month m, int d )
     {
-        if( d <= 0 )
-            return false;
-
         int days_in_month = 31;
 
         switch( m )
         {
             case Date::feb:
-                days_in_month = leapyear(y) ? 29 : 28;
+                days_in_month = leapyear( y ) ? 29 : 28;
                 break;
             case Date::apr:
             case Date::jun:
@@ -64,13 +60,10 @@ namespace My
                 days_in_month = 30;
                 break;
             default:
-                // do nothing
                 break;
         }
 
-        if( d > days_in_month )
-            return false;
-        return true;
+        return d >= 0 && d < days_in_month ;
     }
 
     bool leapyear( int y )

@@ -320,9 +320,12 @@ map<string, vector<int>> xref( istream &in, vector<string> (*explode_words)(cons
     while( getline( in, line ) )
     {
         ++line_number;
+
         auto words = explode_words( line );
-        for( auto it = words.begin(); it != words.end(); ++it )
-            ret[*it].push_back( line_number );
+
+        for( const auto &x : words )
+            ret[x].push_back( line_number );
     }
+
     return ret;
 }
