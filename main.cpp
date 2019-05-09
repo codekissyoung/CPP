@@ -35,46 +35,6 @@ int main( int argc, char *argv[] )
 {
     cout << "runing ..." << endl;
 
-    list<string> authors = {"caokaiyan","zhangjian","fengbo"};
-
-    vector<const char*> articles = { "a", "an", "the" };
-
-    list<string> list2( articles.begin(), articles.end() );
-
-    deque<string> authList( authors.begin(), authors.end() );
-
-    vector<string> words( authList.begin(), authList.end() );
-
-    forward_list<string> words2( articles.begin(), articles.end() );
-
-
-    // array
-    array<string,4> arr = {"caokaiyan","heping"};
-
-    array<string,4> copy = arr;
-
-//    for( const auto x : arr )
-//        cout << x << endl;
-//
-//    for( const auto x  : copy )
-//        cout << x << endl;
-//
-
-    list<string> names;
-    vector<const char*> oldstyle;
-//    names = oldstyle;
-
-    names.assign( oldstyle.cbegin(), oldstyle.cend() );
-
-    // 比较运算符
-    vector<int> v1 = {1,3,5,7,9,12};
-    vector<int> v2 = {1,3,9};
-    vector<int> v3 = {1,3,5,7};
-    vector<int> v4 = {1,3,5,7,9,12};
-
-    cout << (v1 < v2) << endl;
-
-    cout << ( v1 == v4 ) << endl;
 
     cout << "done!" << endl;
     return EXIT_SUCCESS;
