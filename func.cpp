@@ -109,7 +109,7 @@ vector<string> find_urls( const string &s )
         {
             iter after = url_end( b, e );
 
-            ret.push_back( string( b, after ) );
+            ret.emplace_back( b, after );
 
             b = after;
         }
