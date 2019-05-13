@@ -22,6 +22,8 @@
 #include <deque>
 #include <forward_list>
 #include <initializer_list>
+#include <stack>
+#include <queue>
 
 #include <cmath>
 #include <ctime>
@@ -31,9 +33,27 @@
 
 using namespace std;
 
-int main( int argc, char *argv[] )
-{
+int main( int argc, char *argv[] ) {
     cout << "runing ..." << endl;
+
+    deque<int> deq = {2, 3, 4, 5, 6, 7, 9};
+
+    stack<int> stk(deq);
+
+    stack<string, vector<string>> str_stk;
+
+    stack<int> intStack;
+
+    for (size_t ix = 0; ix != 10; ++ix)
+        intStack.push(ix);
+
+    while (!intStack.empty())
+    {
+        int value = intStack.top();
+        cout << value << endl;
+        intStack.pop();
+    }
+
 
     cout << "done!" << endl;
 
