@@ -56,8 +56,6 @@ void biggies( std::vector<std::string> &words, std::vector<std::string>::size_ty
         return a.size() >= sz;
     });
 
-    auto count = words.end() - wc;
-
     for_each( wc, words.end(), []( const string &s ){
         cout << s << " ";
     });

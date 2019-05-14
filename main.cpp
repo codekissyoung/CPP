@@ -24,6 +24,7 @@
 #include <initializer_list>
 #include <stack>
 #include <queue>
+#include <memory>
 
 #include <cmath>
 #include <ctime>
@@ -36,12 +37,13 @@ using namespace std;
 int main( int argc, char *argv[] ) {
     cout << "runing ..." << endl;
 
+    shared_ptr<string> p1; // 一个空智能指针
 
-    vector<string> test_vec = {"nice", "to", "meet", "you", "how", "are", "you", "country"};
+    if( p1 && p1->empty() )
+        *p1 = "hi";
 
-    biggies( test_vec, 4 );
+    string test_str = "hello world";
 
-    cout << "\ndone!" << endl;
 
     return EXIT_SUCCESS;
 }
