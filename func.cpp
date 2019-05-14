@@ -29,6 +29,40 @@ const ARRAY_SEA Snames = {
         "Winter"
 };
 
+void elimDups( std::vector<std::string> &words )
+{
+    sort( words.begin(), words.end() );
+
+    auto end_unique = unique( words.begin(), words.end() );
+
+    words.erase( end_unique, words.end() );
+}
+
+bool isShorter( const string &s1, const string &s2 ){
+    return s1.size() < s2.size();
+}
+
+void biggies( std::vector<std::string> &words, std::vector<std::string>::size_type sz )
+{
+    elimDups( words );
+
+    // 使用 lambda 作为谓词，按字符串长度排序，长度相同的单词维持字典序
+    stable_sort( words.begin(), words.end(), [](const string &a, const string &b){
+        return a.size() < b.size();
+    });
+
+    // 获取 满足 size() >= sz 的元素的迭代器
+    auto wc = find_if( words.begin(), words.end(), [sz]( const string &a ){
+        return a.size() >= sz;
+    });
+
+    auto count = words.end() - wc;
+
+    for_each( wc, words.end(), []( const string &s ){
+        cout << s << " ";
+    });
+}
+
 void fill( ARRAY_SEA *pa )
 {
     for( decltype((*pa).size()) i = 0; i < (*pa).size(); i++ )

@@ -33,6 +33,10 @@ bool space( char c);
 
 int square( int x );
 
+bool isShorter( const std::string &s1, const std::string &s2 );
+
+void biggies( std::vector<std::string> &words, std::vector<std::string>::size_type sz );
+
 template <typename T>
 void my_swap( T &v1, T &v2 )
 {

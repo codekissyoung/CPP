@@ -36,26 +36,12 @@ using namespace std;
 int main( int argc, char *argv[] ) {
     cout << "runing ..." << endl;
 
-    deque<int> deq = {2, 3, 4, 5, 6, 7, 9};
 
-    stack<int> stk(deq);
+    vector<string> test_vec = {"nice", "to", "meet", "you", "how", "are", "you", "country"};
 
-    stack<string, vector<string>> str_stk;
+    biggies( test_vec, 4 );
 
-    stack<int> intStack;
-
-    for (size_t ix = 0; ix != 10; ++ix)
-        intStack.push(ix);
-
-    while (!intStack.empty())
-    {
-        int value = intStack.top();
-        cout << value << endl;
-        intStack.pop();
-    }
-
-
-    cout << "done!" << endl;
+    cout << "\ndone!" << endl;
 
     return EXIT_SUCCESS;
 }
