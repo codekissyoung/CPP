@@ -32,18 +32,15 @@
 #include <cstring>
 #include <fstream>
 
+#include <sys/time.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
 using namespace std;
 
 int main( int argc, char *argv[] ) {
     cout << "runing ..." << endl;
-
-    shared_ptr<string> p1; // 一个空智能指针
-
-    if( p1 && p1->empty() )
-        *p1 = "hi";
-
-    string test_str = "hello world";
-
 
     return EXIT_SUCCESS;
 }
