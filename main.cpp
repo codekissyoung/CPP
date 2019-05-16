@@ -34,7 +34,8 @@
 
 using namespace std;
 
-int main( int argc, char *argv[] ) {
+int main( int argc, char *argv[] )
+{
     cout << "runing ..." << endl;
 
     shared_ptr<string> p1; // 一个空智能指针
