@@ -14,13 +14,11 @@ add_executable(
         Student_info.cpp Student_info.h
         stock.cpp stock.h
         My_vector.cpp My_vector.h
-        date.h date.cpp
         My_stack.h My_stack.cpp
         StringBad.cpp StringBad.h
         vec.cpp vec.h
         Str.cpp Str.h
         Sales_item.cpp Sales_item.h
-        Sales_data.cpp Sales_data.h
         Screen.cpp Screen.h
         Window_mgr.cpp Window_mgr.h
 )
