@@ -1,4 +1,4 @@
-#include "student.h"
+#include "Student_info.h"
 
 #include <iostream>
 #include <algorithm>

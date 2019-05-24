@@ -1,26 +1,26 @@
-#include "stack.h"
+#include "My_stack.h"
 
-Stack::Stack()
+My_stack::My_stack()
 {
     top = 0;
 }
 
-Stack::~Stack()
+My_stack::~My_stack()
 {
     
 }
 
-bool Stack::isempty() const
+bool My_stack::isempty() const
 {
     return top == 0;
 }
 
-bool Stack::isfull() const
+bool My_stack::isfull() const
 {
     return top == MAX;
 }
 
-bool Stack::push( const Item &item )
+bool My_stack::push( const Item &item )
 {
     if( top < MAX )
     {
@@ -33,7 +33,7 @@ bool Stack::push( const Item &item )
     }
 }
 
-bool Stack::pop( Item &item )
+bool My_stack::pop( Item &item )
 {
     if( top > 0 )
     {

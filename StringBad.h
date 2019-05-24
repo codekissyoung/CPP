@@ -1,5 +1,5 @@
-#ifndef CPP_MY_STRING_H
-#define CPP_MY_STRING_H
+#ifndef CPP_STRINGBAD_H
+#define CPP_STRINGBAD_H
 
 #include <iostream>
 

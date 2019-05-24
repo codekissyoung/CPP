@@ -1,11 +1,11 @@
 #include "common.h"
 #include "func.h"
 #include "stock.h"
-#include "student.h"
-#include "vector.h"
+#include "Student_info.h"
+#include "My_vector.h"
 #include "date.h"
-#include "stack.h"
-#include "my_string.h"
+#include "My_stack.h"
+#include "StringBad.h"
 #include "vec.h"
 #include "Sales_item.h"
 #include "Sales_data.h"
@@ -41,8 +41,6 @@ using namespace std;
 
 int main( int argc, char *argv[] )
 {
-    cout << "runing ..." << endl;
 
-    cout << "done" << endl;
     return EXIT_SUCCESS;
 }

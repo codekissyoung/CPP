@@ -1,5 +1,5 @@
-#ifndef CPP_STUDENT_H
-#define CPP_STUDENT_H
+#ifndef CPP_STUDENT_INFO_H
+#define CPP_STUDENT_INFO_H
 
 #include <vector>
 #include <iostream>
@@ -19,7 +19,7 @@ class Student_info{
         explicit Student_info(std::istream &);
         std::istream &read( std::istream& );
         double grade() const;
-        std::string get_name() const { return name; } // 存取器函数
+        std::string get_name() const { return name; }
         bool valid() const { return !homework.empty(); }
 };
 
@@ -66,7 +66,7 @@ class Core{
 
 public:
         Core();
-        Core(std::istream &);
+        explicit Core(std::istream &);
         std::string get_name() const;
         std::istream &read( std::istream & );
         double grade() const;
@@ -87,7 +87,7 @@ class Grad : public Core{
 
 public:
         Grad();
-        Grad(std::istream &);
+        explicit Grad(std::istream &);
         double grade() const;
         std::istream &read(std::istream &);
 

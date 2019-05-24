@@ -11,12 +11,12 @@ add_executable(
         func.cpp func.h
         main.cpp
         Makefile
-        student.cpp student.h
+        Student_info.cpp Student_info.h
         stock.cpp stock.h
-        vector.cpp vector.h
+        My_vector.cpp My_vector.h
         date.h date.cpp
-        stack.h stack.cpp
-        my_string.cpp my_string.h
+        My_stack.h My_stack.cpp
+        StringBad.cpp StringBad.h
         vec.cpp vec.h
         Str.cpp Str.h
         Sales_item.cpp Sales_item.h

@@ -3,7 +3,7 @@
 
 typedef unsigned long Item;
 
-class Stack
+class My_stack
 {
     private:
         
@@ -16,9 +16,9 @@ class Stack
 
     public:
         
-        Stack();
+        My_stack();
 
-        ~Stack();
+        ~My_stack();
 
         // 栈空?
         bool isempty() const;
