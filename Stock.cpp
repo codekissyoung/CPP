@@ -1,54 +1,25 @@
-#include "stock.h"
+#include "Stock.h"
 
 #include <iostream>
 
 using namespace std;
 
-Stock::Stock()
-{
-    company     = "unknown Company";
-    shares      = 0;
-    share_val   = 0;
-    set_tot();
-}
+Stock::Stock() : company{"unknow company"}, shares{0}, share_val{0}, total_val{0}{ }
 
-Stock::Stock( const string& co, long n, double pr )
+Stock::Stock( string co, long n, double pr ) : company{ std::move(co) }, shares{n}, share_val{pr}, total_val{0}
 {
-    company = co;
     if( n < 0 )
     {
         cout << "Number of shares can not be negative " << company  << " shares set to 0 \n";
         shares = 0;
     }
-    else
-    {
-        shares = n;
-    }
 
-    share_val = pr;
-    set_tot();
-}
-
-void Stock::acquire( const string &co, long n, double pr )
-{
-    company = co;
-    if( n < 0 )
-    {
-        cout << "Number of shares can not be negative " << company  << " shares set to 0 \n";
-        shares = 0;
-    }
-    else
-    {
-        shares = n;
-    }
-
-    share_val = pr;
     set_tot();
 }
 
 Stock::~Stock()
 {
-   cout << company << "~Stock 析构\n" << endl;
+   cout << company << " ~Stock() called" << endl;
 }
 
 
@@ -69,13 +40,9 @@ void Stock::buy( long num, double price )
 void Stock::sell( long num, double price )
 {
     if( num < 0)
-    {
         cout << "售出不能为 0 " << endl ;
-    }
     else if( num > shares )
-    {
         cout << "存量不够" << endl;
-    }
     else
     {
         shares -= num;
@@ -90,13 +57,12 @@ void Stock::update( double price )
     set_tot();
 }
 
-
-void Stock::show()
+void Stock::show() const
 {
-    cout << "Company : " << company << "\t"
-         << "Shares : " << shares << "\t"
-         << "Share Price : " << share_val << "\t"
-         << "Total Worth : " << total_val << endl;
+    cout << "公司: " << company << "\t"
+         << "持有: " << shares << "\t"
+         << "股价: $" << share_val << "\t"
+         << "总值: $" << total_val << endl;
 }
 
 const Stock &Stock::topval( const Stock &s ) const

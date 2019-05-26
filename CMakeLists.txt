@@ -12,7 +12,7 @@ add_executable(
         main.cpp
         Makefile
         Student_info.cpp Student_info.h
-        stock.cpp stock.h
+        Stock.cpp Stock.h
         My_vector.cpp My_vector.h
         My_stack.h My_stack.cpp
         StringBad.cpp StringBad.h
@@ -21,4 +21,5 @@ add_executable(
         Sales_item.cpp Sales_item.h
         Screen.cpp Screen.h
         Window_mgr.cpp Window_mgr.h
+        My_Queue.cpp My_Queue.h
 )

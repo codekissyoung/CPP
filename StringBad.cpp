@@ -5,15 +5,19 @@
 
 using namespace std;
 
-int StringBad::num_strings = 0;
+int StringBad::num_strings = 0; // 必须在此处初始化，而不是在声明处
 
-StringBad::StringBad()
+StringBad::StringBad() : len{0}
 {
-    len = 0;
     str = new char[1];
     str[0] = '\0';
     ++num_strings;
-    cout << num_strings << " : " << str << " object created" << endl;
+}
+
+StringBad::~StringBad()
+{
+    cout << --num_strings << " StringBad object left" << endl;
+    delete[] str;
 }
 
 StringBad::StringBad( const char *s )
@@ -22,8 +26,6 @@ StringBad::StringBad( const char *s )
     str = new char[len + 1];
     strcpy( str, s );
     ++num_strings;
-
-    cout << num_strings << " : " << str << " object created" << endl;
 }
 
 StringBad::StringBad( const StringBad &st ){
@@ -31,12 +33,10 @@ StringBad::StringBad( const StringBad &st ){
     len = st.len;
     str = new char[len + 1];
     strcpy( str, st.str );
-    cout << num_strings << " object copyed" << endl;
 }
 
 // assign StringBad to StringBad
 StringBad &StringBad::operator=( const StringBad &st ){
-    cout << "= operator run" << endl;
     if( this == &st )
         return *this;
     delete[] str;
@@ -61,8 +61,8 @@ char &StringBad::operator[](int i) {
     return str[i];
 }
 
-// read-only char access for const StringBad
-const char& StringBad::operator[](int i) const {
+// 在重载时，C++区分const与non-const特征标，所以这里提供一个仅供 const StringBad 对象使用的版本
+const char &StringBad::operator[](int i) const {
     return str[i];
 }
 
@@ -72,6 +72,10 @@ bool operator<( const StringBad &st1, const StringBad &st2 ) {
 
 bool operator>( const StringBad &st1, const StringBad &st2 ){
     return st2 < st1;
+}
+
+bool operator==( const StringBad &st1, const StringBad &st2 ){
+    return 0 == strcmp( st1.str, st2.str );
 }
 
 istream &operator>>( istream &is, StringBad &st ){
@@ -90,9 +94,3 @@ ostream &operator<<( ostream &os, const StringBad &st )
     return os;
 }
 
-StringBad::~StringBad()
-{
-    --num_strings;
-    cout << str << " object deleted " << num_strings << " left" << endl;
-    delete[] str;
-}

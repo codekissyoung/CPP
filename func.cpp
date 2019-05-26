@@ -14,10 +14,10 @@ extern const string test_url_str = " welcome to http://www.baidu.com/abc/gde ，
                                    "we are big family. refer to http://codekissyoung.com eg. ";
 
 // 函数指针
-const double * (*p_fun)( const double *, int );
+const double *(*p_fun)( const double *, int );
 
 // 一个数组，数组的每个元素都是 p1 函数指针
-const double * (*p_arr[3])( const double *, int );
+const double *(*p_arr[3])( const double *, int );
 
 // 一个指针，指针指向 pa
 const double * (*(*p_pointer)[3])( const double *, int );
@@ -46,12 +46,10 @@ void biggies( std::vector<std::string> &words, std::vector<std::string>::size_ty
 {
     elimDups( words );
 
-    // 使用 lambda 作为谓词，按字符串长度排序，长度相同的单词维持字典序
     stable_sort( words.begin(), words.end(), [](const string &a, const string &b){
         return a.size() < b.size();
     });
 
-    // 获取 满足 size() >= sz 的元素的迭代器
     auto wc = find_if( words.begin(), words.end(), [sz]( const string &a ){
         return a.size() >= sz;
     });
@@ -85,8 +83,7 @@ void show( array<double, 4> da )
 bool not_url_char( char c )
 {
     // URL 中允许的字符
-    static string url_ch = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                           "abcdefghijklmnopqrstuvwxyz-_.~!*'();:@&=+$,/?#[]";
+    static string url_ch {"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_.~!*'();:@&=+$,/?#[]"};
     return find( url_ch.begin(), url_ch.end(), c ) == url_ch.end();
 }
 
