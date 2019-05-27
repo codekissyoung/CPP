@@ -22,4 +22,5 @@ add_executable(
         Screen.cpp Screen.h
         Window_mgr.cpp Window_mgr.h
         My_Queue.cpp My_Queue.h
+        Brass_model.cpp Brass_model.h
 )
