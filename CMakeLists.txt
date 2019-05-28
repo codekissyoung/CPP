@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.13)
-project(CPP)
+project(main)
 
 set(CMAKE_CXX_STANDARD 17)
 
 include_directories(.)
 
 add_executable(
-        CPP
+        main
         common.cpp common.h
         func.cpp func.h
         main.cpp
@@ -14,7 +14,7 @@ add_executable(
         Student_info.cpp Student_info.h
         Stock.cpp Stock.h
         My_vector.cpp My_vector.h
-        My_stack.h My_stack.cpp
+        My_stack.h
         StringBad.cpp StringBad.h
         vec.cpp vec.h
         Str.cpp Str.h
@@ -23,4 +23,6 @@ add_executable(
         Window_mgr.cpp Window_mgr.h
         My_Queue.cpp My_Queue.h
         Brass_model.cpp Brass_model.h
+        My_array.h
+        My_pair.h
 )
