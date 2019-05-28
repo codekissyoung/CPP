@@ -45,7 +45,6 @@ using namespace std;
 
 int main( int argc, char *argv[] )
 {
-
     My_pair<string,int> ratings[4] = {
             My_pair<string,int>("codekissyoung",5),
             My_pair<string,int>("zhangjian",234),
@@ -59,7 +58,6 @@ int main( int argc, char *argv[] )
     {
         cout << ratings[i].first() << "," << ratings[i].second() << endl;
     }
-
 
     return EXIT_SUCCESS;
 }
