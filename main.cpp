@@ -30,7 +30,7 @@
 #include <valarray>
 
 #include <cmath>
-#include <ctime>
+#include <time.h>
 #include <cstdio>
 #include <cstring>
 #include <fstream>
@@ -46,12 +46,12 @@
 using namespace std;
 
 void show_info( utmp *u ){
+    if( u -> ut_type != USER_PROCESS )  // users only
+        return;
     cout << u->ut_name << "\t";
-    cout << u-> ut_line << "\t";
-    cout << u-> ut_host << "\t";
-    cout << u-> ut_session << "\t";
-
-    cout << endl;
+    cout << u->ut_line << "\t";
+    printf( "%15.15s", ctime( (time_t *)&u->ut_time ) + 4 );
+    cout << "(" << u->ut_host << ")" << endl;
 }
 
 int main( int argc, char *argv[] )
