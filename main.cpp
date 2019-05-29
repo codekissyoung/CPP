@@ -48,15 +48,22 @@ using namespace std;
 void show_info( utmp *u ){
     if( u -> ut_type != USER_PROCESS )  // users only
         return;
+
     cout << u->ut_name << "\t";
     cout << u->ut_line << "\t";
-    printf( "%15.15s", ctime( (time_t *)&u->ut_time ) + 4 );
+
+    // 这里处理时间，类型转换是很麻烦
+    char time_str[50];
+    time_t time_num = u->ut_time;
+    strftime( time_str, 50, "%Y-%m-%d %H:%M:%S", localtime( &time_num ) );
+    printf( "%s ", time_str );
+
     cout << "(" << u->ut_host << ")" << endl;
 }
 
 int main( int argc, char *argv[] )
 {
-    utmp current_record;
+    utmp current_record = {};
 
     int utmpfd;
     int reclen = sizeof(current_record);
