@@ -9,6 +9,18 @@
 #include <map>
 #include <algorithm>
 
+#define PAGELEN 3       // 一页显示行数
+#define LINELEN 512     // 一行显示字符数
+
+// 读取用户输入的一个字符，返回一个指令
+// q -> 0:              退出
+// [space] -> PAGELEN: 下一页
+// [Enter] -> 1:       下一行
+int see_more();
+
+// 从 fp(标准输入流、文件流等) 中读取数据
+void do_more( FILE *fp );
+
 typedef std::array<std::string, 4> ARRAY_SEA;
 typedef std::string::const_iterator iter;
 typedef std::vector<std::string> p_func_str_in_vec_out(const std::string &);

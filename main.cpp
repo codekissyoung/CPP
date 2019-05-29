@@ -35,16 +35,43 @@
 #include <cstring>
 #include <fstream>
 #include <climits>
+#include <utmp.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 #include <sys/time.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
 
 using namespace std;
 
+void show_info( utmp *u ){
+    cout << u->ut_name << "\t";
+    cout << u-> ut_line << "\t";
+    cout << u-> ut_host << "\t";
+    cout << u-> ut_session << "\t";
+
+    cout << endl;
+}
+
 int main( int argc, char *argv[] )
 {
+    utmp current_record;
+
+    int utmpfd;
+    int reclen = sizeof(current_record);
+
+    if( ( utmpfd = open( UTMP_FILE, O_RDONLY ) ) == -1 ){
+        perror( UTMP_FILE "Error" );
+        exit(1);
+    }
+
+    while ( read( utmpfd, &current_record, reclen ) == reclen )
+    {
+        show_info( &current_record );
+    }
+
+    close( utmpfd );
 
     return EXIT_SUCCESS;
 }

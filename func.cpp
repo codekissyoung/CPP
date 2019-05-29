@@ -7,8 +7,57 @@
 #include <algorithm>
 #include <array>
 #include <map>
+#include <cstdio>
 
 using namespace std;
+
+int see_more() {
+    int c;
+    printf("see more?");
+
+    // 演示下从 /dev/tty 读取数据, Linux 会自动将 /dev/tty 重定向到一个终端窗口，因此该文件对于读取人工输入时特别有用
+    auto fp_tty = fopen( "/dev/tty", "r" );
+    if( fp_tty == nullptr )
+        exit( 1 );
+
+    while ( ( c = getc( fp_tty ) ) != EOF ) {
+        switch (c) {
+            case 'q':
+                return 0;
+            case ' ':
+                return PAGELEN;
+            case '\n':
+                return 1;
+            default:
+                continue;
+        }
+    }
+    fclose(fp_tty);
+    return 0;
+}
+
+void do_more( FILE *fp ){
+
+    char line[LINELEN];
+    int num_of_lines = 0;
+
+    while ( fgets( line, LINELEN, fp ) ){
+
+        if( fputs( line, stdout ) == EOF )
+            exit(1);
+        else
+            ++num_of_lines;
+
+        // 每输出固定行，就询问一下用户，下一步操作: 退出？下一行？下一页？
+        if( num_of_lines == PAGELEN ){
+            int reply = see_more();
+            if( reply == 0 )
+                break;
+            else
+                num_of_lines -= reply;
+        }
+    }
+}
 
 extern const string test_url_str = " welcome to http://www.baidu.com/abc/gde ，"
                                    "we are big family. refer to http://codekissyoung.com eg. ";
