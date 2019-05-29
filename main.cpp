@@ -45,19 +45,6 @@ using namespace std;
 
 int main( int argc, char *argv[] )
 {
-    My_pair<string,int> ratings[4] = {
-            My_pair<string,int>("codekissyoung",5),
-            My_pair<string,int>("zhangjian",234),
-            My_pair<string,int>("fengbo",235),
-            My_pair<string,int>("zhj",341)
-    };
-
-    ratings[3].first() = "just test";
-
-    for( int i = 0; i < 4; ++i )
-    {
-        cout << ratings[i].first() << "," << ratings[i].second() << endl;
-    }
 
     return EXIT_SUCCESS;
 }
