@@ -45,40 +45,72 @@
 
 using namespace std;
 
-void show_info( utmp *u ){
-    if( u -> ut_type != USER_PROCESS )  // users only
-        return;
+typedef uint64_t ElemType;
 
-    cout << u->ut_name << "\t";
-    cout << u->ut_line << "\t";
+typedef struct Node{
+    ElemType data;
+    struct Node *next;
+} Node;
 
-    // 这里处理时间，类型转换是很麻烦
-    char time_str[50];
-    time_t time_num = u->ut_time;
-    strftime( time_str, 50, "%Y-%m-%d %H:%M:%S", localtime( &time_num ) );
-    printf( "%s ", time_str );
+typedef Node* LinkList;
 
-    cout << "(" << u->ut_host << ")" << endl;
+
+// 从 LinkList 里获取第 i 个元素的值，存入 e
+bool get_elem( LinkList L, int i, ElemType *e )
+{
+    LinkList p = L -> next; // 第一个结点
+    int j = 1;
+
+    while( p != nullptr )
+    {
+        if( j == i )
+        {
+            *e = p -> data;
+            return true;
+        }else{
+            p = p -> next;
+            ++j;
+        }
+    }
+
+    return false;
+}
+
+// 在L的第 i 个元素之前，插入新元素e
+bool insert_elem( LinkList L, int i, ElemType *e ){
+    // 等价于在 第 ( i - 1 ) 个元素后 插入 新元素 e
+    i = i - 1;
+
+    LinkList p = L; // 头结点
+    int j = 0;
+
+    while( p != nullptr )
+    {
+        if( j == i )
+        {
+            auto new_elem = new Node{ *e, nullptr };
+            new_elem -> next = p -> next;
+            p -> next = new_elem;
+        }else{
+            p = p -> next;
+            ++j;
+        }
+    }
+
+    return false;
 }
 
 int main( int argc, char *argv[] )
 {
-    utmp current_record = {};
+    LinkList students = new Node{ 0, nullptr };
 
-    int utmpfd;
-    int reclen = sizeof(current_record);
+    ElemType a = 1009;
 
-    if( ( utmpfd = open( UTMP_FILE, O_RDONLY ) ) == -1 ){
-        perror( UTMP_FILE "Error" );
-        exit(1);
-    }
+    insert_elem( students, 1, &a );
 
-    while ( read( utmpfd, &current_record, reclen ) == reclen )
-    {
-        show_info( &current_record );
-    }
+    ElemType b = 9912;
 
-    close( utmpfd );
+    insert_elem( students, 1, &b );
 
     return EXIT_SUCCESS;
 }
