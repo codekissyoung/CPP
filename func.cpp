@@ -11,6 +11,14 @@
 
 using namespace std;
 
+int fib( int n, int t ){
+    if( n < 3 )
+        return 1;
+    cout << t << ": ";
+    cout << "fib( " << n - 1 << ") + fib( " << n - 2 << " )" << endl;
+    return fib( n - 1, 1 ) + fib( n -2, 2 );
+}
+
 int see_more() {
     int c;
     printf("see more?");

@@ -9,6 +9,8 @@
 #include <map>
 #include <algorithm>
 
+int fib( int n, int t );
+
 #define PAGELEN 3       // 一页显示行数
 #define LINELEN 512     // 一行显示字符数
 
