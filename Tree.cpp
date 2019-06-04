@@ -37,3 +37,8 @@ void InThreading( BiThrTree p ){
         InThreading( p -> rchild );
     }
 }
+//auto bit_thr_tree    = new BiThrNode{ 'A', nullptr, nullptr, child_tag, child_tag };
+//
+//bit_thr_tree->rchild = new BiThrNode{ 'C', nullptr, nullptr, child_tag, child_tag };
+//
+//bit_thr_tree->lchild = new BiThrNode{ 'B', nullptr, nullptr, child_tag, child_tag };
