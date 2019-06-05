@@ -51,85 +51,48 @@
 
 using namespace std;
 
-void do_ls( const char *dirname );
-void show_file_info( const char *filename );
-char* mode_to_letters( int mode );
+ino_t get_inode( const char * );
+void printpathto( ino_t );
+void inum_to_name( ino_t , char *, int );
 
 int main( int argc, char *argv[] )
 {
-    if( argc == 1 )
-        do_ls( "." );
-    else
-        while ( --argc ){
-            do_ls( *++argv );
-        }
-
-    return EXIT_SUCCESS;
+    printpathto( get_inode(".") );
+    cout << endl;
 }
 
-void do_ls( const char * dirname ) {
-    DIR *dir_ptr;
-    struct dirent *dir_data;
+void printpathto( ino_t this_inode ){
 
-    dir_ptr = opendir( dirname );
+    ino_t my_inode;
+    char its_name[BUFSIZ];
 
-    while ( (dir_data = readdir(dir_ptr)) != nullptr ){
-        show_file_info( dir_data->d_name );
+    if( get_inode("..") != this_inode ){
+        chdir( ".." );
+        inum_to_name( this_inode, its_name, BUFSIZ );
+        my_inode = get_inode( "." );
+        printpathto( my_inode );
+        cout << "/" << its_name;
     }
-
-    closedir(dir_ptr);
 }
 
-void show_file_info( const char *filename ){
+ino_t get_inode( const char *fname ){
     struct stat info;
-    stat( filename, &info );
+    stat( fname, &info );
+    return info.st_ino;
+}
 
-    cout << mode_to_letters( info.st_mode ); // 权限
+void inum_to_name( ino_t inode_to_find, char *namebuf, int buflen ){
+    DIR *dir_ptr;
+    struct dirent *direntp;
+    dir_ptr = opendir( "." );
 
-    cout << " " << info.st_nlink << " ";     // lnode 数
-    cout << " " << getgrgid(info.st_gid) -> gr_name << " ";  // 用户组名
-    cout << " " << getpwuid(info.st_uid) -> pw_name << " ";  // 用户名
-
-    // 小数显示 文件大小
-    cout << " " << setiosflags( ios::fixed ) << setprecision( 1 );
-    if( info.st_size >= 1024 * 1024 * 1024 ){
-        cout << info.st_size / (1024.0 * 1024.0 * 1024.0)  << "G\t";
-    }else if( info.st_size < 1024 * 1024 * 1024 && info.st_size >= 1024 * 1024 ) {
-        cout << info.st_size / (1024.0 * 1024.0)  << "M\t";
-    }else if(info.st_size < 1024 * 1024 ){
-        cout << info.st_size / 1024.0 << "K\t";
+    while ( ( direntp = readdir( dir_ptr ) ) != NULL ){
+        if( direntp->d_ino == inode_to_find ){
+            strncpy( namebuf, direntp->d_name, buflen );
+            namebuf[buflen - 1] = '\0';
+            closedir( dir_ptr );
+            return ;
+        }
     }
-
-    char time_str[30];
-    strftime( time_str, 30, "%Y-%m-%d %H:%M:%S", localtime( &info.st_mtime ) );
-
-    cout << " " << time_str << " ";
-
-    cout << " " << filename << endl;
+    return;
 }
-
-char* mode_to_letters( int mode ){
-    char *str = new char[11];
-    strcpy( str, "----------" );
-    str[10] = '\0';
-
-    if( S_ISDIR(mode) ) str[0] = 'd';
-    if( S_ISCHR(mode) ) str[0] = 'c';
-    if( S_ISBLK(mode) ) str[0] = 'b';
-
-    if( mode & S_IRUSR ) str[1] = 'r';
-    if( mode & S_IWUSR ) str[2] = 'w';
-    if( mode & S_IXUSR ) str[3] = 'x';
-
-    if( mode & S_IRGRP ) str[4] = 'r';
-    if( mode & S_IWGRP ) str[5] = 'w';
-    if( mode & S_IXGRP ) str[6] = 'x';
-
-    if( mode & S_IROTH ) str[7] = 'r';
-    if( mode & S_IWOTH ) str[8] = 'w';
-    if( mode & S_IXOTH ) str[9] = 'x';
-
-
-    return str;
-}
-
