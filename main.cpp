@@ -51,48 +51,8 @@
 
 using namespace std;
 
-ino_t get_inode( const char * );
-void printpathto( ino_t );
-void inum_to_name( ino_t , char *, int );
-
 int main( int argc, char *argv[] )
 {
-    printpathto( get_inode(".") );
-    cout << endl;
+
 }
 
-void printpathto( ino_t this_inode ){
-
-    ino_t my_inode;
-    char its_name[BUFSIZ];
-
-    if( get_inode("..") != this_inode ){
-        chdir( ".." );
-        inum_to_name( this_inode, its_name, BUFSIZ );
-        my_inode = get_inode( "." );
-        printpathto( my_inode );
-        cout << "/" << its_name;
-    }
-}
-
-ino_t get_inode( const char *fname ){
-    struct stat info;
-    stat( fname, &info );
-    return info.st_ino;
-}
-
-void inum_to_name( ino_t inode_to_find, char *namebuf, int buflen ){
-    DIR *dir_ptr;
-    struct dirent *direntp;
-    dir_ptr = opendir( "." );
-
-    while ( ( direntp = readdir( dir_ptr ) ) != NULL ){
-        if( direntp->d_ino == inode_to_find ){
-            strncpy( namebuf, direntp->d_name, buflen );
-            namebuf[buflen - 1] = '\0';
-            closedir( dir_ptr );
-            return ;
-        }
-    }
-    return;
-}
