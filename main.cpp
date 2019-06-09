@@ -43,6 +43,7 @@
 #include <dirent.h>
 #include <termios.h>
 #include <signal.h>
+#include <curses.h>   // 一个用于控制终端屏幕的库
 
 #include <sys/time.h>
 #include <sys/types.h>
@@ -53,20 +54,50 @@
 
 using namespace std;
 
+#define LEFTEDGE 10
+#define RIGHTEDGE 30
+#define ROW 10
+
 int main( int argc, char *argv[] )
 {
-    init_terminal();
+    initscr(); // 初始化 curses 库
+    clear();
 
-    signal( SIGINT, ctrl_c_handler );
-    signal( SIGQUIT, SIG_IGN );
+    int x_dir = +1;
+    int y_dir = +1;
 
-    set_crmode();
-    set_noecho_mode();
-    set_nodelay_mode();
+    int x = 0;
+    int y = 0;
 
-    int response = get_response( QUESTION );
+    return 0;
+    while ( true )
+    {
+        move( x, y );
+        standout();
+        addstr( " " );
+        standend();
 
-    restore_terminal();
+        move( LINES - 1 , 0 );
 
-    return response;
+        refresh();
+        move( x, y );
+        addstr( " " );
+
+        if ( x + x_dir == LINES - 1 )
+            x_dir = -1;
+        if ( x + x_dir == -1 )
+            x_dir = +1;
+
+        if ( y + y_dir == COLS - 1 )
+            y_dir = -1;
+        if ( y + y_dir == -1 )
+            y_dir = +1;
+
+        x += x_dir;
+        y += y_dir;
+
+        usleep( 1000 * 200 );
+    }
+
+    endwin();
 }
