@@ -58,8 +58,73 @@ using namespace std;
 #define RIGHTEDGE 30
 #define ROW 10
 
+void countdown( int a ){
+    static int num = 10;
+    printf( "%d .. ", num-- );
+    fflush( stdout );
+    if( num < 0 ){
+        printf("DONE!\n");
+        exit(0);
+    }
+}
+
+int set_ticker( int n_msecs ){
+
+    long n_sec = n_msecs / 1000;
+    long n_usecs = ( n_msecs % 1000 ) * 100L;
+
+    itimerval new_timeset;
+
+    // time to next timer expiration
+    new_timeset.it_value.tv_sec = n_sec;
+    new_timeset.it_value.tv_usec = n_usecs;
+
+    // 间隔调用时间
+    new_timeset.it_interval.tv_sec = n_sec;
+    new_timeset.it_interval.tv_usec = n_usecs;
+
+    return setitimer( ITIMER_REAL, &new_timeset, NULL );
+}
+
+void quithandler( int s){
+    printf("Received signal %d .. waiting\n", s );
+    sleep(2);
+    printf("Leaving quithandler\n");
+}
+
+#define INPUTLEN 100
+
+void inthandler( int s ){
+    printf("Received signal %d .. waiting\n", s );
+    sleep(2);
+    printf("Leaving inthandler\n");
+}
+
 int main( int argc, char *argv[] )
 {
+    struct sigaction newhandler = {};
+    sigset_t blocked;
+    char x[INPUTLEN];
+
+    newhandler.sa_handler = inthandler;
+    newhandler.sa_flags = SA_RESTART;
+    sigemptyset( &blocked );
+    sigaddset( &blocked, SIGQUIT );
+    newhandler.sa_mask = blocked;
+
+    if( sigaction( SIGINT, &newhandler, NULL ) ==  -1 )
+    {
+        perror("sigaction");
+    }else{
+        while(true){
+            fgets( x, INPUTLEN, stdin );
+            printf("input: %s", x );
+        }
+    }
+
+    return 0;
+
+    /*
     initscr(); // 初始化 curses 库
     clear();
 
@@ -69,7 +134,7 @@ int main( int argc, char *argv[] )
     int x = 0;
     int y = 0;
 
-    return 0;
+
     while ( true )
     {
         move( x, y );
@@ -100,4 +165,5 @@ int main( int argc, char *argv[] )
     }
 
     endwin();
+    */
 }
