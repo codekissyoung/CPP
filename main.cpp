@@ -54,24 +54,94 @@
 
 using namespace std;
 
-#define LEFTEDGE 10
-#define RIGHTEDGE 30
-#define ROW 10
+#define MESSAGE "O"
+#define BLANK   " "
 
-void countdown( int a ){
-    static int num = 10;
-    printf( "%d .. ", num-- );
-    fflush( stdout );
-    if( num < 0 ){
-        printf("DONE!\n");
-        exit(0);
+void move_msg( int n );
+int set_ticker( int n_msecs );
+
+int row;   // 当前行
+int col;   // 当前列
+int x_dir; // x轴方向
+int y_dir; // y轴方向
+
+int main( int argc, char *argv[] )
+{
+    initscr();
+    crmode();
+    noecho();
+    clear();
+
+    int delay  = 200;
+
+    row = 0, col = 0, x_dir = +1, y_dir = +1;
+
+    move( row, col );
+    addstr( MESSAGE );
+
+    signal( SIGALRM, move_msg );
+
+    set_ticker( delay );
+
+    while ( true )
+    {
+        int ndelay = 0;
+
+        int c = getch();
+
+        if( c == 'q' )
+            break;
+
+        switch ( c )
+        {
+            case ' ':
+                x_dir = -x_dir;
+                break;
+            case 'f':
+                if( delay > 2 )
+                    ndelay = delay / 2;
+                break;
+            case 's':
+                ndelay = delay * 2;
+        }
+
+        if( ndelay > 0 )
+            set_ticker( delay = ndelay );
     }
+
+    endwin();
+    return 0;
+}
+
+void move_msg( int n ){
+    signal( SIGALRM, move_msg ); // reset, just in case
+
+    move( row, col );
+    addstr( BLANK );
+
+    col += x_dir;
+    row += y_dir;
+
+    move( row, col );
+    addstr( MESSAGE );
+
+    move( LINES - 1, 0 );
+    refresh();
+
+    if( x_dir == -1 && col <= 0 )
+        x_dir = 1;
+    else if( x_dir == 1 && col + strlen(MESSAGE) >= (unsigned int)COLS )
+        x_dir = -1;
+
+    if( y_dir == -1 && row <= 0 )
+        y_dir = 1;
+    else if( y_dir == 1 && row >= LINES - 1 )
+        y_dir = -1;
 }
 
 int set_ticker( int n_msecs ){
-
-    long n_sec = n_msecs / 1000;
-    long n_usecs = ( n_msecs % 1000 ) * 100L;
+    long n_sec   = n_msecs / 1000;
+    long n_usecs = ( n_msecs % 1000 ) * 100;
 
     itimerval new_timeset;
 
@@ -84,86 +154,4 @@ int set_ticker( int n_msecs ){
     new_timeset.it_interval.tv_usec = n_usecs;
 
     return setitimer( ITIMER_REAL, &new_timeset, NULL );
-}
-
-void quithandler( int s){
-    printf("Received signal %d .. waiting\n", s );
-    sleep(2);
-    printf("Leaving quithandler\n");
-}
-
-#define INPUTLEN 100
-
-void inthandler( int s ){
-    printf("Received signal %d .. waiting\n", s );
-    sleep(2);
-    printf("Leaving inthandler\n");
-}
-
-int main( int argc, char *argv[] )
-{
-    struct sigaction newhandler = {};
-    sigset_t blocked;
-    char x[INPUTLEN];
-
-    newhandler.sa_handler = inthandler;
-    newhandler.sa_flags = SA_RESTART;
-    sigemptyset( &blocked );
-    sigaddset( &blocked, SIGQUIT );
-    newhandler.sa_mask = blocked;
-
-    if( sigaction( SIGINT, &newhandler, NULL ) ==  -1 )
-    {
-        perror("sigaction");
-    }else{
-        while(true){
-            fgets( x, INPUTLEN, stdin );
-            printf("input: %s", x );
-        }
-    }
-
-    return 0;
-
-    /*
-    initscr(); // 初始化 curses 库
-    clear();
-
-    int x_dir = +1;
-    int y_dir = +1;
-
-    int x = 0;
-    int y = 0;
-
-
-    while ( true )
-    {
-        move( x, y );
-        standout();
-        addstr( " " );
-        standend();
-
-        move( LINES - 1 , 0 );
-
-        refresh();
-        move( x, y );
-        addstr( " " );
-
-        if ( x + x_dir == LINES - 1 )
-            x_dir = -1;
-        if ( x + x_dir == -1 )
-            x_dir = +1;
-
-        if ( y + y_dir == COLS - 1 )
-            y_dir = -1;
-        if ( y + y_dir == -1 )
-            y_dir = +1;
-
-        x += x_dir;
-        y += y_dir;
-
-        usleep( 1000 * 200 );
-    }
-
-    endwin();
-    */
 }
