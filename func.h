@@ -12,6 +12,8 @@
 
 #define QUESTION "Do you want another transaction"
 
+int set_ticker( int n_msecs ); // 间隔定时器
+
 int get_response( const char *question, int try_num = 3 );
 int get_enable_char( const char *str ); // 获得指定的字符之一
 void set_crmode();                      // 无缓冲，一次输入一个字符，就发送到程序

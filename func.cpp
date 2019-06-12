@@ -13,8 +13,27 @@
 #include <termios.h>
 #include <fcntl.h>
 #include <cstring>
+#include <sys/time.h>
 
 using namespace std;
+
+int set_ticker( int n_msecs )
+{
+    long n_sec   = n_msecs / 1000;
+    long n_usecs = ( n_msecs % 1000 ) * 100;
+
+    itimerval new_timeset = {};
+
+    // time to next timer expiration
+    new_timeset.it_value.tv_sec = n_sec;
+    new_timeset.it_value.tv_usec = n_usecs;
+
+    // 间隔调用时间
+    new_timeset.it_interval.tv_sec = n_sec;
+    new_timeset.it_interval.tv_usec = n_usecs;
+
+    return setitimer( ITIMER_REAL, &new_timeset, nullptr );
+}
 
 // 原始属性
 static termios original_mode = {};
