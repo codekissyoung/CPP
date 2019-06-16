@@ -55,32 +55,158 @@
 
 using namespace std;
 
-char *makestring( char *buf );
-void excute( char *arglist[] );
-void parent_code( int childpid );
+#define is_delim(x) ((x) == ' ' || (x) == '\t')
 
-#define MAXARGS 20
-#define ARGLEN 100
+void freelist( char **list );
+char *next_cmd( FILE *istream );
+char **splitline( char *line );
+int execute( char *argv[] );
+char *makestring( char *buf );
+void excute( char *argv[] );
+void parent_code( int childpid );
 
 int main( int argc, char *argv[] )
 {
-    char *arglist[MAXARGS + 1] = {};
-    int numargs = 0;
-    char argbuff[ARGLEN];
-    while ( numargs < MAXARGS ){
-        printf("Arg[%d] ", numargs);
-        fgets(argbuff, ARGLEN, stdin);
-        if(  *argbuff != '\n' ){
-            arglist[numargs++] = makestring( argbuff );
-        }else{
-            if( numargs > 0 ){
-                arglist[numargs] = nullptr;
-                excute( arglist );
-                numargs = 0;
-            }
+    char *cmdline;
+    char **arglist;
+
+    signal( SIGINT, SIG_IGN );
+    signal( SIGQUIT, SIG_IGN );
+
+    while ( ( cmdline = next_cmd( stdin ) ) != nullptr ){
+        if( ( arglist = splitline( cmdline ) ) != nullptr ){
+            execute( arglist );
+            freelist( arglist );
         }
+        free( cmdline );
     }
     return 0;
+}
+
+void fatal( const char *s1, const char *s2, int n ){
+    fprintf( stderr, "Error: %s, %s,\n", s1, s2 );
+    exit(n);
+}
+
+void *erealloc( void *p, size_t n ){
+
+    void *rv = realloc( p, n );
+
+    if( rv == nullptr )
+        fatal("realloc() failed", "", 1 );
+
+    return rv;
+}
+
+void *emalloc( size_t n ){
+    void *rv;
+    if( ( rv = malloc(n) ) == nullptr ){
+        fatal("out of memery", "", 1);
+    }
+    return rv;
+}
+
+void freelist( char **list ){
+    char **cp = list;
+    while( *cp ){
+        free( *cp++ );
+    }
+    free( list );
+}
+
+char *newstr( char *s, int l ){
+    char *rv = (char *)emalloc( l + 1 );
+    rv[l] = '\0';
+    strncpy( rv, s, l );
+    return rv;
+}
+
+// 从IO中读取一个命令，利用malloc内存存储它，碰见EOF返回nullptr
+char *next_cmd( FILE *istream )
+{
+    char *buf = nullptr;
+    int bufspace = 0;
+    int pos = 0;
+
+    int c;
+    while ( ( c = getc(istream) ) != EOF )
+    {
+        if( pos + 1 >= bufspace )
+        {
+            buf = (char *) ( bufspace == 0 ? malloc(BUFSIZ) : realloc( buf, bufspace + BUFSIZ) );
+            bufspace += BUFSIZ;
+        }
+
+        if( c == '\n' )
+            break;
+
+        buf[ pos++ ] = c;
+    }
+
+    if( c == EOF && pos == 0 )
+        return nullptr;
+
+    buf[pos] = '\0';
+
+    return buf;
+}
+
+char **splitline( char *line ){
+    char *args;
+    int spots = 0;
+    int bufspace = 0;
+    int argnum = 0;
+    char *cp = line;
+    char *start;
+    int len;
+
+    args = (char *) emalloc( BUFSIZ );
+    bufspace = BUFSIZ;
+    spots = BUFSIZ / sizeof( char * );
+
+    while ( *cp != '\0' ){
+        while ( is_delim(*cp) )
+            cp++;
+        if( *cp == '\0' )
+            break;
+
+        if( argnum + 1 >= spots ){
+            args = (char *) erealloc( args, bufspace + BUFSIZ );
+            bufspace += BUFSIZ;
+            spots += ( BUFSIZ/ sizeof(char *) );
+        }
+
+        start = cp;
+        len = 1;
+
+        while( *++cp != '\0' && !(is_delim(*cp)) ){
+            len++;
+        }
+        args[argnum++] = newstr( start, len );
+    }
+    args[argnum] = NULL;
+    return args;
+}
+
+int execute( char *argv[] )
+{
+    int pid;
+
+    if( (pid == fork()) == -1 )
+        perror("fork");
+    else if( pid == 0 ){
+        signal(SIGINT, SIG_DFL);
+        signal(SIGQUIT, SIG_DFL);
+        execvp( argv[0], argv );
+        perror( "can not execute command" );
+        exit( 1 );
+    }else{
+        int child_info = -1;
+        if( wait(&child_info) == -1 ){
+            perror("wait");
+        }
+        return child_info;
+    }
 }
 
 char *makestring( char *buf ){
@@ -95,14 +221,14 @@ char *makestring( char *buf ){
     return cp;
 }
 
-void excute( char *arglist[] ){
+void excute( char *argv[] ){
     int pid = fork();
     if( pid == -1 ){
         perror("fork failed!");
         exit(1);
     }else if( pid == 0 ){
         sleep(5);
-        execvp( arglist[0], arglist );
+        execvp( argv[0], argv );
         perror("execvp failed");
         exit(1);
     }else{
