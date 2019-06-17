@@ -9,7 +9,127 @@
 #include <map>
 #include <cstdio>
 
+#include <unistd.h>
+#include <termios.h>
+#include <fcntl.h>
+#include <cstring>
+#include <sys/time.h>
+
 using namespace std;
+
+int set_ticker( int n_msecs )
+{
+    long n_sec   = n_msecs / 1000;
+    long n_usecs = ( n_msecs % 1000 ) * 100;
+
+    itimerval new_timeset = {};
+
+    // time to next timer expiration
+    new_timeset.it_value.tv_sec = n_sec;
+    new_timeset.it_value.tv_usec = n_usecs;
+
+    // 间隔调用时间
+    new_timeset.it_interval.tv_sec = n_sec;
+    new_timeset.it_interval.tv_usec = n_usecs;
+
+    return setitimer( ITIMER_REAL, &new_timeset, nullptr );
+}
+
+// 原始属性
+static termios original_mode = {};
+static int original_flags = 0;
+
+void init_terminal(){
+    tcgetattr( STDIN_FILENO, &original_mode );
+    original_flags = fcntl( STDIN_FILENO, F_GETFL );
+}
+
+void restore_terminal(){
+    tcsetattr( STDIN_FILENO, TCSANOW, &original_mode );
+    fcntl( STDIN_FILENO, F_SETFL, original_flags );
+}
+
+void ctrl_c_handler( int sig_num ){
+    cout << "\n" << sig_num << " signal called " << endl;
+    restore_terminal();
+    exit( EXIT_FAILURE );
+}
+
+int get_response( const char *question, int try_num ){
+    cout << question << "?(Y/N)";
+    fflush( stdout );
+
+    char input;
+    while ( true ){
+        sleep( 2 );
+        switch( input = tolower( get_enable_char( "YyNn" ) ) )
+        {
+            case 'y':
+                return 0;
+
+            case 'n':
+                return 2;
+
+            case EOF:
+                if( --try_num > 0 ){
+                    cout << "\n try num left " << try_num << " : ";
+                    break;
+                }else{
+                    cout << endl;
+                    return 1;
+                }
+        }
+    }
+}
+
+int get_enable_char( const char *str ){
+    int c;
+    // 跳过无用的 输入字符
+    while ( ( c = getchar() ) != EOF && strchr( str, c ) == nullptr )
+    {
+        continue;
+    }
+    return c;
+}
+
+void set_crmode()
+{
+    termios ttystate;
+
+    tcgetattr( STDIN_FILENO, &ttystate );
+
+    ttystate.c_lflag &= ~ICANON; // no buffering
+    ttystate.c_cc[VMIN] = 1;     // get 1 char at a time
+
+    tcsetattr( STDIN_FILENO, TCSANOW, &ttystate );
+}
+
+void set_noecho_mode(){
+    termios ttystate;
+
+    tcgetattr( STDIN_FILENO, &ttystate );
+
+    ttystate.c_lflag &= ~ECHO; // no echo
+
+    tcsetattr( STDIN_FILENO, TCSANOW, &ttystate );
+}
+
+// 非阻塞输入，就是 getchar() 如果没读到数据，就直接返回了，不会等待用户输入了
+void set_nodelay_mode(){
+    int termflags;
+    termflags = fcntl( STDIN_FILENO, F_GETFL );
+    termflags |= O_NDELAY;
+    fcntl( STDIN_FILENO, F_SETFL, termflags );
+}
+
+
+int fib( int n, int t ){
+    if( n < 3 )
+        return 1;
+    cout << t << ": ";
+    cout << "fib( " << n - 1 << ") + fib( " << n - 2 << " )" << endl;
+    return fib( n - 1, 1 ) + fib( n -2, 2 );
+}
 
 int see_more() {
     int c;

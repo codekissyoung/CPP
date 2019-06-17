@@ -8,6 +8,22 @@
 #include <array>
 #include <map>
 #include <algorithm>
+#include <termios.h>
+
+#define QUESTION "Do you want another transaction"
+
+int set_ticker( int n_msecs ); // 间隔定时器
+
+int get_response( const char *question, int try_num = 3 );
+int get_enable_char( const char *str ); // 获得指定的字符之一
+void set_crmode();                      // 无缓冲，一次输入一个字符，就发送到程序
+void set_noecho_mode();                 // 无回显
+void set_nodelay_mode();                // 非阻塞
+void ctrl_c_handler( int );             // 处理 Ctrl + C 信号
+void init_terminal();                   // 初始化 终端程序
+void restore_terminal();                // 恢复终端程序
+
+int fib( int n, int t );
 
 #define PAGELEN 3       // 一页显示行数
 #define LINELEN 512     // 一行显示字符数

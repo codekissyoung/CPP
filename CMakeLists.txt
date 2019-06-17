@@ -25,4 +25,5 @@ add_executable(
         Brass_model.cpp Brass_model.h
         My_array.h
         My_pair.h
-)
+        LinkList.cpp LinkList.h
+        Tree.cpp Tree.h)
