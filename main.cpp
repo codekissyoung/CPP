@@ -59,27 +59,19 @@ using namespace std;
 
 void freelist( char **list );
 char *next_cmd( FILE *istream );
-char **splitline( char *line );
 int execute( char *argv[] );
 char *makestring( char *buf );
 void excute( char *argv[] );
 void parent_code( int childpid );
+char *newstr( char *s, int l );
 
 int main( int argc, char *argv[] )
 {
-    char *cmdline;
-    char **arglist;
-
     signal( SIGINT, SIG_IGN );
     signal( SIGQUIT, SIG_IGN );
 
-    while ( ( cmdline = next_cmd( stdin ) ) != nullptr ){
-        if( ( arglist = splitline( cmdline ) ) != nullptr ){
-            execute( arglist );
-            freelist( arglist );
-        }
-        free( cmdline );
-    }
+    printf("hello world\n");
+
     return 0;
 }
 
@@ -151,62 +143,26 @@ char *next_cmd( FILE *istream )
     return buf;
 }
 
-char **splitline( char *line ){
-    char *args;
-    int spots = 0;
-    int bufspace = 0;
-    int argnum = 0;
-    char *cp = line;
-    char *start;
-    int len;
-
-    args = (char *) emalloc( BUFSIZ );
-    bufspace = BUFSIZ;
-    spots = BUFSIZ / sizeof( char * );
-
-    while ( *cp != '\0' ){
-        while ( is_delim(*cp) )
-            cp++;
-        if( *cp == '\0' )
-            break;
-
-        if( argnum + 1 >= spots ){
-            args = (char *) erealloc( args, bufspace + BUFSIZ );
-            bufspace += BUFSIZ;
-            spots += ( BUFSIZ/ sizeof(char *) );
-        }
-
-        start = cp;
-        len = 1;
-
-        while( *++cp != '\0' && !(is_delim(*cp)) ){
-            len++;
-        }
-        args[argnum++] = newstr( start, len );
-    }
-    args[argnum] = NULL;
-    return args;
-}
-
 int execute( char *argv[] )
 {
-    int pid;
+    int pid = fork();
 
-    if( (pid == fork()) == -1 )
+    if( pid == -1 )
         perror("fork");
     else if( pid == 0 ){
         signal(SIGINT, SIG_DFL);
         signal(SIGQUIT, SIG_DFL);
         execvp( argv[0], argv );
         perror( "can not execute command" );
-        exit( 1 );
+        return 1;
     }else{
-        int child_info = -1;
-        if( wait(&child_info) == -1 ){
+        int child_info = 0;
+        if( wait(&child_info) == -1 )
             perror("wait");
-        }
+
         return child_info;
     }
+    return -1;
 }
 
 char *makestring( char *buf ){
@@ -221,25 +177,10 @@ char *makestring( char *buf ){
     return cp;
 }
 
-void excute( char *argv[] ){
-    int pid = fork();
-    if( pid == -1 ){
-        perror("fork failed!");
-        exit(1);
-    }else if( pid == 0 ){
-        sleep(5);
-        execvp( argv[0], argv );
-        perror("execvp failed");
-        exit(1);
-    }else{
-        signal( SIGINT, SIG_IGN ); // 让父进程 忽略 Ctrl + C 信号
-        parent_code( pid );
-    }
-}
-
-void parent_code( int childpid ){
+void parent_code( int childpid )
+{
     int child_status = 0;
-    int high_8, low_7, bit_7 = 0;
+    unsigned int high_8, low_7, bit_7 = 0;
 
     int wait_rv = wait( &child_status );
     printf("done wating for %d. Wait returned: %d\n", childpid, wait_rv );
